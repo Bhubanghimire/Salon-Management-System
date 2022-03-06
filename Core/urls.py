@@ -29,7 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include("Services.urls")),
     path("accounts/",include("Accounts.urls")),
-    path("admin/",include("Superadmin.urls")),
+    path("super-admin/",include("Superadmin.urls")),
     path("staff/",include("Staff.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

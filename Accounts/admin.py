@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import MyUser, Otp,ContactUs
+from .models import MyUser, Otp,ContactUs, About
 
 # Register your models here.
 # Register your models here.
@@ -16,3 +16,8 @@ class OTPAdmin(admin.ModelAdmin):
 @admin.register(ContactUs)
 class ContactUsAdmin(admin.ModelAdmin):
     list_display = ["id"]
+
+
+@admin.register(About)
+class AboutAdmin(admin.ModelAdmin):
+    list_display = ["id","logo","description"]

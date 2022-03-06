@@ -31,9 +31,14 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     gender = models.CharField(max_length=255, choices=CHOICES)
     profile = models.ImageField(upload_to="profile", null=True)
+    address = models.CharField(max_length=250)
+    dob = models.DateField()
+    phone = models.CharField(max_length=200)
     is_admin = models.BooleanField(default=False)
+    position = models.CharField(max_length=250,default=" ")
     is_staff = models.BooleanField(default=False)
     user_type = models.ForeignKey(ConfigChoice, on_delete=models.CASCADE,null=True)
+    description = models.TextField(default="")
 
     objects = MyUserManager()
     USERNAME_FIELD = 'email'
@@ -72,3 +77,9 @@ class ContactUs(models.Model):
     email = models.CharField(max_length=250)
     message = models.TextField()
 
+class About(models.Model):
+    logo = models.ImageField(upload_to="about")
+    cover = models.ImageField(upload_to="about")
+    description = models.TextField()
+    phone_1 = models.CharField(max_length=20)
+    phone_2 = models.CharField(max_length=20)

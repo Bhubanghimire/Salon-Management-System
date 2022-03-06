@@ -32,29 +32,14 @@
       <div class="container mt-5">
         <div class="row">
           <div class="col-md-5 my-auto">
-            <img src="{% static 'images/logo.svg" class="w-100" />
+            <img src={{about.logo.url}} class="w-100" />
           </div>
           <div
             class="col-md-7 d-flex flex-column align-items-center align-items-md-start justify-content-center"
           >
             <h3 class="fs-3 text-start">Why Choose Us</h3>
             <p class="fs-5 text-md-start text-center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-              tempor mollis enim ac porttitor. Orci varius natoque penatibus et
-              magnis dis parturient montes, nascetur ridiculus mus. In eu nisi a
-              urna pulvinar tempor. Etiam vel molestie neque. In nunc odio,
-              ornare vitae ligula at, accumsan posuere mauris. Curabitur
-              ultricies interdum nibh, porta dignissim nunc cursus ut. Nulla
-              facilisi. Vestibulum lobortis bibendum ipsum, id vestibulum mauris
-              suscipit a. Ut sed quam sodales dui scelerisque facilisis
-              pellentesque ut felis. Aliquam dui tortor, auctor a libero eu,
-              fringilla semper ex. Donec interdum mi vel est tincidunt, non
-              convallis arcu luctus.
-              <br />
-              Aenean viverra lacinia ipsum, ut sollicitudin orci luctus quis.
-              Aliquam vel dignissim mauris. Ut et congue magna, at rutrum nulla.
-              Sed nulla tortor, posuere aliquet finibus vel, elementum quis
-              felis. Aliquam vel neque sed massa bibendum finibus.
+              {{about.description}}
             </p>
           </div>
         </div>

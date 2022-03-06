@@ -1,0 +1,50 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block style %}
+  #bg{
+background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+}
+{% endblock %}
+
+
+{% block body %}
+<div
+      class="vw-100 text-center bg-white text-black"
+      style="padding-top: 8rem; padding-bottom: 10rem"
+    >
+      <div class="container">
+        <div class="row justify-content-center">
+          <h2 class="display-4 col-12 fw-bold">
+            Experienced and Professional Team
+          </h2>
+          <p class="col-md-8 fs-4">
+            You can relay on our amazing features list and also our customer
+            services will be great experience for you without doubt and in
+            no-time
+          </p>
+        </div>
+      </div>
+      <div class="container mt-5">
+        <div class="row g-4">
+          {% for staff in staff %}
+          <div class="col-md-4">
+            <div class="card">
+              <img src={{staff.profile.url}} height=276px; class="card-img-top" id="card-image" alt="Binti Bhandari - Owner"/>
+              <div class="card-body">
+                <h5 class="card-title" id="card-title">{{staff.first_name}} {{staff.last_name}}</h5>
+                <h6 class="card-subtitle mb-2" id="card-subtitle">{{staff.position}}</h6>
+                <p class="card-text">
+                  {{staff.description}}
+                </p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+{% endblock %}

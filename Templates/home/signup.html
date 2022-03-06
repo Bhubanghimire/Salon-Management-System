@@ -27,11 +27,10 @@
               </div>
               <div class="col-md-6 my-auto">
                 <h2 class="display-5 fw-bold">Sign Up</h2>
-                <form>
-                  <div
-                    class="text-start my-4"
-                    style="height: 360px; overflow-y: auto; overflow-x: hidden"
-                  >
+                <form action="{% url 'signup' %}" method="POST">
+                                     {% csrf_token %}
+
+                  <div class="text-start my-4" style="height: 360px; overflow-y: auto; overflow-x: hidden">
                     <div class="row">
                       <div class="col-md-6 mb-2">
                         <label for="first_name" class="form-label">First Name</label>
@@ -42,6 +41,7 @@
                           name="first_name"
                           placeholder="First name"
                           aria-label="First name"
+                          required
                         />
                       </div>
                       <div class="col-md-6 mb-2">
@@ -52,8 +52,10 @@
                           type="text"
                           class="form-control"
                           id="last_name"
+                          name="last_name"
                           placeholder="Last name"
                           aria-label="Last name"
+                          required
                         />
                       </div>
                     </div>
@@ -66,70 +68,36 @@
                           type="email"
                           class="form-control"
                           id="email"
+                          name = "email"
                           placeholder="Email Address"
                           aria-label="Email Address"
+                          required
                         />
                       </div>
-                      <div class="col-md-12 mb-2">
-                        <label for="username" class="form-label"
-                          >Username</label
-                        >
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="username"
-                          placeholder="Username"
-                          aria-label="Username"
-                        />
-                      </div>
+
                       <div class="col-md-6 mb-2">
-                        <label for="register_as" class="form-label"
-                          >Register As</label
-                        >
-                        <select
-                          id="register_as"
-                          class="form-select"
-                          aria-label="Select Role"
-                        >
-                          <option selected disabled>Select Role</option>
-                          <option value="employee">Employee</option>
-                          <option value="user">User</option>
+                        <label for="register_as" class="form-label">Register As</label>
+                        <select id="register_as" name="role" class="form-select" aria-label="Select Role" required>
+                          {% for user in user_type %}
+                            <option value={{user.id}}>{{user.name}}</option>
+                          {% endfor %}
                         </select>
                       </div>
                       <div class="col-md-6 mb-2">
                         <label for="gender" class="form-label">Gender</label>
-                        <select
-                          id="gender"
-                          class="form-select"
-                          aria-label="Select Gender"
-                        >
-                          <option selected disabled>Select Gender</option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="other">Other</option>
+                        <select id="gender" name="gender" class="form-select" aria-label="Select Gender" required>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value=" ">Other</option>
                         </select>
                       </div>
                       <div class="col-md-12 mb-2">
-                        <label for="phone_number" class="form-label"
-                          >Phone Number</label
-                        >
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="phone_number"
-                          placeholder="Phone Number"
-                          aria-label="Phone Number"
-                        />
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="number" name="phone" class="form-control" id="phone_number" placeholder="Phone Number" aria-label="Phone Number" required/>
                       </div>
                       <div class="col-md-12 mb-2">
                         <label for="address" class="form-label">Address</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="address"
-                          placeholder="Address"
-                          aria-label="Address"
-                        />
+                        <input type="text" name="address" class="form-control" id="address" placeholder="Address" aria-label="Address" required/>
                       </div>
                     </div>
                     <div class="row">
@@ -138,30 +106,27 @@
                         <input
                           class="form-control"
                           list="yearDatalist"
+                          name="year"
                           id="selectYear"
                           placeholder="Type to select..."
+                          required
                         />
                         <datalist id="yearDatalist"> </datalist>
                       </div>
                       <div class="col-md-5 mb-2">
-                        <label for="selectMonth" class="form-label"
-                          >Month</label
-                        >
-                        <input
-                          class="form-control"
-                          list="monthDatalist"
-                          id="selectMonth"
-                          placeholder="Type to select..."
-                        />
+                        <label for="selectMonth" class="form-label">Month</label>
+                        <input class="form-control" name="month" list="monthDatalist" id="selectMonth" placeholder="Type to select..." required/>
                         <datalist id="monthDatalist"> </datalist>
                       </div>
                       <div class="col-md-3 mb-2">
-                        <label for="selectDate" name ="date" class="form-label">Date</label>
+                        <label for="selectDate" name ="date" class="form-label" required>Date</label>
                         <input
                           class="form-control"
                           list="dateDatalist"
                           id="selectDate"
+                          name="date"
                           placeholder="Type to select..."
+                          required
                         />
                         <datalist id="dateDatalist"> </datalist>
                       </div>
@@ -178,6 +143,7 @@
                           placeholder="Password"
                           name = "password"
                           aria-label="Password"
+                          required
                         />
                       </div>
                       <div class="col-md-6 mb-2">
@@ -191,12 +157,17 @@
                           name = "confirm_password"
                           placeholder="Confirm Password"
                           aria-label="Confirm Password"
+                          required
                         />
                       </div>
                     </div>
                   </div>
+                  {% if error %}
+                    <p style="color: red;">{{error}}</p>
+                {% endif %}
                   <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>
+
                 <span
                   >Already have an account?
                   <a href="{% url 'login' %}" class="text-black">Login Here</a></span

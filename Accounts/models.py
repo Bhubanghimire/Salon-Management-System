@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.contrib.auth import get_user_model
-import uuid
-
+from Common.models import ConfigChoice
 
 class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -27,19 +26,14 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
         ('Female', 'Female'),
         (' ',' ')
     )
-    uuid = models.UUIDField(default=uuid.uuid4, editable=False)
     email = models.EmailField(max_length=255, unique=True, verbose_name="Email Address")
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     gender = models.CharField(max_length=255, choices=CHOICES)
-    description = models.CharField(max_length=255, default="")
-    phone = models.CharField(max_length=20, default="")
-    dob = models.DateField(null=True, blank=True)
-    profile_img = models.ImageField(upload_to="profile", null=True, blank=True)
-    verified_user = models.BooleanField(default=False)
+    profile = models.ImageField(upload_to="profile", null=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
+    user_type = models.ForeignKey(ConfigChoice, on_delete=models.CASCADE,null=True)
 
     objects = MyUserManager()
     USERNAME_FIELD = 'email'
@@ -58,6 +52,8 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return "{0} {1}".format(self.first_name, self.last_name)
 
+User = get_user_model()
+
 
 class Otp(models.Model):
     email = models.EmailField()
@@ -70,4 +66,11 @@ class Otp(models.Model):
         verbose_name_plural = "OTP"
 
 
-User = get_user_model()
+class ContactUs(models.Model):
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    phone = models.CharField(max_length=20, null=True)
+    email = models.CharField(max_length=25)
+    subject = models.CharField(max_length=250)
+    message = models.TextField()
+

@@ -41,6 +41,10 @@ INSTALLED_APPS = [
 
     #installed app
     'Accounts',
+    'Common',
+    'Services',
+    'Staff',
+    'Superadmin',
 ]
 AUTH_USER_MODEL = 'Accounts.MyUser'
 

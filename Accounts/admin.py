@@ -1,3 +1,18 @@
 from django.contrib import admin
+from .models import MyUser, Otp,ContactUs
 
 # Register your models here.
+# Register your models here.
+@admin.register(MyUser)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ["id", 'first_name','last_name','user_type']
+    list_filter = ["user_type"]
+
+@admin.register(Otp)
+class OTPAdmin(admin.ModelAdmin):
+    list_display = ["id","email","otp"]
+
+
+@admin.register(ContactUs)
+class ContactUsAdmin(admin.ModelAdmin):
+    list_display = ["first_name","last_name","subject"]

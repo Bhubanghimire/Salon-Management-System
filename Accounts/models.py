@@ -67,10 +67,8 @@ class Otp(models.Model):
 
 
 class ContactUs(models.Model):
-    first_name = models.CharField(max_length=200)
-    last_name = models.CharField(max_length=200)
-    phone = models.CharField(max_length=20, null=True)
-    email = models.CharField(max_length=25)
-    subject = models.CharField(max_length=250)
+    full_name = models.CharField(max_length=200)
+    phone = models.CharField(max_length=20)
+    email = models.CharField(max_length=250)
     message = models.TextField()
 

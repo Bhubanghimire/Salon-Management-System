@@ -34,13 +34,12 @@
                   >
                     <div class="row">
                       <div class="col-md-6 mb-2">
-                        <label for="first_name" class="form-label"
-                          >First Name</label
-                        >
+                        <label for="first_name" class="form-label">First Name</label>
                         <input
                           type="text"
                           class="form-control"
                           id="first_name"
+                          name="first_name"
                           placeholder="First name"
                           aria-label="First name"
                         />
@@ -157,7 +156,7 @@
                         <datalist id="monthDatalist"> </datalist>
                       </div>
                       <div class="col-md-3 mb-2">
-                        <label for="selectDate" class="form-label">Date</label>
+                        <label for="selectDate" name ="date" class="form-label">Date</label>
                         <input
                           class="form-control"
                           list="dateDatalist"
@@ -177,6 +176,7 @@
                           class="form-control"
                           id="password"
                           placeholder="Password"
+                          name = "password"
                           aria-label="Password"
                         />
                       </div>
@@ -188,6 +188,7 @@
                           type="password"
                           class="form-control"
                           id="confirm_password"
+                          name = "confirm_password"
                           placeholder="Confirm Password"
                           aria-label="Confirm Password"
                         />

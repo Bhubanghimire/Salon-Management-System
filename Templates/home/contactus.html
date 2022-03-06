@@ -1,0 +1,90 @@
+
+{% extends '../base.html' %}
+{% load static %}
+
+{% block style %}
+  #bg{
+background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+}
+{% endblock %}
+
+
+{% block body %}
+<div id="bg" class="vw-100 vh-100">
+      <div
+        style="
+        background-image: url(../images/bgImageTop.jpg);"
+        class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+      >
+        <div class="w-100 h-100 bg-black bg-opacity-75"></div>
+        <div class="position-absolute w-100">
+          <div
+            class="container bg-white bg-opacity-50 px-md-5 px-3 w-75 w-md-100 text-center h-100 py-5 rounded"
+          >
+            <div class="row justify-content-center">
+              <h2 class="col-12 display-5 fw-bold">Contact Us</h2>
+              <div class="col-md-7 fs-6 fs-md-5">
+                Let us know how we are doing! We love to get feedback about
+                customer experiences and any comments you may have.
+              </div>
+            </div>
+            <form class="row mt-4 justify-content-center h-100" method="POST", action="{% url 'contactus' %}">
+                                   {% csrf_token %}
+              <div class="col-md-6 my-auto">
+                  <div class="mb-2">
+                    <label for="full_name" name="name" class="form-label d-none d-md-block" >Full Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="full_name"
+                       name="name"
+                      aria-describedby="full_name_help"
+                      placeholder="Enter Full Name"
+                    />
+                  </div>
+                  <div class="mb-2">
+                    <label for="email"  class="form-label d-none d-md-block">Email address</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter Email"
+                    />
+                  </div>
+                  <div class="mb-2">
+                    <label for="phone" class="form-label d-none d-md-block"
+                      >Phone</label
+                    >
+                    <input
+                      type="number"
+                      name="phone"
+                      class="form-control"
+                      id="phone"
+                      aria-describedby="phoneHelp"
+                      placeholder="Enter Phone Number"
+                    />
+                  </div>
+              </div>
+              <div class="col-md-6 h-full">
+                <div class="h-100">
+                  <textarea name="message" class="form-control h-100" rows="5" id="message" placeholder="Type your message here...."></textarea>
+                </div>
+              </div>
+                {% if error %}
+                    <p style="color: red;">{{error}}</p>
+                {% endif %}
+              <div class="col md-12">
+                <button type="submit" class="btn btn-primary btn-block mt-3">Submit</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

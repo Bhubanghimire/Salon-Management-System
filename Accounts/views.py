@@ -7,8 +7,7 @@ from django.http import HttpResponse
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
-# from allauth.account.views import LoginView, SignupView
-
+from .models import ContactUs
 def Inactive(request):
     return HttpResponse("<h1>You are inactive.<br>Please contact administration.</h1>")
 
@@ -49,3 +48,26 @@ def LoginView(request):
 def Logout(request):
     logout(request)
     return redirect('home')
+
+
+def Contact(request):
+    print("start")
+    if request.method == 'POST':
+        print("come")
+        full_name = request.POST.get('name')
+        email = request.POST.get('email')
+        phone = request.POST.get('phone')
+        message = request.POST.get('message')
+
+        print(message)
+
+        try:
+            ContactUs.objects.create(full_name=full_name,email=email,phone=phone,message=message)
+
+            return redirect('home')
+        except Exception as e:
+            return render(request, 'home/contactus.html',{"error":str(e)})
+    else:
+        print("error")
+        return render(request, 'home/contactus.html')
+

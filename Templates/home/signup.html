@@ -1,0 +1,209 @@
+{% extends '../base.html' %}
+{% load static %}
+
+
+
+{% block body %}
+<div class="vw-100 vh-100">
+      <div
+        style="
+          background-image: url(../images/bgImageTop.jpg);
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        "
+        class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+      >
+        <div class="w-100 h-100 bg-black bg-opacity-75"></div>
+        <div class="position-absolute w-100">
+          <div
+            class="container bg-white bg-opacity-50 px-5 w-md-100 text-center h-100 py-5 rounded"
+            style="width: 85%; min-width: 300px"
+          >
+            <div class="row justify-center">
+              <div class="col-md-6 my-auto d-none d-md-block">
+                <img src="{% static 'images/logo.svg' %}" class="w-100" />
+              </div>
+              <div class="col-md-6 my-auto">
+                <h2 class="display-5 fw-bold">Sign Up</h2>
+                <form>
+                  <div
+                    class="text-start my-4"
+                    style="height: 360px; overflow-y: auto; overflow-x: hidden"
+                  >
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <label for="first_name" class="form-label"
+                          >First Name</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="first_name"
+                          placeholder="First name"
+                          aria-label="First name"
+                        />
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <label for="last_name" class="form-label"
+                          >Last Name</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="last_name"
+                          placeholder="Last name"
+                          aria-label="Last name"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 mb-2">
+                        <label for="email" class="form-label"
+                          >Email Address</label
+                        >
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          placeholder="Email Address"
+                          aria-label="Email Address"
+                        />
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <label for="username" class="form-label"
+                          >Username</label
+                        >
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="username"
+                          placeholder="Username"
+                          aria-label="Username"
+                        />
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <label for="register_as" class="form-label"
+                          >Register As</label
+                        >
+                        <select
+                          id="register_as"
+                          class="form-select"
+                          aria-label="Select Role"
+                        >
+                          <option selected disabled>Select Role</option>
+                          <option value="employee">Employee</option>
+                          <option value="user">User</option>
+                        </select>
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select
+                          id="gender"
+                          class="form-select"
+                          aria-label="Select Gender"
+                        >
+                          <option selected disabled>Select Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <label for="phone_number" class="form-label"
+                          >Phone Number</label
+                        >
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="phone_number"
+                          placeholder="Phone Number"
+                          aria-label="Phone Number"
+                        />
+                      </div>
+                      <div class="col-md-12 mb-2">
+                        <label for="address" class="form-label">Address</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="address"
+                          placeholder="Address"
+                          aria-label="Address"
+                        />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 mb-2">
+                        <label for="selectYear" class="form-label">Year</label>
+                        <input
+                          class="form-control"
+                          list="yearDatalist"
+                          id="selectYear"
+                          placeholder="Type to select..."
+                        />
+                        <datalist id="yearDatalist"> </datalist>
+                      </div>
+                      <div class="col-md-5 mb-2">
+                        <label for="selectMonth" class="form-label"
+                          >Month</label
+                        >
+                        <input
+                          class="form-control"
+                          list="monthDatalist"
+                          id="selectMonth"
+                          placeholder="Type to select..."
+                        />
+                        <datalist id="monthDatalist"> </datalist>
+                      </div>
+                      <div class="col-md-3 mb-2">
+                        <label for="selectDate" class="form-label">Date</label>
+                        <input
+                          class="form-control"
+                          list="dateDatalist"
+                          id="selectDate"
+                          placeholder="Type to select..."
+                        />
+                        <datalist id="dateDatalist"> </datalist>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 mb-2">
+                        <label for="password" class="form-label"
+                          >Password</label
+                        >
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="password"
+                          placeholder="Password"
+                          aria-label="Password"
+                        />
+                      </div>
+                      <div class="col-md-6 mb-2">
+                        <label for="confirm_password" class="form-label"
+                          >Confirm Password</label
+                        >
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="confirm_password"
+                          placeholder="Confirm Password"
+                          aria-label="Confirm Password"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+                <span
+                  >Already have an account?
+                  <a href="{% url 'login' %}" class="text-black">Login Here</a></span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

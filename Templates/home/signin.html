@@ -1,0 +1,56 @@
+
+{% extends '../base.html' %}
+{% load static %}
+
+{% block style %}
+  #bg{
+background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+}
+{% endblock %}
+
+
+{% block body %}
+<div class="vw-100 vh-100">
+      <div
+        style="background-image:  url('{% static "images/bgImageTop.jpg" %}')"
+        class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+      >
+        <div class="w-100 h-100 bg-black bg-opacity-75"></div>
+        <div class="position-absolute w-100">
+          <div class="container bg-white bg-opacity-50 px-5 w-75 w-md-100 text-center h-100 py-5 rounded">
+            <div class="row justify-center">
+              <div class="col-md-6 my-auto d-none d-md-block">
+                <img src="{% static 'images/logo.svg' %}" class="w-100" />
+              </div>
+              <div class="col-md-6 my-auto">
+                <h2 class="display-5 fw-bold">Sign In</h2>
+                <form action="{% url 'login' %}" method="POST">
+                   {% csrf_token %}
+                  <div class="mb-2">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" id="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  </div>
+                  <div class="mb-2">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" class="form-control" name="password"  id="exampleInputPassword1">
+                  </div>
+                  <div class="mb-2 form-check d-flex flex-row justify-content-center gap-2">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                 {% if results %}
+                    <p style="color: red;">{{results}}</p>
+                {% endif %}
+                <span>Don't have an account yet? <a href="{% url 'signup' %}" class="text-black">Register Here</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endblock %}

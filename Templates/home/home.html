@@ -1,0 +1,267 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block body %}
+<div class="vw-100 vh-100">
+      <div
+        style="
+          background-image: url(../images/bgImageTop.jpg);
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        "
+        class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+      >
+        <div class="w-100 h-100 bg-black bg-opacity-75"></div>
+        <div class="position-absolute text-center text-white">
+          <h1 class="display-3 display-md-5">Welcome to Lookisimo Salon</h1>
+          <p class="fs-5 px-4">
+            An oasis for everyone with a chance to relax, unwind and clear your
+            mind.
+          </p>
+          <button class="btn btn-primary btn-lg">Book Now</button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="vw-100 text-center bg-white"
+      style="padding-top: 8rem; padding-bottom: 8rem"
+    >
+      <h2 class="display-5 fw-bold">About Us</h2>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="col-md-5 my-auto">
+            <img src="{% static 'images/logo.svg" class="w-100" />
+          </div>
+          <div
+            class="col-md-7 d-flex flex-column align-items-center align-items-md-start justify-content-center"
+          >
+            <h3 class="fs-3 text-start">Why Choose Us</h3>
+            <p class="fs-5 text-md-start text-center">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
+              tempor mollis enim ac porttitor. Orci varius natoque penatibus et
+              magnis dis parturient montes, nascetur ridiculus mus. In eu nisi a
+              urna pulvinar tempor. Etiam vel molestie neque. In nunc odio,
+              ornare vitae ligula at, accumsan posuere mauris. Curabitur
+              ultricies interdum nibh, porta dignissim nunc cursus ut. Nulla
+              facilisi. Vestibulum lobortis bibendum ipsum, id vestibulum mauris
+              suscipit a. Ut sed quam sodales dui scelerisque facilisis
+              pellentesque ut felis. Aliquam dui tortor, auctor a libero eu,
+              fringilla semper ex. Donec interdum mi vel est tincidunt, non
+              convallis arcu luctus.
+              <br />
+              Aenean viverra lacinia ipsum, ut sollicitudin orci luctus quis.
+              Aliquam vel dignissim mauris. Ut et congue magna, at rutrum nulla.
+              Sed nulla tortor, posuere aliquet finibus vel, elementum quis
+              felis. Aliquam vel neque sed massa bibendum finibus.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="vw-100" style="height: 90vh;">
+      <div
+        style="
+          background-image: url(../images/bgImageMid.jpeg);
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        "
+        class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+      >
+        <div class="w-100 h-100 bg-black bg-opacity-75"></div>
+        <div class="position-absolute text-center text-white">
+        <h2 class="display-5 fw-bold">Gallery</h2>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-12">
+              <div
+                id="galleryCarousel"
+                class="carousel slide mt-5"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img
+                      src="https://via.placeholder.com/1000x500/3c3c3c/ffffff?text=Slide+1"
+                      class="d-block w-100"
+                      alt="Slide 1"
+                    />
+                  </div>
+                  <div class="carousel-item">
+                    <img
+                      src="https://via.placeholder.com/1000x500/6e6e6e/000000?text=Slide+2"
+                      class="d-block w-100"
+                      alt="Slide 2"
+                    />
+                  </div>
+                  <div class="carousel-item">
+                    <img
+                      src="https://via.placeholder.com/1000x500/c3c3c3/8f0c6d?text=Slide+3"
+                      class="d-block w-100"
+                      alt="Slide 3"
+                    />
+                  </div>
+                </div>
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#galleryCarousel"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#galleryCarousel"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="vw-100 text-center bg-white text-black"
+      style="padding-top: 8rem; padding-bottom: 10rem"
+    >
+      <h2 class="display-5 fw-bold">Services</h2>
+      <div class="container mt-5">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card">
+              <img
+                src="{% static 'images/manicure.jpg' %}"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Manicure</h5>
+                <p class="card-text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Pellentesque molestie, ex quis sagittis lobortis, mi lorem
+                  dapibus risus, eget fermentum.
+                </p>
+                <a href="#" class="btn btn-primary">View Plans</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <img
+                src="{% static 'images/pedicure.jpg' %}"
+                class="card-img-top h-auto"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Pedicure</h5>
+                <p class="card-text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Maecenas sed sapien id augue mattis viverra non sit amet est
+                  ex quis sagittis ex quis sagittis.
+                </p>
+                <a href="#" class="btn btn-primary">View Plans</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <img
+                src="{% static 'images/eyelashes.jpg' %}"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <h5 class="card-title">Eyelashes</h5>
+                <p class="card-text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                  hendrerit, quam vitae ornare sollicitudin, sapien nisl
+                  vestibulum ligula, nec porttitor.
+                </p>
+                <a href="#" class="btn btn-primary">View Plans</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <img src="{% static 'images/nails.jpg' %}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Nails</h5>
+                <p class="card-text">
+                  Duis vestibulum semper enim ut aliquet. Vestibulum eget elit
+                  ut ligula pellentesque consequat eget placerat mauris. Ut
+                  neque quam, consequat.
+                </p>
+                <a href="#" class="btn btn-primary">View Plans</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <img src="{% static 'images/hair.jpg' %}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Hair</h5>
+                <p class="card-text">
+                  Vivamus non accumsan ligula, id ultricies sem. Nunc neque
+                  nunc, tempus eu turpis aliquet, euismod porta odio. Nullam
+                  lorem ipsum malesuada, libero.
+                </p>
+                <a href="#" class="btn btn-primary">View Plans</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <img src="{% static 'images/beard.jpeg' %}" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Beard</h5>
+                <p class="card-text">
+                  Mauris at tincidunt eros, sed lorem efficitur nisl ipsum.
+                  Morbi commodo sodales lectus, quis porta dolor ultrices quis.
+                  Aliquam luctus justo eget.
+                </p>
+                <a href="#" class="btn btn-primary">View Plans</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="vw-100" style="height: 60vh">
+      <div
+        style="
+          background-image: url(../images/bgImageBottom.jpg);
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        "
+        class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
+      >
+        <div class="w-100 h-100 bg-black bg-opacity-75"></div>
+        <div class="position-absolute text-center text-white">
+          <p class="fs-3 px-4">
+            "We all need people who will give us feedback. That's how we
+            improve"
+          </p>
+          <button class="btn btn-primary btn-lg">Write your experience</button>
+        </div>
+      </div>
+    </div>
+{% endblock body %}

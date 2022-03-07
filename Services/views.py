@@ -1,17 +1,18 @@
-from django.shortcuts import render
-from Services.models import Service
+from django.shortcuts import render, redirect
+from Services.models import Service,Gallery,Testimonials
 from Accounts.models import About
 from Common.models import ConfigChoice
-
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def Home(request):
     service = ConfigChoice.objects.filter(category__name="Service")
-    print(service)
+    gallery = Gallery.objects.all()
     about = About.objects.all().first()
 
     context = {
+        "gallery":gallery,
         "about":about,
         "service":service
     }
@@ -32,3 +33,14 @@ def ServiceView(request):
         "service": final_list
     }
     return render(request, "home/services.html", context=context)
+
+
+@login_required(login_url="login")
+def ReviewView(request):
+    review = Testimonials.objects.all()
+    if request.method == 'POST':
+        message = request.POST.get("message")
+        user = request.user
+        Testimonials.objects.create(user=user,message=message)
+        return redirect('home')
+    return render(request,'home/review.html',{"review":review})

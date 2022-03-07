@@ -63,44 +63,29 @@
         <div class="container">
           <div class="row justify-content-center">
             <div class="col-12">
-              <div
-                id="galleryCarousel"
-                class="carousel slide mt-5"
-                data-bs-ride="carousel"
-              >
+              <div id="galleryCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <img
-                      src="https://via.placeholder.com/1000x500/3c3c3c/ffffff?text=Slide+1"
+                      src={{gallery.0.image.url}}
                       class="d-block w-100"
                       alt="Slide 1"
                     />
                   </div>
+                  {% for img in gallery|slice:"1:" %}
                   <div class="carousel-item">
                     <img
-                      src="https://via.placeholder.com/1000x500/6e6e6e/000000?text=Slide+2"
+                      src={{img.image.url}}
                       class="d-block w-100"
-                      alt="Slide 2"
+                      alt="Slide 1"
                     />
                   </div>
-                  <div class="carousel-item">
-                    <img
-                      src="https://via.placeholder.com/1000x500/c3c3c3/8f0c6d?text=Slide+3"
-                      class="d-block w-100"
-                      alt="Slide 3"
-                    />
-                  </div>
+                  {% endfor %}
+
+
                 </div>
-                <button
-                  class="carousel-control-prev"
-                  type="button"
-                  data-bs-target="#galleryCarousel"
-                  data-bs-slide="prev"
-                >
-                  <span
-                    class="carousel-control-prev-icon"
-                    aria-hidden="true"
-                  ></span>
+                <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
                 </button>
                 <button
@@ -165,7 +150,7 @@
             "We all need people who will give us feedback. That's how we
             improve"
           </p>
-          <button class="btn btn-primary btn-lg">Write your experience</button>
+          <a href="{% url 'review' %}" class="btn btn-primary btn-lg">Write your experience</a>
         </div>
       </div>
     </div>

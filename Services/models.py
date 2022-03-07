@@ -12,3 +12,14 @@ class Service(models.Model):
     icon = models.ImageField(upload_to="service")
     price = models.DecimalField(max_digits=10, decimal_places=3)
     specialist = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class Gallery(models.Model):
+    title = models.CharField(max_length=250)
+    image = models.ImageField(upload_to="gallery")
+    service = models.ForeignKey(Service, on_delete=models.CASCADE)
+
+
+class Testimonials(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()

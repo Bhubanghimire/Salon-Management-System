@@ -1,0 +1,62 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block body %}
+    <div class="vw-100 vh-100">
+    <div style="
+          background-image: url(../images/bgImageTop.jpg);
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        " class="w-100 h-100 d-flex flex-column justify-content-center align-items-center">
+      <div class="w-100 h-100 bg-black bg-opacity-75"></div>
+      <div class="position-absolute w-100">
+        <div class="container bg-white bg-opacity-50 px-md-5 px-3 w-75 w-md-100 text-center h-100 py-5 rounded">
+          <div class="row justify-content-center">
+            <h2 class="col-12 display-5 fw-bold">Reviews</h2>
+            <div class="col-md-7 fs-6 fs-md-5">
+              Feedback is a gift. Ideas are the currency of our next success. let people see you value both feedback and
+              ideas.
+            </div>
+          </div>
+          <form class="row mt-4 justify-content-center h-100" action="{% url 'review' %}" method="POST">
+            {% csrf_token %}
+            <div class="col-md-12 h-full">
+              <div class="h-100">
+                <textarea name="message" class="form-control h-100" rows="8" id="message"
+                  placeholder="Type your review here...." required></textarea>
+              </div>
+            </div>
+            <div class="col md-12">
+              <button type="submit" class="btn btn-primary btn-block mt-3">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="vw-100 text-center bg-white text-black" style="padding-top: 8rem; padding-bottom: 10rem">
+    <h2 class="display-5 fw-bold">Testimonials</h2>
+    <div class="container mt-5">
+      <div class="row g-4">
+
+        {% for i in review %}
+        <div class="col-md-4">
+          <div class="card py-2">
+            <img src={{i.user.profile.url}}
+              class="card-img-top rounded-circle w-50 mx-auto img-thumbnail" alt="..." width="200px" height="200px" />
+            <div class="card-body">
+              <p class="card-text">
+                {{i.message}}
+              </p>
+              <h5 class="card-title">{{i.user.first_name}} {{i.user.last_name}}</h5>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+{% endblock body %}

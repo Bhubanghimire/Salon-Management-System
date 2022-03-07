@@ -129,102 +129,22 @@
       <h2 class="display-5 fw-bold">Services</h2>
       <div class="container mt-5">
         <div class="row g-4">
+
+
+          {% for service in service %}
           <div class="col-md-4">
             <div class="card">
-              <img
-                src="{% static 'images/manicure.jpg' %}"
-                class="card-img-top"
-                alt="..."
-              />
+              <img src={{service.image.url}} class="card-img-top h-auto" alt="..."/>
               <div class="card-body">
-                <h5 class="card-title">Manicure</h5>
+                <h5 class="card-title">{{service.name}}</h5>
                 <p class="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Pellentesque molestie, ex quis sagittis lobortis, mi lorem
-                  dapibus risus, eget fermentum.
+                 {{service.description}}
                 </p>
                 <a href="#" class="btn btn-primary">View Plans</a>
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card">
-              <img
-                src="{% static 'images/pedicure.jpg' %}"
-                class="card-img-top h-auto"
-                alt="..."
-              />
-              <div class="card-body">
-                <h5 class="card-title">Pedicure</h5>
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Maecenas sed sapien id augue mattis viverra non sit amet est
-                  ex quis sagittis ex quis sagittis.
-                </p>
-                <a href="#" class="btn btn-primary">View Plans</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card">
-              <img
-                src="{% static 'images/eyelashes.jpg' %}"
-                class="card-img-top"
-                alt="..."
-              />
-              <div class="card-body">
-                <h5 class="card-title">Eyelashes</h5>
-                <p class="card-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                  hendrerit, quam vitae ornare sollicitudin, sapien nisl
-                  vestibulum ligula, nec porttitor.
-                </p>
-                <a href="#" class="btn btn-primary">View Plans</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card">
-              <img src="{% static 'images/nails.jpg' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Nails</h5>
-                <p class="card-text">
-                  Duis vestibulum semper enim ut aliquet. Vestibulum eget elit
-                  ut ligula pellentesque consequat eget placerat mauris. Ut
-                  neque quam, consequat.
-                </p>
-                <a href="#" class="btn btn-primary">View Plans</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card">
-              <img src="{% static 'images/hair.jpg' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Hair</h5>
-                <p class="card-text">
-                  Vivamus non accumsan ligula, id ultricies sem. Nunc neque
-                  nunc, tempus eu turpis aliquet, euismod porta odio. Nullam
-                  lorem ipsum malesuada, libero.
-                </p>
-                <a href="#" class="btn btn-primary">View Plans</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card">
-              <img src="{% static 'images/beard.jpeg' %}" class="card-img-top" alt="..." />
-              <div class="card-body">
-                <h5 class="card-title">Beard</h5>
-                <p class="card-text">
-                  Mauris at tincidunt eros, sed lorem efficitur nisl ipsum.
-                  Morbi commodo sodales lectus, quis porta dolor ultrices quis.
-                  Aliquam luctus justo eget.
-                </p>
-                <a href="#" class="btn btn-primary">View Plans</a>
-              </div>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </div>
     </div>

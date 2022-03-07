@@ -1,0 +1,46 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block body %}
+<div class="vw-100 text-center bg-white text-black" style="padding-top: 8rem; padding-bottom: 10rem">
+      <div class="container">
+        <div class="row justify-content-center">
+          <h2 class="display-4 col-12 fw-bold">Our Services</h2>
+          <p class="col-md-8 fs-4">
+            We offer an array of hair and beauty services to make you look just
+            the way you want.
+          </p>
+        </div>
+      </div>
+      <div class="container mt-5">
+        <div class="row g-4">
+          <div class="accordion" id="servicesAccordion">
+            {% for item in service %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="servicesAccordion-serviceOne">
+                <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target=#{{item.name}} aria-expanded="true" aria-controls="servicesAccordion-collapseOne">
+                  {{item.name}}
+                </button>
+              </h2>
+                {% for i in item.category %}
+              <div id={{item.name}} class="accordion-collapse collapse" aria-labelledby="servicesAccordion-serviceOne">
+                <div class="accordion-body d-flex flex-column gap-4">
+                  <div class="w-100 my-auto d-flex flex-row justify-content-between">
+                    <div class="text-start d-flex flex-column">
+                      <div class="fs-5 fw-bold">{{i.name}}</div>
+                      <div class="fs-6 text-muted">{{i.description}}</div>
+                    </div>
+                    <div class="my-auto">
+                      <div class="my-auto text-end fs-5 fw-bold">{{i.price}}</div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

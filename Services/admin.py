@@ -5,7 +5,7 @@ from .models import Service, Gallery, Testimonials
 # Register your models here.
 @admin.register(Service)
 class OTPAdmin(admin.ModelAdmin):
-    list_display = ["id"]
+    list_display = ["id","name","category","description"]
 
 
 @admin.register(Gallery)

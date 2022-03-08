@@ -35,12 +35,15 @@ def ServiceView(request):
     return render(request, "home/services.html", context=context)
 
 
-@login_required(login_url="login")
 def ReviewView(request):
     review = Testimonials.objects.all()
     if request.method == 'POST':
         message = request.POST.get("message")
         user = request.user
-        Testimonials.objects.create(user=user,message=message)
-        return redirect('home')
+        try:
+            Testimonials.objects.create(user=user,message=message)
+            return redirect('home')
+        except Exception:
+            error = "Please login to send review."
+            return render(request, 'home/review.html', {"review": review,"error":error})
     return render(request,'home/review.html',{"review":review})

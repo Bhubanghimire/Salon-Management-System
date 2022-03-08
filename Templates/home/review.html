@@ -27,6 +27,9 @@
                   placeholder="Type your review here...." required></textarea>
               </div>
             </div>
+            {% if error %}
+                    <p style="color: red;">{{error}}</p>
+                {% endif %}
             <div class="col md-12">
               <button type="submit" class="btn btn-primary btn-block mt-3">Submit</button>
             </div>
@@ -44,8 +47,7 @@
         {% for i in review %}
         <div class="col-md-4">
           <div class="card py-2">
-            <img src={{i.user.profile.url}}
-              class="card-img-top rounded-circle w-50 mx-auto img-thumbnail" alt="..." width="200px" height="200px" />
+            <img src={{i.user.profile.url}} class="card-img-top rounded-circle w-50 mx-auto img-thumbnail" alt="..." width="200px" height="200px" />
             <div class="card-body">
               <p class="card-text">
                 {{i.message}}

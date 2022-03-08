@@ -1,0 +1,239 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block body %}
+<div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
+      <div class="container">
+        <div class="row justify-content-center w-100 g-4">
+          <script src="{% static 'js/sidebar.js' %}"></script>
+          <div class="col-md-8 overflow-scroll" style="height: 700px">
+            <div class="card">
+              <div class="card-header">Add Service Category</div>
+              <div class="card-body">
+                <form action="{% url 'add-category' %}" enctype="multipart/form-data" method="POST">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="category_title" class="form-label">Category Title</label>
+                    <input type="text" name="category" class="form-control" id="category_title" aria-describedby="categoryTitleHelo" placeholder="Enter Category Title" required/>
+                    <label for="category_title" class="form-label">Image</label>
+                    <input type="file" name="image" class="form-control" id="category_image" accept="image/*" aria-describedby="categoryTitleHelo" placeholder="Enter Category image" required/>
+                    <label for="category_title" class="form-label">Description</label>
+                    <input type="text" name="description" class="form-control" id="description" aria-describedby="categoryTitleHelo" placeholder="Enter Category Description" required/>
+                    <div id="categoryTitleHelp" class="form-text text-danger">
+                      {% if error %}
+                          {{error}}
+                      {% endif %}
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary">+ Add</button>
+                </form>
+              </div>
+            </div>
+            <div class="card mt-4">
+              <div class="card-header">Add Service Name</div>
+              <div class="card-body">
+                <form action="{% url 'add-service' %}" enctype="multipart/form-data" method="POST">
+                  {% csrf_token %}
+                  <div class="mb-3">
+                    <label for="service_name" class="form-label">Service Name</label>
+                    <input type="text" name="servicename" class="form-control" id="service_name" aria-describedby="serviceNameHelp" placeholder="Enter Service Name" required/>
+                    <div id="serviceNameHelp" class="form-text text-danger">
+                      <!-- Add error text here -->
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                   <label for="category_title" class="form-label">Cover Image</label>
+                  <input type="file" name="image" class="form-control" id="service_image" accept="image/*" aria-describedby="categoryTitleHelo" placeholder="Enter Category image" required/>
+                  </div>
+                  <div class="mb-3">
+                    <label for="service_description" class="form-label">Description</label>
+                    <input type="text"
+                      class="form-control"
+                           name="servicedescription"
+                      id="service_description"
+                      aria-describedby="serviceDescHelp"
+                      placeholder="Enter Service Description"
+                           required
+                    />
+                    <div id="serviceDescHelp" class="form-text text-danger">
+                      <!-- Add error text here -->
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                     <label for="category_title_edit">Category:</label>
+                <select id="category" name="category" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                  {% for j in category %}
+                    <option value={{j.id}}>{{j.name}}</option>
+                  {% endfor %}
+
+                </select>
+
+                  </div>
+
+                  <div class="mb-3">
+                     <label for="category_title_edit">User:</label>
+                <select  name="user" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                  {% for j in user %}
+                    <option value={{j.id}}>{{j.first_name}}</option>
+                  {% endfor %}
+
+                </select>
+
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="service_price" class="form-label"
+                      >Service Price</label
+                    >
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Rs. </span>
+                      <input
+                        type="number"
+                        step="0.01"
+                        name="serviceprice"
+                        class="form-control"
+                        aria-label="Amount in Rupees"
+                        id="service_price"
+                        aria-describedby="amountHelp"
+                        placeholder="Service Price (in Rupees)"
+                        required
+                      />
+                      <div id="amountHelp" class="form-text text-danger">
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">+ Add</button>
+                  <div class="form-text text-danger">
+                      <!-- Add error text here -->
+
+                  {% if service_error %}
+                          {{service_error}}
+                        {% endif %}
+                    </div>
+                </form>
+              </div>
+            </div>
+            <div class="card mt-4">
+              <div class="card-header">Service List</div>
+              <div class="card-body">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Service #</th>
+                      <th scope="col">Service Name</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Category Title</th>
+                      <th scope="col">Service Price</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for i in service %}
+                    <tr class="my-auto">
+                      <th scope="row">{{i.id}}</th>
+                      <td>{{i.name}}</td>
+                      <td>{{i.description}}</td>
+                      <td class="fw-bold">{{i.category.name}}</td>
+                      <td>Rs. {{i.price}}</td>
+                      <td class="d-flex flex-row gap-2">
+                        <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=#{{i.category}}{{i.name}}>Edit</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=#{{i.name}}>Delete</button>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+{% for i in service %}
+    <!-- Edit Modal -->
+    <div class="modal fade" id={{i.category}}{{i.name}} tabindex="-1" aria-labelledby={{i.category}}{{i.name}} aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id={{i.category}}{{i.name}}>Edit {{i.name}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form  action="{% url 'edit-service' i.id %}" method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="service_name_edit" class="form-label">Service Name</label>
+                <input type="text" name="servicename" class="form-control" id="service_name_edit" aria-describedby="serviceNameEditHelp" placeholder="Enter Service Name" value=" {{i.name}} "required/>
+                <div id="serviceNameEditHelp" class="form-text text-danger">
+                  <!-- Add error text here -->
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="service_description_edit" class="form-label">Description</label>
+                <input type="text" name="servicedescription" class="form-control" id="service_description_edit" aria-describedby="serviceDescEditHelp" placeholder="Enter Service Description" value="{{i.description}}" required/>
+                <div id="serviceDescEditHelp" class="form-text text-danger">
+                  <!-- Add error text here -->
+                </div>
+              </div>
+
+               <div class="mb-3">
+                 <label for="category_title_edit">Category:</label>
+                <select id="cars" name="category" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                <option value={{i.id}}>{{i.category}}</option>
+                  {% for j in category %}
+                    <option value={{j.id}}>{{j.name}}</option>
+                  {% endfor %}
+
+                </select>
+
+                <div id="categoryEditHelp" class="form-text text-danger">
+                  <!-- Add error text here -->
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="service_price_edit" class="form-label">Service Price</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Rs. </span>
+                  <input type="number" name="serviceprice" step="0.01" class="form-control" aria-label="Amount in Rupees" id="service_price_edit" aria-describedby="amountEditHelp" placeholder="Service Price (in Rupees)" value={{i.price}} required/>
+                </div>
+              </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button  type="submit" class="btn btn-warning">Edit</button>
+          </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+{% endfor %}
+    <!-- Delete Modal -->
+{% for i in service %}
+    <div class="modal fade" id={{i.name}} tabindex="-1" aria-labelledby="serviceModal1DeleteLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id={{i.name}}>
+              Delete The Service
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            Do you want to delete?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <a href="{% url 'delete-service' i.id %}" type="button" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

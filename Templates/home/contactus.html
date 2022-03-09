@@ -13,10 +13,13 @@ background-size: cover;
 
 
 {% block body %}
-<div id="bg" class="vw-100 vh-100">
-      <div
-        style="
-        background-image: url(../images/bgImageTop.jpg);"
+<div class="vw-100 vh-100">
+      <div style="background-image:url('{% static 'images/bgImageTop.jpg' %}');
+           background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+        "
         class="w-100 h-100 d-flex flex-column justify-content-center align-items-center"
       >
         <div class="w-100 h-100 bg-black bg-opacity-75"></div>

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from Common.models import ConfigChoice,ConfigCategory
 from Services.models import Service
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
+@login_required(login_url="login")
 def SettingView(request):
     category = ConfigChoice.objects.filter(category__name="Service",is_active=True)
     service = Service.objects.filter(is_deleted=False)
@@ -19,6 +21,8 @@ def SettingView(request):
 
 def AddCategory(request):
     categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
+    user = User.objects.filter(user_type__name="Staff User")
+    service = Service.objects.filter(is_deleted=False)
     if request.method == 'POST' and request.FILES['image']:
         error = None
         category = request.POST.get("category")
@@ -32,6 +36,8 @@ def AddCategory(request):
             error = "Category Already exists."
         context = {
             "error":error,
+            "user":user,
+            "service": service,
             "category":categorys
         }
         return render(request, "home/setting.html",context=context)

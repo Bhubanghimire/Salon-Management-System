@@ -46,7 +46,7 @@ def DeleteService(request,id):
     service = Service.objects.get(id=id)
     service.is_deleted = True
     service.save()
-    return redirect("setting")
+    return redirect("profile")
 
 
 def EditService(request,id):
@@ -62,10 +62,10 @@ def EditService(request,id):
         service.price =price
         service.category = ConfigChoice.objects.get(id=category)
     service.save()
-    return redirect("setting")
+    return redirect("profile")
 
 def AddService(request):
-    category = ConfigChoice.objects.filter(category__name="Service", is_active=True)
+    categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
     service = Service.objects.filter(is_deleted=False)
     user = User.objects.filter(user_type__name="Staff User")
     print(user)
@@ -85,9 +85,9 @@ def AddService(request):
                 "service": service,
                 "user": user,
                 "service_error":"Service Name Already Exists!",
-                "category": category
+                "category": categorys
             }
             return render(request, "home/setting.html", context=context)
 
-        return redirect("setting")
-    return redirect("setting")
+        return redirect("profile")
+    return redirect("profile")

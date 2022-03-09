@@ -60,9 +60,9 @@
                   </div>
                   <div class="mb-3">
                      <label for="category_title_edit">Category:</label>
-                <select id="category" name="category" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                <select id="category" name="category" class="form-control" list="categoryOptionss"  for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
                   {% for j in category %}
-                    <option value={{j.id}}>{{j.name}}</option>
+                    <option value={{j.id}}>{{j.name}}-{{j.id}}</option>
                   {% endfor %}
 
                 </select>
@@ -182,9 +182,9 @@
                <div class="mb-3">
                  <label for="category_title_edit">Category:</label>
                 <select id="cars" name="category" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
-                <option value={{i.id}}>{{i.category}}</option>
+                <option value={{i.category.id}}>{{i.category}}</option>
                   {% for j in category %}
-                    <option value={{j.id}}>{{j.name}}</option>
+                    <option value={{j.id}}>{{j.name}}-{{j.id}}</option>
                   {% endfor %}
 
                 </select>
@@ -219,7 +219,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id={{i.name}}>
+            <h5 class="modal-title" id={{i.name}}1>
               Delete The Service
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

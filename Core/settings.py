@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Accounts',
     'Common',
     'Services',
+    'Order',
     'Staff',
     'Superadmin',
 ]

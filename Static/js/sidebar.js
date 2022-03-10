@@ -1,7 +1,7 @@
 document.write(`
     <div class="col-md-4">
         <div class="card">
-            <div class="card-header fs-5 py-2">Sidebar</div>
+            <div class="card-header fs-5 py-2">Dashboard</div>
             <div class="list-group list-group-flush accordion accordion-flush" id="sidebarAccordion">
                 <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItemOne">
@@ -15,8 +15,8 @@ document.write(`
                         aria-labelledby="sidebarItemOne" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                <a class="list-group-item" href="">View Profile</a>
-                                <a class="list-group-item" href="">Edit Profile</a>
+                                <a class="list-group-item" href="{% url 'main-profile'  %}">View Profile</a>
+                                <a class="list-group-item" href="{% url 'profile-update'  %}">Edit Profile</a>
                         </div>
                     </div>
                 </div>
@@ -32,16 +32,24 @@ document.write(`
                         aria-labelledby="sidebarItemTwo" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                <a class="list-group-item" href="">View all Appointments</a>
-                                <a class="list-group-item" href="">Create New</a>
+                                {% if user.user_type__name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                {% elif user.user_type__name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                {% else %}
+                                    <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                 {% endif %}
+
+
                         </div>
                     </div>
                 </div>
                 <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItemTwo">
-                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="">
-                            Services
-                        </a>
+                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="">Services</a>
                     </h2>
                 </div>
             </div>

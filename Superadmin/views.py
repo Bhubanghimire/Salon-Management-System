@@ -14,7 +14,7 @@ def SettingView(request):
 
     context = {
         "service":service,
-        "user":user,
+        "users":user,
         "category":category
     }
     return render(request, "home/setting.html", context=context)
@@ -36,7 +36,7 @@ def AddCategory(request):
             error = "Category Already exists."
         context = {
             "error":error,
-            "user":user,
+            "users":user,
             "service": service,
             "category":categorys
         }
@@ -83,7 +83,7 @@ def AddService(request):
         except Exception:
             context = {
                 "service": service,
-                "user": user,
+                "users": user,
                 "service_error":"Service Name Already Exists!",
                 "category": categorys
             }
@@ -91,3 +91,20 @@ def AddService(request):
 
         return redirect("profile")
     return redirect("profile")
+
+
+def SuperadminAppointments(request):
+    return render(request,"home/appointments.html")
+
+
+def Newappointment(request):
+    print(request.POST)
+    categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
+    service = Service.objects.filter(is_deleted=False)
+    user = User.objects.filter(user_type__name="Staff User")
+    context = {
+        "service": service,
+        "users": user,
+        "category": categorys
+    }
+    return render(request, "home/newappointments.html", context=context)

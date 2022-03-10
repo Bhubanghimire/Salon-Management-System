@@ -1,0 +1,553 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block style %}
+  #bg{
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+}
+{% endblock %}
+
+
+{% block body %}
+    <div
+      class="vw-100 bg-white text-black"
+      style="padding-top: 10rem; padding-bottom: 5rem"
+    >
+      <div class="container">
+        <div class="row justify-content-center w-100 g-4">
+          <div class="col-md-4">
+        <div class="card">
+            <div class="card-header fs-5 py-2">Dashboard</div>
+            <div class="list-group list-group-flush accordion accordion-flush" id="sidebarAccordion">
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemOne">
+                        <button class="accordion-button collapsed w-100" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseItemOne" aria-expanded="true"
+                            aria-controls="collapseItemOne">
+                            Profile
+                        </button>
+                    </h2>
+                    <div id="collapseItemOne" class="accordion-collapse collapse"
+                        aria-labelledby="sidebarItemOne" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <a class="list-group-item" href="{% url 'main-profile'  %}">View Profile</a>
+                                <a class="list-group-item" href="{% url 'profile-update'  %}">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemTwo">
+                        <button class="accordion-button collapsed w-100" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseItemTwo" aria-expanded="true"
+                            aria-controls="collapseItemTwo">
+                            Appointments
+                        </button>
+                    </h2>
+                    <div id="collapseItemTwo" class="accordion-collapse collapse"
+                        aria-labelledby="sidebarItemTwo" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                {% if user.user_type__name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                {% elif user.user_type__name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                {% else %}
+                                    <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                 {% endif %}
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemTwo">
+                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="">Services</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+          <div class="col-md-8 overflow-scroll" style="height: 700px">
+            <div class="card">
+              <div class="card-header">Search for Appointments</div>
+              <div class="card-body">
+                <div class="row justify-content-center">
+                  <div class="col-md-4 mb-2">
+                    <label for="appointmentYear" class="form-label">Year</label>
+                    <input
+                      class="form-control"
+                      list="appointmentYearDatalist"
+                      id="appointmentYear"
+                      placeholder="Type to select..."
+                    />
+                    <datalist id="appointmentYearDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-5 mb-2">
+                    <label for="appointmentMonth" class="form-label"
+                      >Month</label
+                    >
+                    <input
+                      class="form-control"
+                      list="monthDatalist"
+                      id="appointmentMonth"
+                      placeholder="Type to select..."
+                    />
+                    <datalist id="monthDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="appointmentDate" class="form-label">Date</label>
+                    <input
+                      class="form-control"
+                      list="dateDatalist"
+                      id="appointmentDate"
+                      placeholder="Type to select..."
+                    />
+                    <datalist id="dateDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <button
+                      class="btn w-100 btn-primary"
+                      id="appointmentSearch"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card mt-4">
+              <div class="card-header">Appointments for 9 March 2022</div>
+              <div class="card-body">
+                <div class="accordion" id="appointmentsAccordion">
+                  <div class="accordion-item">
+                    <h2
+                      class="accordion-header"
+                      id="appointmentsAccordion-appointmentOne"
+                    >
+                      <button
+                        class="accordion-button collapsed fs-5 fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#appointmentsAccordion-collapseOne"
+                        aria-expanded="true"
+                        aria-controls="appointmentsAccordion-collapseOne"
+                      >
+                        11:00 AM - 12:00 PM with Er. Bhuwan Ghimire
+                        <div class="px-2">
+                          <span class="ml-4 badge bg-success">Completed</span>
+                        </div>
+                      </button>
+                    </h2>
+                    <div
+                      id="appointmentsAccordion-collapseOne"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="appointmentsAccordion-appointmentOne"
+                    >
+                      <div class="accordion-body d-flex flex-column gap-4">
+                        <div
+                          class="w-100 my-auto d-flex flex-row justify-content-between"
+                        >
+                          <div class="text-start d-flex flex-column">
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Client Name:</div>
+                              <div>
+                                <a href="{{ Profile URL }}"
+                                  >Er. Bhuwan Ghimire</a
+                                >
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Staff Name:</div>
+                              <div>
+                                <a href="{{ Profile URL }}">John Doe</a>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Service:</div>
+                              <div>Nuru Massage</div>
+                            </div>
+                            <!-- And similar fields -->
+                          </div>
+                          <div class="my-auto">
+                            <div
+                              class="my-auto text-end fs-5 fw-bold d-flex gap-2"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#appointmentModal1Edit"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#appointmentModal1Cancel"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2
+                      class="accordion-header"
+                      id="appointmentsAccordion-appointmentTwo"
+                    >
+                      <button
+                        class="accordion-button collapsed fs-5 fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#appointmentsAccordion-collapseTwo"
+                        aria-expanded="true"
+                        aria-controls="appointmentsAccordion-collapseTwo"
+                      >
+                        12:00 PM - 01:00 PM with John Doe
+                        <div class="px-2">
+                          <span class="ml-4 badge bg-warning">Pending</span>
+                        </div>
+                      </button>
+                    </h2>
+                    <div
+                      id="appointmentsAccordion-collapseTwo"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="appointmentsAccordion-appointmentTwo"
+                    >
+                      <div class="accordion-body d-flex flex-column gap-4">
+                        <div
+                          class="w-100 my-auto d-flex flex-row justify-content-between"
+                        >
+                          <div class="text-start d-flex flex-column">
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Client Name:</div>
+                              <div>
+                                <a href="{{ Profile URL }}">John Doe</a>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Staff Name:</div>
+                              <div>
+                                <a href="{{ Profile URL }}">John Doe</a>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Service:</div>
+                              <div>Nail Art</div>
+                            </div>
+                            <!-- And similar fields -->
+                          </div>
+                          <div class="my-auto">
+                            <div
+                              class="my-auto text-end fs-5 fw-bold d-flex gap-2"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#appointmentModal2Edit"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#appointmentModal2Cancel"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2
+                      class="accordion-header"
+                      id="appointmentsAccordion-appointmentThree"
+                    >
+                      <button
+                        class="accordion-button collapsed fs-5 fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#appointmentsAccordion-collapseThree"
+                        aria-expanded="true"
+                        aria-controls="appointmentsAccordion-collapseThree"
+                      >
+                        01:00 PM - 02:00 PM with Chandler Bing
+                        <div class="px-2">
+                          <span class="ml-4 badge bg-danger">Cancelled</span>
+                        </div>
+                      </button>
+                    </h2>
+                    <div
+                      id="appointmentsAccordion-collapseThree"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="appointmentsAccordion-appointmentThree"
+                    >
+                      <div class="accordion-body d-flex flex-column gap-4">
+                        <div
+                          class="w-100 my-auto d-flex flex-row justify-content-between"
+                        >
+                          <div class="text-start d-flex flex-column">
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Client Name:</div>
+                              <div>
+                                <a href="{{ Profile URL }}">Chandler Bing</a>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Staff Name:</div>
+                              <div>
+                                <a href="{{ Profile URL }}">John Doe</a>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Service:</div>
+                              <div>Manicure</div>
+                            </div>
+                            <!-- And similar fields -->
+                          </div>
+                          <div class="my-auto">
+                            <div
+                              class="my-auto text-end fs-5 fw-bold d-flex gap-2"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target="#appointmentModal3Edit"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target="#appointmentModal3Cancel"
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Use this for no appointments -->
+                <div
+                  class="d-flex flex-row justify-content-center align-items-center py-3 border border-5 rounded-3 fs-4 text-muted"
+                >
+                  No appointments for the day.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Edit Modal -->
+    <div
+      class="modal fade"
+      id="appointmentModal1Edit"
+      tabindex="-1"
+      aria-labelledby="appointmentModal1EditLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="appointmentModal1EditLabel">
+              Edit
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-2">
+                <label for="category_title" class="form-label"
+                  >Category</label
+                >
+                <input
+                  class="form-control"
+                  list="categoryOptions"
+                  id="category_title"
+                  aria-describedby="categoryHelp"
+                  placeholder="Type to search for category..."
+                />
+                <datalist id="categoryOptions">
+                  <option value="Category 1" />
+                  <option value="Category 2" />
+                  <option value="Manicure" />
+                  <option value="Category 3" />
+                  <option value="Category 4" />
+                  <option value="Category 5" />
+                  <option value="Category 6" />
+                </datalist>
+                <div id="categoryHelp" class="form-text text-danger">
+                  <!-- Add error text here -->
+                </div>
+              </div>
+              <div class="col-md-6 mb-2">
+                <label for="service_name" class="form-label">Service</label>
+                <input
+                  class="form-control"
+                  list="serviceOptions"
+                  id="service_name"
+                  aria-describedby="serviceHelp"
+                  placeholder="Type to search for service..."
+                />
+                <datalist id="serviceOptions">
+                  <option value="Service 1" />
+                  <option value="Service 2" />
+                  <option value="Service 3" />
+                  <option value="Service 4" />
+                  <option value="Service 5" />
+                  <option value="Service 6" />
+                  <option value="Service 7" />
+                </datalist>
+                <div id="serviceHelp" class="form-text text-danger">
+                  <!-- Add error text here -->
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-4 mb-2">
+                <label for="appointmentYear" class="form-label">Year</label>
+                <input
+                  class="form-control"
+                  list="appointmentYearDatalist"
+                  id="appointmentYear"
+                  placeholder="Type to select..."
+                />
+                <datalist id="appointmentYearDatalist"> </datalist>
+              </div>
+              <div class="col-md-5 mb-2">
+                <label for="appointmentMonth" class="form-label"
+                  >Month</label
+                >
+                <input
+                  class="form-control"
+                  list="monthDatalist"
+                  id="appointmentMonth"
+                  placeholder="Type to select..."
+                />
+                <datalist id="monthDatalist"> </datalist>
+              </div>
+              <div class="col-md-3 mb-2">
+                <label for="appointmentDate" class="form-label">Date</label>
+                <input
+                  class="form-control"
+                  list="dateDatalist"
+                  id="appointmentDate"
+                  placeholder="Type to select..."
+                />
+                <datalist id="dateDatalist"> </datalist>
+              </div>
+              <div class="col-md-6 mb-2">
+                <label for="staff" class="form-label">Staff</label>
+                <input
+                  class="form-control"
+                  list="staffList"
+                  id="staff"
+                  placeholder="Type to select the staff..."
+                />
+                <datalist id="staffList"> </datalist>
+              </div>
+              <div class="col-md-6 mb-2">
+                <label
+                  for="timeSelect"
+                  class="form-label"
+                  >Time</label
+                >
+                <input
+                  type="time"
+                  class="form-control"
+                  id="timeSelect"
+                  aria-describedby="timeSelect_help"
+                  placeholder="Select time"
+                  min="10:00"
+                  max="19:00"
+                />
+              </div>
+              <div class="col-md-12 mb-2">
+                <button
+                  class="btn w-100 btn-primary"
+                  id="appointmentSearch"
+                >
+                  Create
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-warning">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div
+      class="modal fade"
+      id="appointmentModal1Cancel"
+      tabindex="-1"
+      aria-labelledby="appointmentModal1CancelLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="appointmentModal1EditLabel">
+              Cancel
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">Do you want to cancel this appointment?</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-danger">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endblock %}

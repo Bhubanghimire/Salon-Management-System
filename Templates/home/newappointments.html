@@ -1,0 +1,130 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block body %}
+    <div
+      class="vw-100 bg-white text-black"
+      style="padding-top: 10rem; padding-bottom: 5rem"
+    >
+      <div class="container">
+        <div class="row justify-content-center w-100 g-4">
+          <div class="col-md-4">
+        <div class="card">
+            <div class="card-header fs-5 py-2">Dashboard</div>
+            <div class="list-group list-group-flush accordion accordion-flush" id="sidebarAccordion">
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemOne">
+                        <button class="accordion-button collapsed w-100" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseItemOne" aria-expanded="true"
+                            aria-controls="collapseItemOne">
+                            Profile
+                        </button>
+                    </h2>
+                    <div id="collapseItemOne" class="accordion-collapse collapse"
+                        aria-labelledby="sidebarItemOne" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <a class="list-group-item" href="{% url 'main-profile'  %}">View Profile</a>
+                                <a class="list-group-item" href="{% url 'profile-update'  %}">Edit Profile</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemTwo">
+                        <button class="accordion-button collapsed w-100" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseItemTwo" aria-expanded="true"
+                            aria-controls="collapseItemTwo">
+                            Appointments
+                        </button>
+                    </h2>
+                    <div id="collapseItemTwo" class="accordion-collapse collapse"
+                        aria-labelledby="sidebarItemTwo" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                {% if user.user_type__name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                {% elif user.user_type__name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                {% else %}
+                                    <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                 {% endif %}
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemTwo">
+                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="">Services</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+          <div class="col-md-8 overflow-scroll" style="height: 700px">
+            <div class="card">
+              <div class="card-header">Make your Appointment</div>
+                <form action="{% url 'superadmin-newappointments' %}" method="POST">
+                    {% csrf_token %}
+              <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-2">
+                    <label  class="form-label">Staff</label>
+                     <select  name="user" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                  {% for j in users %}
+                    <option value={{j.id}}>{{j.first_name}}</option>
+                  {% endfor %}
+
+                </select>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <label  class="form-label">Service</label>
+                    <select  name="service" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                  {% for j in service %}
+                    <option value={{j.id}}>{{j.name}}</option>
+                  {% endfor %}
+
+                </select>
+                    <div id="serviceHelp" class="form-text text-danger">
+                      <!-- Add error text here -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row justify-content-center">
+                  <div class="col-md-4 mb-2">
+                    <label for="appointmentYear" class="form-label">Year</label>
+                    <input name="year" class="form-control" list="appointmentYearDatalist" id="appointmentYear" placeholder="Type to select..." required/>
+                    <datalist id="appointmentYearDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-5 mb-2">
+                    <label for="appointmentMonth" class="form-label">Month</label>
+                    <input name="month" class="form-control" list="monthDatalist" id="appointmentMonth" placeholder="Type to select..." readonly/><datalist id="monthDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="appointmentDate" class="form-label">Date</label>
+                    <input name="date" class="form-control" list="dateDatalist" id="appointmentDate" placeholder="Type to select..." required/>
+                    <datalist id="dateDatalist"> </datalist>
+                  </div>
+
+                    <div class="col-md-6 mb-2">
+                    <label for="timeSelect" class="form-label">Time</label>
+                    <input name="time" type="time" class="form-control" id="timeSelect" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00"/>
+                  </div>
+
+                  <div class="col-md-12 mb-2">
+                    <button class="btn w-100 btn-primary" id="appointmentSearch">Create</button>
+                  </div>
+
+                </div>
+              </div>
+                    </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from Services.models import Service,Gallery,Testimonials
 from Accounts.models import About
 from Common.models import ConfigChoice
-from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -17,6 +16,7 @@ def Home(request):
         "service":service
     }
     return render(request,"home/home.html", context=context)
+
 
 def ServiceView(request):
     final_list=[]

@@ -32,7 +32,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     gender = models.CharField(max_length=255, choices=CHOICES)
     profile = models.ImageField(upload_to="profile", null=True)
     address = models.CharField(max_length=250)
-    dob = models.DateField()
+    dob = models.DateField(null=True)
     phone = models.CharField(max_length=200)
     is_admin = models.BooleanField(default=False)
     position = models.CharField(max_length=250,default=" ")

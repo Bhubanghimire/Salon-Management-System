@@ -15,7 +15,8 @@ class Order(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     specialist = models.ForeignKey(User, on_delete=models.CASCADE,related_name="specialist")
     order_time = models.DateTimeField(auto_now_add=True)
-    appointment_time = models.DateTimeField()
+    appointment_start_time = models.DateTimeField()
+    appointment_end_time = models.DateTimeField()
 
     def __str__(self):
         return str(self.user)

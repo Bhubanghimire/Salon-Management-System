@@ -67,7 +67,7 @@
           <div class="col-md-8 overflow-scroll" style="height: 700px">
             <div class="card">
               <div class="card-header">Make your Appointment</div>
-                <form action="{% url 'superadmin-newappointments' %}" method="POST">
+                <form action="{% url 'create-new' %}" method="POST">
                     {% csrf_token %}
               <div class="card-body">
                 <div class="row">
@@ -101,8 +101,18 @@
                     <datalist id="appointmentYearDatalist"> </datalist>
                   </div>
                   <div class="col-md-5 mb-2">
-                    <label for="appointmentMonth" class="form-label">Month</label>
-                    <input name="month" class="form-control" list="monthDatalist" id="appointmentMonth" placeholder="Type to select..." readonly/><datalist id="monthDatalist"> </datalist>
+                    <label for="appointmentMonth" class="form-label"
+                      >Month</label
+                    >
+                    <input
+
+                      class="form-control"
+                      name="month"
+                      list="monthDatalist"
+                      id="appointmentMonth"
+                      placeholder="Type to select..."
+                    />
+                    <datalist id="monthDatalist"> </datalist>
                   </div>
                   <div class="col-md-3 mb-2">
                     <label for="appointmentDate" class="form-label">Date</label>
@@ -118,6 +128,9 @@
                   <div class="col-md-12 mb-2">
                     <button class="btn w-100 btn-primary" id="appointmentSearch">Create</button>
                   </div>
+                    {% if error %}
+                        {{error}}
+                    {% endif %}
 
                 </div>
               </div>

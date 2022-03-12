@@ -98,7 +98,6 @@ def SuperadminAppointments(request):
 
 
 def Newappointment(request):
-    print(request.POST)
     categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
     service = Service.objects.filter(is_deleted=False)
     user = User.objects.filter(user_type__name="Staff User")

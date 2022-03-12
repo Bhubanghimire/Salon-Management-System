@@ -31,6 +31,7 @@ urlpatterns = [
     path("accounts/",include("Accounts.urls")),
     path("super-admin/",include("Superadmin.urls")),
     path("staff/",include("Staff.urls")),
+    path("appointment/", include("Order.urls")),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

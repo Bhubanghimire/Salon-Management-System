@@ -12,6 +12,7 @@ class Service(models.Model):
     icon = models.ImageField(upload_to="service")
     price = models.DecimalField(max_digits=10, decimal_places=3)
     specialist = models.ForeignKey(User, on_delete=models.CASCADE)
+    duration = models.IntegerField()
     is_deleted = models.BooleanField(default=False)
 
 

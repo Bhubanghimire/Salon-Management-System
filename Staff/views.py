@@ -6,7 +6,7 @@ from Order.models import Order
 # Create your views here.
 def StaffAppointments(request):
     today = datetime.datetime.now()
-    order = Order.objects.filter(appointment_start_time__gte=today)
+    order = Order.objects.filter(specialist=request.user, appointment_start_time__gte=today)
     context = {
         "today":today.date(),
         "order":order

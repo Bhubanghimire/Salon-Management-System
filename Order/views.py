@@ -43,3 +43,34 @@ def CreateAppointment(request):
 
     else:
         return render(request, 'home/newappointments.html', context=context)
+
+
+@login_required(login_url="login")
+def CancelAppointment(request, uuid):
+    ord =Order.objects.filter(uuid=uuid).first()
+    ord.status=ConfigChoice.objects.get(name="Cancelled")
+    ord.save()
+    print(uuid)
+    if request.user.user_type.name=="Super User":
+        return redirect("superadmin-appointments")
+    elif request.user.user_type.name=="Staff User":
+        return redirect("staff-appointments")
+    else:
+        return redirect("user-appointments")
+
+
+def UpdateAppointment(request, uuid):
+    if request.method == 'POST':
+        status = request.POST.get('status')
+        service = request.POST.get('service')
+        service = Service.objects.get(id=service)
+        year = request.POST.get('year')
+        month = request.POST.get('month')
+        month = datetime.strptime(month, '%B').month
+
+        date = request.POST.get('date')
+        time = request.POST.get("time")
+        date=str(year)+'-'+str(month)+"-"+str(date)+"T"+str(time)+":00"
+        start_date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+        end_date = start_date+timedelta(hours=service.duration)
+

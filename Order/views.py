@@ -61,16 +61,32 @@ def CancelAppointment(request, uuid):
 
 def UpdateAppointment(request, uuid):
     if request.method == 'POST':
+        appointment = Order.objects.get(uuid=uuid)
+        staff = request.POST.get('staff')
+        user = User.objects.get(id=staff)
         status = request.POST.get('status')
-        service = request.POST.get('service')
-        service = Service.objects.get(id=service)
+
         year = request.POST.get('year')
         month = request.POST.get('month')
-        month = datetime.strptime(month, '%B').month
+        if not month.isdigit():
+            month = datetime.strptime(month, '%B').month
+        start_time = request.POST.get('start_time')
+        end_time= request.POST.get('start_time')
+        date = request.POST.get("date")
+        print(start_time)
+        print(end_time)
+        print(date)
 
-        date = request.POST.get('date')
-        time = request.POST.get("time")
-        date=str(year)+'-'+str(month)+"-"+str(date)+"T"+str(time)+":00"
-        start_date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
-        end_date = start_date+timedelta(hours=service.duration)
+        appointment.specialist = user
+        appointment.status = ConfigChoice.objects.get(id=status)
+        appointment.appointment_start_time =str(year)+'-'+str(month)+"-"+str(date)+"T"+str(start_time)+":00"
+        appointment.appointment_end_time =str(year)+'-'+str(month)+"-"+str(date)+"T"+str(end_time)+":00"
+
+        appointment.save()
+        if request.user.user_type.name == "Super User":
+            return redirect("superadmin-appointments")
+        elif request.user.user_type.name == "Staff User":
+            return redirect("staff-appointments")
+        else:
+            return redirect("user-appointments")
 

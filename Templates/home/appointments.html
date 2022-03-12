@@ -2,216 +2,251 @@
 {% load static %}
 
 {% block style %}
-#bg{
-background-size: cover;
-background-position: center center;
-background-repeat: no-repeat;
-background-attachment: fixed;
+  #bg{
+          background-size: cover;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-attachment: fixed;
 }
 {% endblock %}
 
 
 {% block body %}
-<div
-        class="vw-100 bg-white text-black"
-        style="padding-top: 10rem; padding-bottom: 5rem"
->
-    <div class="container">
+    <div
+      class="vw-100 bg-white text-black"
+      style="padding-top: 10rem; padding-bottom: 5rem"
+    >
+      <div class="container">
         <div class="row justify-content-center w-100 g-4">
             <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header fs-5 py-2">Dashboard</div>
-                    <div class="list-group list-group-flush accordion accordion-flush" id="sidebarAccordion">
-                        <div class="list-group-item accordion-item">
-                            <h2 class="accordion-header" id="sidebarItemOne">
-                                <button class="accordion-button collapsed w-100" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseItemOne" aria-expanded="true"
-                                        aria-controls="collapseItemOne">
-                                    Profile
-                                </button>
-                            </h2>
-                            <div id="collapseItemOne" class="accordion-collapse collapse"
-                                 aria-labelledby="sidebarItemOne" data-bs-parent="#sidebarAccordion">
-                                <div class="accordion-body">
-                                    <ul class="list-group list-group-flush">
-                                        <a class="list-group-item" href="{% url 'main-profile'  %}">View Profile</a>
-                                        <a class="list-group-item" href="{% url 'profile-update'  %}">Edit Profile</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group-item accordion-item">
-                            <h2 class="accordion-header" id="sidebarItemTwo">
-                                <button class="accordion-button collapsed w-100" type="button"
-                                        data-bs-toggle="collapse" data-bs-target="#collapseItemTwo" aria-expanded="true"
-                                        aria-controls="collapseItemTwo">
-                                    Appointments
-                                </button>
-                            </h2>
-                            <div id="collapseItemTwo" class="accordion-collapse collapse"
-                                 aria-labelledby="sidebarItemTwo" data-bs-parent="#sidebarAccordion">
-                                <div class="accordion-body">
-                                    <ul class="list-group list-group-flush">
-                                        {% if user.user_type.name == "Super User" %}
-                                        <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
-                                        <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
-                                        {% elif user.user_type.name == "Super User" %}
-                                        <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
-                                        <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
-                                        {% else %}
-                                        <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
-                                        <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
-                                        {% endif %}
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="list-group-item accordion-item">
-                            <h2 class="accordion-header" id="sidebarItemTwo">
-                                <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;"
-                                   href="{% url 'admin-dashboard' %}">
-                                    Services
-                                </a>
-                            </h2>
+        <div class="card">
+            <div class="card-header fs-5 py-2">Dashboard</div>
+            <div class="list-group list-group-flush accordion accordion-flush" id="sidebarAccordion">
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemOne">
+                        <button class="accordion-button collapsed w-100" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseItemOne" aria-expanded="true"
+                            aria-controls="collapseItemOne">
+                            Profile
+                        </button>
+                    </h2>
+                    <div id="collapseItemOne" class="accordion-collapse collapse"
+                        aria-labelledby="sidebarItemOne" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <a class="list-group-item" href="{% url 'main-profile'  %}">View Profile</a>
+                                <a class="list-group-item" href="{% url 'profile-update'  %}">Edit Profile</a>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-8 overflow-scroll" style="height: 700px">
-                <div class="card">
-                    <div class="card-header">Search for Appointments</div>
-                    <div class="card-body">
-                         <form method="GET" action="{% url 'superadmin-appointments' %}">
-                        <div class="row justify-content-center">
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemTwo">
+                        <button class="accordion-button collapsed w-100" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#collapseItemTwo" aria-expanded="true"
+                            aria-controls="collapseItemTwo">
+                            Appointments
+                        </button>
+                    </h2>
+                    <div id="collapseItemTwo" class="accordion-collapse collapse"
+                        aria-labelledby="sidebarItemTwo" data-bs-parent="#sidebarAccordion">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                {% if user.user_type.name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
+                                {% elif user.user_type.name == "Staff User" %}
+                                    <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
+                                {% else %}
+                                    <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
+                                 {% endif %}
 
-                            <div class="col-md-4 mb-2">
-                                <label for="appointmentYear" class="form-label">Year</label>
-                                <input class="form-control" name="year" list="appointmentYearDatalist" id="appointmentYear"
-                                       placeholder="Type to select..."/>
-                                <datalist id="appointmentYearDatalist"></datalist>
-                            </div>
-                            <div class="col-md-5 mb-2">
-                                <label for="appointmentMonth" class="form-label">Month</label>
-                                <input class="form-control" name="month" list="monthDatalist" id="appointmentMonth" placeholder="Type to select..."/>
-                                <datalist id="monthDatalist"></datalist>
-                            </div>
-                            <div class="col-md-3 mb-2">
-                                <label for="appointmentDate" class="form-label">Date</label>
-                                <input
-                                        class="form-control"
-                                        name="day"
-                                        list="dateDatalist"
-                                        id="appointmentDate"
-                                        placeholder="Type to select..."
-                                />
-                                <datalist id="dateDatalist"></datalist>
-                            </div>
-                            <div class="col-md-2 mb-2">
-                                <button
-                                        class="btn w-100 btn-primary" id="appointmentSearch">Search
-                                </button>
-                            </div>
 
                         </div>
-                              </form>
                     </div>
                 </div>
-                <div class="card mt-4">
-                    <div class="card-header">Appointments for {{today}}</div>
-                    <div class="card-body">
-                        <div class="accordion" id="appointmentsAccordion">
-                            {% if order %}
-                            {% for i in order %}
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="appointmentsAccordion-appointmentOne">
-                                    <button class="accordion-button collapsed fs-5 fw-bold" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#appointmentsAccordion-collapseOne" aria-expanded="true"
-                                            aria-controls="appointmentsAccordion-collapseOne">
-                                        {{i.appointment_start_time.time}} - {{i.appointment_end_time.time}} with
-                                        {{i.user}}
-
-                                        {% if i.status.name == "Completed" %}
-                                        <div class="px-2"><span class="ml-4 badge bg-success">{{i.status}}</span>
-                                            {% elif i.status.name == "Pending" %}
-                                            <div class="px-2"><span class="ml-4 badge bg-success">{{i.status}}</span>
-                                                {% elif i.status.name == "Cancelled" %}
-                                                <div class="px-2"><span class="ml-4 badge bg-danger">{{i.status}}</span>
-                                                    {% endif %}
-                                                </div>
-                                    </button>
-                                </h2>
-                                <div id="appointmentsAccordion-collapseOne" class="accordion-collapse collapse"
-                                     aria-labelledby="appointmentsAccordion-appointmentOne">
-                                    <div class="accordion-body d-flex flex-column gap-4">
-                                        <div class="w-100 my-auto d-flex flex-row justify-content-between">
-                                            <div class="text-start d-flex flex-column">
-                                                <div class="d-flex flex-row gap-2">
-                                                    <div class="fw-bold">Client Name:</div>
-                                                    <div>
-                                                        <a href="{% url 'main-profile' %}">{{i.user}}</a>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-row gap-2">
-                                                    <div class="fw-bold">Staff Name:</div>
-                                                    <div>
-                                                        <a href=" Profile URL ">{{i.specialist}}</a>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex flex-row gap-2">
-                                                    <div class="fw-bold">Service:</div>
-                                                    <div>{{i.service.name}}</div>
-                                                </div>
-                                                <!-- And similar fields -->
-                                            </div>
-                                            <div class="my-auto">
-                                                <div class="my-auto text-end fs-5 fw-bold d-flex gap-2">
-                                                    <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                                            data-bs-target="#{{i.uuid}}{{i.uuid}}">Edit
-                                                    </button>
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                            data-bs-target=#{{i.uuid}}>Cancel
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                            {% else %}
-                            <div
-                                    class="d-flex flex-row justify-content-center align-items-center py-3 border border-5 rounded-3 fs-4 text-muted">
-                                No appointments for the day.
-                            </div>
-                            {% endif %}
-
-
-                        </div>
-                        <!-- Use this for no appointments -->
-
-                    </div>
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItem">
+                        {% if user.user_type.name == "Super User" %}
+                                    <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="{% url 'admin-dashboard' %}">Services</a>
+                                {% elif user.user_type.name == "Super User" %}
+                                   <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="{% url 'admin-dashboard' %}">Services</a>
+                                {% else %}
+                                    <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="{% url 'admin-dashboard' %}">Services</a>
+                                 {% endif %}
+                    </h2>
                 </div>
             </div>
         </div>
     </div>
-</div>
+          <div class="col-md-8 overflow-scroll" style="height: 700px">
+            <div class="card">
+              <div class="card-header">Search for Appointments</div>
+              <form method="GET" action="{% url 'superadmin-appointments' %}">
+              <div class="card-body">
 
-<!-- Modals -->
-<!-- Edit Modal -->
-{% for i in order %}
-<div class="modal fade" id={{i.uuid}}{{i.uuid}} tabindex="-1" aria-labelledby={{i.uuid}}{{i.uuid}} aria-hidden="true">
+                <div class="row justify-content-center">
+
+                  <div class="col-md-4 mb-2">
+                    <label for="appointmentYear" class="form-label">Year</label>
+                    <input
+                      class="form-control"
+                      name="year"
+                      list="appointmentYearDatalist"
+                      id="appointmentYear"
+                      placeholder="Type to select..."
+                    />
+                    <datalist id="appointmentYearDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-5 mb-2">
+                    <label for="appointmentMonth" class="form-label">Month</label>
+                    <input
+                      class="form-control"
+                      name="month"
+                      list="monthDatalist"
+                      id="appointmentMonth"
+                      placeholder="Type to select..."
+                    />
+                    <datalist id="monthDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-3 mb-2">
+                    <label for="appointmentDate" class="form-label">Date</label>
+                    <input
+                      class="form-control"
+                      name="day"
+                      list="dateDatalist"
+                      id="appointmentDate"
+                      placeholder="Type to select..."
+                    />
+                    <datalist id="dateDatalist"> </datalist>
+                  </div>
+                  <div class="col-md-2 mb-2">
+                    <button class="btn w-100 btn-primary" id="appointmentSearch">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+              </form>
+            </div>
+            <div class="card mt-4">
+              <div class="card-header">Appointments for {{today}}</div>
+              <div class="card-body">
+                {% if order %}
+                {% for i in order %}
+                <div class="accordion" id="appointmentsAccordion">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header" id=appointmentsAccordion-appointmentOne{{ forloop.counter }}>
+                      <button
+                        class="accordion-button collapsed fs-5 fw-bold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target=#appointmentsAccordion-collapseOne{{ forloop.counter }}
+                        aria-expanded="true"
+                        aria-controls=appointmentsAccordion-collapseOne{{ forloop.counter }}
+                      >
+                        {{i.appointment_start_time.time}} - {{i.appointment_end_time.time}} with {{i.user}}
+                        {% if i.status.name == "Completed" %}
+                          <div class="px-2"><span class="ml-4 badge bg-success">{{i.status}}</span></div>
+                                            {% elif i.status.name == "Pending" %}
+                          <div class="px-2"><span class="ml-4 badge bg-success">{{i.status}}</span></div>
+                                                {% elif i.status.name == "Cancelled" %}
+                          <div class="px-2"><span class="ml-4 badge bg-danger">{{i.status}}</span></div>
+                                                    {% endif %}
+                      </button>
+                    </h2>
+                    <div
+                      id=appointmentsAccordion-collapseOne{{ forloop.counter }}
+                      class="accordion-collapse collapse"
+                      aria-labelledby=appointmentsAccordion-appointmentOne{{ forloop.counter }}
+                    >
+                      <div class="accordion-body d-flex flex-column gap-4">
+                        <div
+                          class="w-100 my-auto d-flex flex-row justify-content-between"
+                        >
+                          <div class="text-start d-flex flex-column">
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Client Name:</div>
+                                                    <div>
+                                                        <a href="{% url 'main-profile' %}">{{i.user}}</a>
+                                                    </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Staff Name:</div>
+                              <div>
+                                <a href="{% url 'main-profile' %}">{{i.specialist}}</a>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Service:</div>
+                              <div>{{i.service.name}}</div>
+                            </div>
+                            <!-- And similar fields -->
+                          </div>
+                          <div class="my-auto">
+                            <div
+                              class="my-auto text-end fs-5 fw-bold d-flex gap-2"
+                            >
+                              <button
+                                type="button"
+                                class="btn btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target=#edit{{ forloop.counter }}
+                              >
+                                Edit
+                              </button>
+                              <button
+                                type="button"
+                                class="btn btn-danger"
+                                data-bs-toggle="modal"
+                                data-bs-target=#select{{ forloop.counter }}
+                              >
+                                Cancel
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <!-- Use this for no appointments -->
+                <div
+                  class="d-flex flex-row justify-content-center align-items-center py-3 border border-5 rounded-3 fs-4 text-muted">
+                  No appointments for the day.
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Edit Modal -->
+    {% for i in order %}
+<div class="modal fade" id=edit{{ forloop.counter }} tabindex="-1" aria-labelledby=edit{{ forloop.counter }} aria-hidden="true">
+
     <div class="modal-dialog modal-dialog-centered modal-lg">
+         <form method="POST" action="{% url 'appointment-update' i.uuid %}">
+             {% csrf_token %}
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id={{i.uuid}}{{i.uuid}}>{{i.uuid}}Edit</h5>
+                <h5 class="modal-title" id=edit{{ forloop.counter }}>Edit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+
                 <div class="row">
                     <div class="col-md-6 mb-2">
                         <label class="form-label">Staff</label>
-                       <select id="cars" name="category" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
-                            <option value={{i.id}}>{{i.specialist.first_name}} {{i.specialist.last_name}}</option>
+                       <select name="staff" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                            <option value={{i.specialist.id}}>{{i.specialist.first_name}} {{i.specialist.last_name}}</option>
                   {% for j in users %}
                     <option value={{j.id}}>{{j.first_name}} {{j.last_name}}</option>
                   {% endfor %}
@@ -220,9 +255,9 @@ background-attachment: fixed;
                     </div>
                     <div class="col-md-6 mb-2">
                         <label  class="form-label">Appointment Status</label>
-                        <select name="category" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
-                <option value={{i.service.id}}>{{i.status.name}}</option>
-                  {% for j in service %}
+                        <select name="status" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                <option value={{i.status.id}}>{{i.status.name}}</option>
+                  {% for j in status %}
                     <option value={{j.id}}>{{j.name}}</option>
                   {% endfor %}
 
@@ -235,59 +270,68 @@ background-attachment: fixed;
                 <div class="row justify-content-center">
                     <div class="col-md-4 mb-2">
                         <label for="appointmentYear" class="form-label">Year</label>
-                        <input class="form-control" list="appointmentYearDatalist" id="appointmentYear"  value="{{i.appointment_start_time.year}}" placeholder="Type to select..."/>
+                        <input name="year" class="form-control" list="appointmentYearDatalist" id="appointmentYear"  value="{{i.appointment_start_time.year}}" placeholder="Type to select..."/>
 
                     </div>
                     <div class="col-md-5 mb-2">
                         <label for="appointmentMonth" class="form-label">Month</label>
-                        <input class="form-control" list="monthDatalist" id="appointmentMonth" value="{{i.appointment_start_time.month}}" placeholder="Type to select..."/>
+                        <input  name="month" class="form-control" list="monthDatalist" id="appointmentMonth" value="{{i.appointment_start_time.month}}" placeholder="Type to select..."/>
                     </div>
                     <div class="col-md-3 mb-2">
                         <label for="appointmentDate" class="form-label">Date</label>
-                        <input class="form-control" list="dateDatalist" id="appointmentDate" value="{{i.appointment_start_time.day}}" placeholder="Type to select..."/>
+                        <input name="date" class="form-control" list="dateDatalist" id="appointmentDate" value="{{i.appointment_start_time.day}}" placeholder="Type to select..."/>
                     </div>
 
                     <div class="col-md-6 mb-2">
                         <label for="timeSelect" class="form-label">Start Time</label>
-                        <input type="time" class="form-control" id="timeSelect" value="{{i.appointment_start_time.time}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00"/>
+                        <input type="time" name="start_time" class="form-control" id="timeSelect" value="{{i.appointment_start_time.time}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
                     </div>
 
                     <div class="col-md-6 mb-2">
                         <label for="timeSelect1" class="form-label">End Time {{i.appointment_end_time.time}}</label>
-                        <input type="time" class="form-control" id="timeSelect1" value="{{i.appointment_end_time.time}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00"/>
+                        <input type="time" name="end_time" class="form-control" id="timeSelect1" value="{{i.appointment_end_time.time}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
                     </div>
-                    <div class="col-md-12 mb-2">
-                        <button class="btn w-100 btn-primary" id="appointmentSearch">Create</button>
-                    </div>
+
                 </div>
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                </button>
-                <button type="button" class="btn btn-warning">Edit</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-warning">Edit</button>
             </div>
         </div>
+         </form>
     </div>
 </div>
 {% endfor %}
 
-<!-- Delete Modal -->
+    <!-- Delete Modal -->
 {% for i in order %}
-<div class="modal fade" id={{i.uuid}} tabindex="-1" aria-labelledby={{i.uuid}} aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div
+      class="modal fade"
+      id=select{{forloop.counter}}
+      tabindex="-1"
+      aria-labelledby=select{{forloop.counter}}
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id={{i.uuid}}>Cancel</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">Do you want to cancel this appointment?</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a href="{% url 'cancel-appointment' i.uuid %}" type="button" class="btn btn-danger">Cancel
-                    {{i.uuid}}</a>
-            </div>
+          <div class="modal-header">
+            <h5 class="modal-title" id=select{{ forloop.counter }}>Cancel {{i.uuid}}</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Do you want to cancel this appointment?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <a  href="{% url 'cancel-appointment' i.uuid %}"  type="button" class="btn btn-danger">Cancel</a>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 {% endfor %}
-{% endblock %}
+  {% endblock %}

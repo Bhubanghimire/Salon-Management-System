@@ -202,7 +202,7 @@
                       <td>Rs. {{i.price}}</td>
                       <td class="d-flex flex-row gap-2">
                         <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=#{{i.category}}{{i.name}}>Edit</a>
-                        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=#{{i.name}}-{{i.category}}>Delete</a>
+                        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=#delete{{ forloop.counter }}>Delete</a>
                       </td>
                     </tr>
                   {% endfor %}
@@ -279,11 +279,11 @@
 {% endfor %}
     <!-- Delete Modal -->
 {% for i in service %}
-    <div class="modal fade" id={{i.name}}-{{i.category}} tabindex="-1" aria-labelledby={{i.name}}-{{i.category}} aria-hidden="true">
+    <div class="modal fade" id=delete{{ forloop.counter }} tabindex="-1" aria-labelledby=delete{{ forloop.counter }} aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id={{i.name}}>
+            <h5 class="modal-title" id=delete{{ forloop.counter }}>
               Delete The Service
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

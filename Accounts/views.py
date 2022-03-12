@@ -1,4 +1,5 @@
 from Common.models import ConfigChoice
+from Order.models import Order
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout,login
 from datetime import datetime
@@ -8,7 +9,7 @@ from django.shortcuts import render, redirect
 from .models import ContactUs
 from django.contrib.auth import get_user_model
 User = get_user_model()
-
+import datetime
 
 
 def SignupView(request):
@@ -98,4 +99,10 @@ def ProfileUpdateView(request):
     return render(request, 'home/update_profile.html')
 
 def UserAppointments(request):
-    return render(request, 'home/update_profile.html')
+    today = datetime.datetime.now()
+    order = Order.objects.filter(user=request.user,appointment_start_time__date=today)
+    context = {
+        "today": today.date(),
+        "order": order
+    }
+    return render(request, "home/appointments.html", context=context)

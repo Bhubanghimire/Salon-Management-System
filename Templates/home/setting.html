@@ -37,15 +37,15 @@
                         aria-labelledby="sidebarItemTwo" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                {% if user.user_type__name == "Super User" %}
+                                {% if user.user_type.name == "Super User" %}
                                     <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
-                                {% elif user.user_type__name == "Super User" %}
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
+                                {% elif user.user_type.name == "Staff User" %}
                                     <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                 {% else %}
                                     <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                  {% endif %}
 
 
@@ -54,9 +54,9 @@
                 </div>
                 <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItem">
-                        {% if user.user_type__name == "Super User" %}
+                        {% if user.user_type.name == "Super User" %}
                                     <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="#">Services</a>
-                                {% elif user.user_type__name == "Super User" %}
+                                {% elif user.user_type.name == "Super User" %}
                                    <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="#">Services</a>
                                 {% else %}
                                     <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="#">Services</a>
@@ -201,7 +201,8 @@
                       <td>Rs. {{i.price}}</td>
                       <td class="d-flex flex-row gap-2">
                         <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=#{{i.category}}{{i.name}}>Edit</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=#{{i.name}}>Delete</button>
+                        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=#{{i.name}}-{{i.category}}>Delete</a>
+                          {{i.name}}{{i.category}}
                       </td>
                     </tr>
                   {% endfor %}
@@ -259,7 +260,7 @@
               <div class="mb-3">
                 <label for="service_price_edit" class="form-label">Service Price</label>
                 <div class="input-group mb-3">
-                  <span class="input-group-text">Rs. </span>
+                  <span class="input-group-text">Rs.</span>
                   <input type="number" name="serviceprice" step="0.01" class="form-control" aria-label="Amount in Rupees" id="service_price_edit" aria-describedby="amountEditHelp" placeholder="Service Price (in Rupees)" value={{i.price}} required/>
                 </div>
               </div>
@@ -278,11 +279,11 @@
 {% endfor %}
     <!-- Delete Modal -->
 {% for i in service %}
-    <div class="modal fade" id={{i.name}} tabindex="-1" aria-labelledby="serviceModal1DeleteLabel" aria-hidden="true">
+    <div class="modal fade" id={{i.name}}-{{i.category}} tabindex="-1" aria-labelledby={{i.name}}-{{i.category}} aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id={{i.name}}1>
+            <h5 class="modal-title" id={{i.name}}>
               Delete The Service
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

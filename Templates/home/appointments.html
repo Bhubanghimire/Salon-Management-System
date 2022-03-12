@@ -53,13 +53,13 @@
                             <ul class="list-group list-group-flush">
                                 {% if user.user_type__name == "Super User" %}
                                     <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                 {% elif user.user_type__name == "Super User" %}
                                     <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                 {% else %}
                                     <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                  {% endif %}
 
 
@@ -68,7 +68,7 @@
                 </div>
                 <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItemTwo">
-                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="">Services</a>
+                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" >Services</a>
                     </h2>
                 </div>
             </div>
@@ -113,35 +113,21 @@
                   </div>
                   <div class="col-md-2 mb-2">
                     <button
-                      class="btn w-100 btn-primary"
-                      id="appointmentSearch"
-                    >
-                      Search
+                      class="btn w-100 btn-primary" id="appointmentSearch">Search
                     </button>
                   </div>
                 </div>
               </div>
             </div>
             <div class="card mt-4">
-              <div class="card-header">Appointments for 9 March 2022</div>
+              <div class="card-header">Appointments for {{today}}</div>
               <div class="card-body">
                 <div class="accordion" id="appointmentsAccordion">
                   <div class="accordion-item">
-                    <h2
-                      class="accordion-header"
-                      id="appointmentsAccordion-appointmentOne"
-                    >
-                      <button
-                        class="accordion-button collapsed fs-5 fw-bold"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#appointmentsAccordion-collapseOne"
-                        aria-expanded="true"
-                        aria-controls="appointmentsAccordion-collapseOne"
-                      >
+                    <h2 class="accordion-header" id="appointmentsAccordion-appointmentOne">
+                      <button class="accordion-button collapsed fs-5 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#appointmentsAccordion-collapseOne" aria-expanded="true" aria-controls="appointmentsAccordion-collapseOne">
                         11:00 AM - 12:00 PM with Er. Bhuwan Ghimire
-                        <div class="px-2">
-                          <span class="ml-4 badge bg-success">Completed</span>
+                        <div class="px-2"><span class="ml-4 badge bg-success">Completed</span>
                         </div>
                       </button>
                     </h2>

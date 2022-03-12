@@ -32,7 +32,7 @@ def CreateAppointment(request):
         end_date = start_date+timedelta(hours=service.duration)
 
         order=Order.objects.filter(service=service)
-        check=order.filter(appointment_start_time__lte=start_date,appointment_end_time__lte=end_date)
+        check=order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date)
 
         if check:
             context["error"] = "Sorry Service is not available at this time."

@@ -43,13 +43,13 @@
                             <ul class="list-group list-group-flush">
                                 {% if user.user_type__name == "Super User" %}
                                     <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                 {% elif user.user_type__name == "Super User" %}
                                     <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                 {% else %}
                                     <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
-                                    <a class="list-group-item" href="{% url 'superadmin-newappointments' %}">Create New</a>
+                                    <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                  {% endif %}
 
 

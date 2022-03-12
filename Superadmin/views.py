@@ -1,3 +1,5 @@
+import datetime
+from Order.models import Order
 from django.shortcuts import render, redirect
 from Common.models import ConfigChoice,ConfigCategory
 from Services.models import Service
@@ -10,7 +12,7 @@ def SettingView(request):
     category = ConfigChoice.objects.filter(category__name="Service",is_active=True)
     service = Service.objects.filter(is_deleted=False)
     user = User.objects.filter(user_type__name="Staff User")
-    print(user)
+    # print(u.user_type__name)
 
     context = {
         "service":service,
@@ -46,7 +48,7 @@ def DeleteService(request,id):
     service = Service.objects.get(id=id)
     service.is_deleted = True
     service.save()
-    return redirect("profile")
+    return redirect("admin-dashboard")
 
 
 def EditService(request,id):
@@ -62,14 +64,12 @@ def EditService(request,id):
         service.price =price
         service.category = ConfigChoice.objects.get(id=category)
     service.save()
-    return redirect("profile")
+    return redirect("admin-dashboard")
 
 def AddService(request):
     categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
     service = Service.objects.filter(is_deleted=False)
     user = User.objects.filter(user_type__name="Staff User")
-    print(user)
-
 
     if request.method == 'POST' and request.FILES['image']:
         service_name = request.POST.get("servicename")
@@ -89,21 +89,16 @@ def AddService(request):
             }
             return render(request, "home/setting.html", context=context)
 
-        return redirect("profile")
-    return redirect("profile")
+        return redirect("admin-dashboard")
+    return redirect("admin-dashboard")
 
 
 def SuperadminAppointments(request):
-    return render(request,"home/appointments.html")
-
-
-def Newappointment(request):
-    categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
-    service = Service.objects.filter(is_deleted=False)
-    user = User.objects.filter(user_type__name="Staff User")
+    today = datetime.datetime.now()
+    order = Order.objects.filter(appointment_start_time__gte=today)
     context = {
-        "service": service,
-        "users": user,
-        "category": categorys
+        "today":today.date(),
+        "order":order
     }
-    return render(request, "home/newappointments.html", context=context)
+    return render(request,"home/appointments.html",context=context)
+

@@ -8,7 +8,7 @@ urlpatterns = [
     path("service/<int:id>/edit/",EditService, name="edit-service"),
     path("add-service/",AddService,name='add-service'),
     path("all-appointments/", SuperadminAppointments,name="superadmin-appointments"),
-    path("user-list/", UserList,name="user-list"),
+    path("user-lists/", UserList,name="user-list"),
     path("staff-lists/", StaffList,name="staff-list"),
     path("inventory/", Inventory,name="inventory"),
     ]

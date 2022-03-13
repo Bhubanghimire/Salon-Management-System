@@ -69,14 +69,14 @@
                     </div>
                     <!-- Show this only to staffs -->
                     <!-- Start -->
-                    {% if user.user_type.name == "Staff User" %}
+                    {% if user_obj.user_type.name == "Staff User" or user_obj.user_type.name == "Super User" %}
                     <div class="row">
                       <div class="col-md-4 p-1">
                         <div class="bg-success text-white text-center rounded p-2">
                           <div class="fw-bold">
                             Daily Wage
                           </div>
-                          <div>Rs. {{user_obj.salary}}/30</div>
+                          <div>Rs.  {% widthratio user_obj.salary 30 1 %} </div>
                         </div>
                       </div>
                       <div class="col-md-4 p-1">
@@ -90,9 +90,9 @@
                       <div class="col-md-4 p-1">
                         <div class="bg-warning text-black text-center rounded p-2">
                           <div class="fw-bold">
-                            Total Earned
+                            On Leave ?
                           </div>
-                          <div>Rs. XXX</div>
+                          <div>{{user_obj.on_leave}}</div>
                         </div>
                       </div>
                     </div>

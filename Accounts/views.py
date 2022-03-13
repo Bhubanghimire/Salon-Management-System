@@ -108,19 +108,37 @@ def ProfileUpdateView(request, id):
     phone = request.POST.get("phone")
     address = request.POST.get("address")
     gender = request.POST.get("gender")
+    salary = request.POST.get("salary")
+    leave =request.POST.get("leave",None)
+    year = request.POST.get("year")
+    month = request.POST.get("month")
+    day = request.POST.get("day")
+    date=str(year)+"-"+str(month)+"-"+str(day)
 
+    print(request.POST)
     try:
         if request.method=="POST" and request.FILES['image']:
             image = request.FILES["image"]
             user.profile.delete()
             user.profile = image
             user.save()
-            user_obj.update(email=email,first_name=first_name,last_name=last_name,phone=phone,address=address,gender=gender)
+            user_obj.update(email=email,dob=date, first_name=first_name, last_name=last_name, phone=phone, address=address,gender=gender)
+            if salary:
+                user_obj.update(salary=salary)
+            if leave:
+                user_obj.update(on_leave=True)
+            else:
+                user_obj.update(on_leave=False)
             return redirect("main-profile", id=id)
 
     except Exception as e:
-        user_obj.update(email=email, first_name=first_name, last_name=last_name, phone=phone, address=address,
-                        gender=gender)
+        user_obj.update(email=email, dob=date,first_name=first_name, last_name=last_name, phone=phone, address=address,gender=gender)
+        if salary:
+            user_obj.update(salary=salary)
+        if leave:
+            user_obj.update(on_leave=True)
+        else:
+            user_obj.update(on_leave=False)
         return redirect("main-profile",id=id)
     else:
         return render(request, 'home/update_profile.html', {"user_obj":user})

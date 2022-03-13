@@ -121,6 +121,14 @@
                               <div class="fw-bold">Service:</div>
                               <div>{{i.service.name}}</div>
                             </div>
+                              <div class="d-flex flex-row gap-2">
+                              <div class="fw-bold">Payment Status:</div>
+                                  {% if i.payment_complete %}
+                                     <div>Paid</div>
+                                  {% else %}
+                                    <div>Not Paid</div>
+                                  {% endif %}
+                            </div>
                             <!-- And similar fields -->
                           </div>
                           <div class="my-auto">

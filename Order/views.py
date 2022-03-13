@@ -32,12 +32,13 @@ def CreateAppointment(request):
         end_date = start_date+timedelta(hours=service.duration)
 
         order=Order.objects.filter(service=service)
-        check=order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date)
+        specialist = User.objects.filter(service=service,on_leave=False)
+        check=order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date,specialist__in=specialist)
 
         if check:
             context["error"] = "Sorry Service is not available at this time."
             return render(request, 'home/newappointments.html',context=context)
-        Order.objects.create(user=request.user, status=status, service=service, specialist=request.user,
+        Order.objects.create(user=request.user, status=status, service=service, specialist=specialist.first(),
                              appointment_start_time=start_date, appointment_end_time=end_date)
         return redirect('superadmin-appointments')
 

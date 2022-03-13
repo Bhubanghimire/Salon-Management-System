@@ -17,6 +17,7 @@ class Order(models.Model):
     order_time = models.DateTimeField(auto_now_add=True)
     appointment_start_time = models.DateTimeField()
     appointment_end_time = models.DateTimeField()
+    payment_complete = models.BooleanField()
 
     def __str__(self):
         return str(self.user)

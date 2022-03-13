@@ -2,7 +2,7 @@ import datetime
 from Order.models import Order
 from django.shortcuts import render, redirect
 from Common.models import ConfigChoice,ConfigCategory
-from Services.models import Service
+from Services.models import Service, Product
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -119,3 +119,24 @@ def SuperadminAppointments(request):
     }
     return render(request,"home/appointments.html",context=context)
 
+def UserList(request):
+    print("bhuban")
+    user = User.objects.filter(user_type__name="Normal User")
+    context = {
+        "users": user
+    }
+    return render(request,'home/userlist.html',context=context)
+
+
+def StaffList(request):
+    print("bhuban")
+    user = User.objects.filter(user_type__name="Staff User")
+    context = {
+        "users": user
+    }
+    return render(request,'home/stafflist.html',context=context)
+
+def Inventory(request):
+    product = Product.objects.all()
+    type = ConfigChoice.objects.filter(category__name="Product")
+    return render(request, 'home/inventory.html',{"products":product,"type":type})

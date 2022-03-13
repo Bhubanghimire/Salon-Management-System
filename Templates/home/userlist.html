@@ -1,0 +1,75 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block body %}
+  <div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
+    <div class="container">
+      <div class="row justify-content-center w-100 g-4">
+        {% include '../sidebar.html' %}
+        <div class="col-md-8 overflow-scroll" style="height: 700px">
+          <div class="card">
+            <div class="card-header">User Details</div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="my-auto">
+                    <th scope="row">1</th>
+                    <td>Bhuwan Ghimire</td>
+                    <td>bhuwan@ghimire.com</td>
+                    <td>+9869696969</td>
+                    <td>Gay</td>
+                    <td class="d-flex flex-row gap-2">
+                      <a href="" class="btn btn-primary">
+                        View
+                      </a>
+                      <a href="" class="btn btn-warning">
+                        Edit
+                      </a>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#user1Delete">
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Delete Modal -->
+  <div class="modal fade" id="user1Delete" tabindex="-1" aria-labelledby="user1DeleteLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="user1EditLabel">
+            Delete Bhuwan Ghimire
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Do you want to delete Bhuwan Ghimire? He is probably gay.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

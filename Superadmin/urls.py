@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import SettingView,AddCategory,DeleteService, EditService,AddService,SuperadminAppointments
+from .views import SettingView,AddCategory,DeleteService, EditService,AddService,SuperadminAppointments,UserList,StaffList,Inventory
 
 urlpatterns = [
     path("configuration/", SettingView,name="admin-dashboard"),
@@ -8,4 +8,7 @@ urlpatterns = [
     path("service/<int:id>/edit/",EditService, name="edit-service"),
     path("add-service/",AddService,name='add-service'),
     path("all-appointments/", SuperadminAppointments,name="superadmin-appointments"),
+    path("user-list/", UserList,name="user-list"),
+    path("staff-list/", StaffList,name="staff-list"),
+    path("inventory/", Inventory,name="inventory"),
     ]

@@ -1,5 +1,146 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block body %}
-    comming soon
+
+    <div
+      class="vw-100 bg-white text-black"
+      style="padding-top: 10rem; padding-bottom: 5rem"
+    >
+      <div class="container">
+        <div class="row justify-content-center w-100 g-4">
+          {% include '../sidebar.html' %}
+          <div class="col-md-8 overflow-scroll" style="height: 700px">
+            <div class="card">
+              <div class="card-header">Profile - Bhuwan Ghimire</div>
+              <div class="card-body">
+                <div class="row align-items-center">
+                  <div
+                    class="col-md-4 p-4 d-flex flex-column gap-4 align-items-center"
+                  >
+                    <div class="d-flex flex-row justify-content-center w-75">
+                      <img src="{% static 'images/user-placeholder.jpg' %}" alt="User"
+                        class="rounded-circle img-thumbnail"
+                      />
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <div class="fw-bold fs-5">Bhuwan Ghimire</div>
+                      <div class="text-muted fs-6">bhuwan@ghimire.com</div>
+                    </div>
+                    <button class="btn btn-primary w-100">Edit Profile</button>
+                  </div>
+                  <div class="col-md-8 p-4 d-flex flex-column gap-2">
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <div class="fw-bold fs-5">Name:</div>
+                      </div>
+                      <div class="col-md-8">Bhuwan Ghimire</div>
+                    </div>
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <div class="fw-bold fs-5">Email:</div>
+                      </div>
+                      <div class="col-md-8">bhuwan@ghimire.com</div>
+                    </div>
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <div class="fw-bold fs-5">Phone:</div>
+                      </div>
+                      <div class="col-md-8">+9869696969</div>
+                    </div>
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <div class="fw-bold fs-5">Address:</div>
+                      </div>
+                      <div class="col-md-8">Thamel ko Kothi</div>
+                    </div>
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <div class="fw-bold fs-5">Gender:</div>
+                      </div>
+                      <div class="col-md-8">Gay</div>
+                    </div>
+                    <div class="row align-items-center">
+                      <div class="col-md-4">
+                        <div class="fw-bold fs-5">Date Of Birth:</div>
+                      </div>
+                      <div class="col-md-8">2069-69-69</div>
+                    </div>
+                    <!-- Show this only to staffs -->
+                    <!-- Start -->
+                    <div class="row">
+                      <div class="col-md-4 p-1">
+                        <div class="bg-success text-white text-center rounded p-2">
+                          <div class="fw-bold">
+                            Daily Wage
+                          </div>
+                          <div>Rs. XXX</div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 p-1">
+                        <div class="bg-danger text-white text-center rounded p-2">
+                          <div class="fw-bold">
+                            Monthly Salary
+                          </div>
+                          <div>Rs. XXX</div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 p-1">
+                        <div class="bg-warning text-black text-center rounded p-2">
+                          <div class="fw-bold">
+                            Total Earned
+                          </div>
+                          <div>Rs. XXX</div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Delete Modal -->
+    <div
+      class="modal fade"
+      id="user1Delete"
+      tabindex="-1"
+      aria-labelledby="user1DeleteLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="user1EditLabel">
+              Delete Bhuwan Ghimire
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Do you want to delete Bhuwan Ghimire? He is probably gay.
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button type="button" class="btn btn-danger">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 {% endblock %}

@@ -106,3 +106,6 @@ def UserAppointments(request):
         "order": order
     }
     return render(request, "home/appointments.html", context=context)
+
+def Makepayment(request):
+    return render(request, "home/payment.html")

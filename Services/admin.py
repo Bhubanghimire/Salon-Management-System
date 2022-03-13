@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Service, Gallery, Testimonials
+from .models import Service, Gallery, Testimonials, Product
 
 
 # Register your models here.
@@ -16,3 +16,8 @@ class GalleryAdmin(admin.ModelAdmin):
 @admin.register(Testimonials)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = ["id","user","message"]
+
+
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ["id","name","type","price","quantity"]

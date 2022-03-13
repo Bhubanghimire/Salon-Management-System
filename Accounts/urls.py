@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import SignupView,LoginView,Logout,Contact, AboutDetail,ProfileView,ProfileUpdateView,UserAppointments
+from .views import SignupView,LoginView,Logout,Contact, AboutDetail,ProfileView,ProfileUpdateView,UserAppointments,Makepayment
 
 urlpatterns = [
     path('signup/',SignupView, name='signup'),
@@ -10,5 +10,6 @@ urlpatterns = [
     path("profile/id/details/",ProfileView,name="main-profile"),
     path("profile/id/edit/",ProfileUpdateView,name="profile-update"),
     path("all-appointments/", UserAppointments, name="user-appointments"),
+    path("payment/", Makepayment, name="make-payment"),
 
 ]

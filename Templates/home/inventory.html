@@ -1,0 +1,217 @@
+{% extends '../base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem"
+     xmlns="http://www.w3.org/1999/html">
+    <div class="container">
+      <div class="row justify-content-center w-100 g-4">
+        {% include '../sidebar.html' %}
+        <div class="col-md-8 overflow-scroll" style="height: 700px">
+          <div class="card">
+            <div class="card-header">Add Product Type</div>
+            <div class="card-body">
+              <form method="POST" action="{% url 'product_type' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="product_type_title" class="form-label">Product Type Title</label>
+                  <input type="text" name="type" class="form-control" id="product_type_title" aria-describedby="productTypeTitleHelp"
+                    placeholder="Enter Product Type Title" />
+                  <div id="productTypeTitleHelp" class="form-text text-danger">
+                    {% if type_error %}
+                      {{type_error}}
+                    {% endif %}
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">+ Add</button>
+              </form>
+            </div>
+          </div>
+          <div class="card mt-4">
+            <div class="card-header">Add Product</div>
+            <div class="card-body">
+              <form action="{% url 'add-product' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="product_name" class="form-label">Product Name</label>
+                    <input type="text" name="name" class="form-control" id="product_name" aria-describedby="productNameHelp"
+                      placeholder="Enter Product Name" required/>
+                    <div id="productNameHelp" class="form-text text-danger">
+                      <!-- Add error text here -->
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="category" class="form-label">Product Type</label>
+                     <select id="category" name="type" class="form-control" list="categoryOptionss"  for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label" required>
+                  {% for j in type %}
+                    <option value={{j.id}}>{{j.name}}</option>
+                  {% endfor %}
+
+                </select>
+                    <div id="productTypeHelp" class="form-text text-danger">
+                      <!-- Add error text here -->
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">Rs. </span>
+                      <input type="number" name="price" step="0.01" class="form-control" aria-label="Amount in Rupees" id="price" aria-describedby="priceHelp" placeholder="Price (in Rupees)" required/>
+                      <div id="priceHelp" class="form-text text-danger">
+                        <!-- Add error text here -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="quantity" class="form-label">Quantity</label>
+                      <input type="number" name="quantity" class="form-control" aria-label="Quatity"
+                        id="quantity" aria-describedby="quantityHelp" placeholder="Quantity" required/>
+                      <div id="quantityHelp" class="form-text text-danger">
+                        <!-- Add error text here -->
+                      </div>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-primary">+ Add</button>
+              </form>
+            </div>
+          </div>
+          <div class="card mt-4">
+            <div class="card-header">Product List</div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Product #</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Product Type</th>
+                    <th scope="col">Full Price</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                {% for i in products %}
+                <tbody>
+                  <tr class="my-auto">
+                    <th scope="row">{{i.id}}</th>
+                    <td>{{i.name}}</td>
+                    <td>{{i.type}}</td>
+                    <td class="fw-bold">Rs. {{i.price}}</td>
+                    <td>{{i.quantity}}</td>
+                    <td class="d-flex flex-row gap-2">
+                      <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                        data-bs-target=#edit{{ forloop.counter }}>
+                        Edit
+                      </button>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target=#delete{{ forloop.counter }}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Edit Modal -->
+{% for i in products %}
+  <div class="modal fade" id=edit{{ forloop.counter }} tabindex="-1" aria-labelledby=edit{{ forloop.counter }}
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <form action="{% url 'product-edit' i.id %}" method="POST">
+          {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id=edit{{ forloop.counter }}>
+            Edit Product {{i.name}}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="product_name" class="form-label">Product Name</label>
+                <input type="text" name="name" class="form-control" id="product_name" aria-describedby="productNameHelp"
+                  placeholder="Enter Product Name" value="{{i.name}}" required/>
+                <div id="productNameHelp" class="form-text text-danger">
+                  <!-- Add error text here -->
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="product_type" class="form-label">Product Type</label>
+                 <select id="category" name="type" class="form-control" list="categoryOptionss"  for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
+                  <option value={{i.type.id}}>{{i.type.name}}</option>
+                   {% for j in type %}
+                    <option value={{j.id}}>{{j.name}}</option>
+                  {% endfor %}
+
+                </select>
+                <div id="productTypeHelp" class="form-text text-danger">
+                  <!-- Add error text here -->
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="price" class="form-label">Price</label>
+                <div class="input-group mb-3">
+                  <span class="input-group-text">Rs. </span>
+                  <input type="number" name="price" step="0.01" class="form-control" aria-label="Amount in Rupees"
+                    id="price" aria-describedby="priceHelp" placeholder="Price (in Rupees)" value="{{i.price}}" />
+                  <div id="priceHelp" class="form-text text-danger">
+                    <!-- Add error text here -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                  <input type="number" name="quantity" class="form-control" aria-label="Quatity"
+                    id="quantity" aria-describedby="quantityHelp" placeholder="Quantity" value="{{i.quantity}}" />
+                  <div id="quantityHelp" class="form-text text-danger">
+                    <!-- Add error text here -->
+                  </div>
+              </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-warning">Edit</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+  <!-- Delete Modal -->
+{% for i in products %}
+  <div class="modal fade" id=delete{{ forloop.counter }} tabindex="-1" aria-labelledby="product1DeleteLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id=delete{{ forloop.counter }}">
+            Delete Product Name 1
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Do you want to delete Product Name 1?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <a href="{% url 'product-delete' i.id %}" type="button" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}

@@ -11,7 +11,6 @@ class Service(models.Model):
     description = models.TextField()
     icon = models.ImageField(upload_to="service")
     price = models.DecimalField(max_digits=10, decimal_places=3)
-    specialist = models.ForeignKey(User, on_delete=models.CASCADE)
     duration = models.IntegerField()
     is_deleted = models.BooleanField(default=False)
 
@@ -25,3 +24,9 @@ class Gallery(models.Model):
 class Testimonials(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     message = models.TextField()
+
+class Product(models.Model):
+    name = models.CharField(max_length=250)
+    type = models.ForeignKey(ConfigChoice, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=7, decimal_places=2)
+    quantity = models.IntegerField()

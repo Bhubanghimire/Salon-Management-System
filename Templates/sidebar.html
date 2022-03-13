@@ -14,8 +14,8 @@
                         aria-labelledby="sidebarItemOne" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                <a class="list-group-item" href="{% url 'main-profile'  %}">View Profile</a>
-                                <a class="list-group-item" href="{% url 'profile-update'  %}">Edit Profile</a>
+                                <a class="list-group-item" href="{% url 'main-profile' user.id %}">View Profile</a>
+                                <a class="list-group-item" href="{% url 'profile-update' user.id %}">Edit Profile</a>
                             </ul>
                         </div>
                     </div>

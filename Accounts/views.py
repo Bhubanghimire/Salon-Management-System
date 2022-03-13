@@ -92,10 +92,11 @@ def AboutDetail(request):
     staff = User.objects.filter(Q(user_type__name="Staff User") | Q(user_type__name="Super User"))
     return render(request, 'home/about.html',{"staff":staff})
 
-def ProfileView(request):
-    return render(request, 'home/profile.html')
+def ProfileView(request, id):
+    user = User.objects.get(id=id)
+    return render(request, 'home/profile.html', {"user_obj":user})
 
-def ProfileUpdateView(request):
+def ProfileUpdateView(request, id):
     return render(request, 'home/update_profile.html')
 
 def UserAppointments(request):

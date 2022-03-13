@@ -41,6 +41,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     user_type = models.ForeignKey(ConfigChoice, on_delete=models.CASCADE,null=True)
     description = models.TextField(default="")
+    salary = models.DecimalField(max_digits=7, decimal_places=2, default=0.0)
 
     objects = MyUserManager()
     USERNAME_FIELD = 'email'
@@ -78,6 +79,7 @@ class ContactUs(models.Model):
     phone = models.CharField(max_length=20)
     email = models.CharField(max_length=250)
     message = models.TextField()
+
 
 class About(models.Model):
     logo = models.ImageField(upload_to="about")

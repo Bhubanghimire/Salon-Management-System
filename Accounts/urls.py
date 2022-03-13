@@ -7,8 +7,8 @@ urlpatterns = [
     path('logout/',Logout, name="logout"),
     path("contactus/",Contact,name="contactus"),
     path("about/",AboutDetail,name="about"),
-    path("profile/id/details/",ProfileView,name="main-profile"),
-    path("profile/id/edit/",ProfileUpdateView,name="profile-update"),
+    path("profile/<int:id>/details/",ProfileView,name="main-profile"),
+    path("profile/<int:id>/edit/",ProfileUpdateView,name="profile-update"),
     path("all-appointments/", UserAppointments, name="user-appointments"),
     path("payment/", Makepayment, name="make-payment"),
 

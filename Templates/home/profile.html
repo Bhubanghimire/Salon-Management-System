@@ -23,29 +23,29 @@
                       />
                     </div>
                     <div class="d-flex flex-column justify-content-center">
-                      <div class="fw-bold fs-5">Bhuwan Ghimire</div>
-                      <div class="text-muted fs-6">bhuwan@ghimire.com</div>
+                      <div class="fw-bold fs-5">{{user_obj}}</div>
+                      <div class="text-muted fs-6">{{user.email}}</div>
                     </div>
-                    <button class="btn btn-primary w-100">Edit Profile</button>
+                    <a href="{% url 'profile-update' user_obj.id %}" class="btn btn-primary w-100">Edit Profile</a>
                   </div>
                   <div class="col-md-8 p-4 d-flex flex-column gap-2">
                     <div class="row align-items-center">
                       <div class="col-md-4">
                         <div class="fw-bold fs-5">Name:</div>
                       </div>
-                      <div class="col-md-8">Bhuwan Ghimire</div>
+                      <div class="col-md-8">{{user_obj.first_name}} {{user_obj.last_name}}</div>
                     </div>
                     <div class="row align-items-center">
                       <div class="col-md-4">
                         <div class="fw-bold fs-5">Email:</div>
                       </div>
-                      <div class="col-md-8">bhuwan@ghimire.com</div>
+                      <div class="col-md-8">{{user_obj.email}}</div>
                     </div>
                     <div class="row align-items-center">
                       <div class="col-md-4">
                         <div class="fw-bold fs-5">Phone:</div>
                       </div>
-                      <div class="col-md-8">+9869696969</div>
+                      <div class="col-md-8">{{user.phone}}</div>
                     </div>
                     <div class="row align-items-center">
                       <div class="col-md-4">
@@ -57,23 +57,24 @@
                       <div class="col-md-4">
                         <div class="fw-bold fs-5">Gender:</div>
                       </div>
-                      <div class="col-md-8">Gay</div>
+                      <div class="col-md-8">{{user.gender}}</div>
                     </div>
                     <div class="row align-items-center">
                       <div class="col-md-4">
                         <div class="fw-bold fs-5">Date Of Birth:</div>
                       </div>
-                      <div class="col-md-8">2069-69-69</div>
+                      <div class="col-md-8">{{user.dob}}</div>
                     </div>
                     <!-- Show this only to staffs -->
                     <!-- Start -->
+                    {% if user.user_type.name == "Staff User" %}
                     <div class="row">
                       <div class="col-md-4 p-1">
                         <div class="bg-success text-white text-center rounded p-2">
                           <div class="fw-bold">
                             Daily Wage
                           </div>
-                          <div>Rs. XXX</div>
+                          <div>Rs. {{user_obj.salary}}/30</div>
                         </div>
                       </div>
                       <div class="col-md-4 p-1">
@@ -81,7 +82,7 @@
                           <div class="fw-bold">
                             Monthly Salary
                           </div>
-                          <div>Rs. XXX</div>
+                          <div>Rs. {{user_obj.salary}}</div>
                         </div>
                       </div>
                       <div class="col-md-4 p-1">
@@ -93,6 +94,7 @@
                         </div>
                       </div>
                     </div>
+                    {% endif %}
                     <!-- End -->
                   </div>
                 </div>

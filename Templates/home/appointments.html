@@ -34,8 +34,8 @@
                         aria-labelledby="sidebarItemOne" data-bs-parent="#sidebarAccordion">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                <a class="list-group-item" href="{% url 'main-profile'  %}">View Profile</a>
-                                <a class="list-group-item" href="{% url 'profile-update'  %}">Edit Profile</a>
+                                <a class="list-group-item" href="{% url 'main-profile' user.id %}">View Profile</a>
+                                <a class="list-group-item" href="{% url 'profile-update' user.id  %}">Edit Profile</a>
                             </ul>
                         </div>
                     </div>
@@ -170,13 +170,13 @@
                             <div class="d-flex flex-row gap-2">
                               <div class="fw-bold">Client Name:</div>
                                                     <div>
-                                                        <a href="{% url 'main-profile' %}">{{i.user}}</a>
+                                                        <a href="{% url 'main-profile' i.user.id %}">{{i.user}}</a>
                                                     </div>
                             </div>
                             <div class="d-flex flex-row gap-2">
                               <div class="fw-bold">Staff Name:</div>
                               <div>
-                                <a href="{% url 'main-profile' %}">{{i.specialist}}</a>
+                                <a href="{% url 'main-profile' i.specialist.id %}">{{i.specialist}}</a>
                               </div>
                             </div>
                             <div class="d-flex flex-row gap-2">

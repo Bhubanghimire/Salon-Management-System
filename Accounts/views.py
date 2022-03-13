@@ -88,16 +88,43 @@ def Contact(request):
     else:
         return render(request, 'home/contactus.html')
 
+
 def AboutDetail(request):
     staff = User.objects.filter(Q(user_type__name="Staff User") | Q(user_type__name="Super User"))
     return render(request, 'home/about.html',{"staff":staff})
+
 
 def ProfileView(request, id):
     user = User.objects.get(id=id)
     return render(request, 'home/profile.html', {"user_obj":user})
 
+
 def ProfileUpdateView(request, id):
-    return render(request, 'home/update_profile.html')
+    user_obj = User.objects.filter(id=id)
+    user= user_obj.first()
+    first_name = request.POST.get("first_name")
+    last_name = request.POST.get("last_name")
+    email = request.POST.get("email")
+    phone = request.POST.get("phone")
+    address = request.POST.get("address")
+    gender = request.POST.get("gender")
+
+    try:
+        if request.method=="POST" and request.FILES['image']:
+            image = request.FILES["image"]
+            user.profile.delete()
+            user.profile = image
+            user.save()
+            user_obj.update(email=email,first_name=first_name,last_name=last_name,phone=phone,address=address,gender=gender)
+            return redirect("main-profile", id=id)
+
+    except Exception as e:
+        user_obj.update(email=email, first_name=first_name, last_name=last_name, phone=phone, address=address,
+                        gender=gender)
+        return redirect("main-profile",id=id)
+    else:
+        return render(request, 'home/update_profile.html', {"user_obj":user})
+
 
 def UserAppointments(request):
     today = datetime.datetime.now()
@@ -107,6 +134,7 @@ def UserAppointments(request):
         "order": order
     }
     return render(request, "home/appointments.html", context=context)
+
 
 def Makepayment(request):
     return render(request, "home/payment.html")

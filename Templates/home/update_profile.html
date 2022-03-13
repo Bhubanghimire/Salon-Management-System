@@ -1,222 +1,246 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block body %}
+<div>
+    <form action="{% url 'profile-update' user_obj.id %}" enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+    <div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
+        <div class="container">
+            <div class="row justify-content-center w-100 g-4">
+                {% include '../sidebar.html' %}
+                <div class="col-md-8 overflow-scroll" style="height: 700px">
+                    <div class="card">
+                        <div class="card-header">Edit Profile - {{user_obj.first_name}} {{user_obj.last_name}}</div>
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div
+                                        class="col-md-4 p-4 d-flex flex-column gap-4 align-items-center"
+                                >
+                                    <div class="d-flex flex-row justify-content-center w-75">
+                                        {% if user_obj.profile %}
+                                            <img src={{user_obj.profile.url}} alt="User" class="rounded-circle img-thumbnail" />
+                                        {% else %}
+                                            <img src="{% static 'images/user-placeholder.jpg' %}" alt="User" class="rounded-circle img-thumbnail" />
+                                        {% endif %}
+                                    </div>
+                                    <input type="file" name="image" class="form-control" id="profile_picture" value="{{user_obj.profile.url}}" accept="image/*" aria-describedby="categoryTitleHelo" placeholder="Enter Category image" hidden/>
 
-    <div
-      class="vw-100 bg-white text-black"
-      style="padding-top: 10rem; padding-bottom: 5rem"
-    >
-      <div class="container">
-        <div class="row justify-content-center w-100 g-4">
-          {% include '../sidebar.html' %}
-          <div class="col-md-8 overflow-scroll" style="height: 700px">
-            <div class="card">
-              <div class="card-header">Edit Profile - Bhuwan Ghimire</div>
-              <div class="card-body">
-                <div class="row align-items-center">
-                  <div
-                    class="col-md-4 p-4 d-flex flex-column gap-4 align-items-center"
-                  >
-                    <div class="d-flex flex-row justify-content-center w-75">
-                      <img
-                        src="{% static 'images/user-placeholder.jpg' %}"
-                        alt="User"
-                        class="rounded-circle img-thumbnail"
-                      />
-                    </div>
-                    <input id="profile_picture" type="file" hidden />
-                    <div class="d-flex flex-column gap-1 w-100">
-                      <button
-                      class="btn btn-primary w-100"
-                      onclick="document.getElementById('profile_picture').click();"
-                    >
-                      Change Photo
-                    </button>
-                    <button
-                      type="button"
-                      class="btn btn-success w-100"
-                      data-bs-toggle="modal"
-                      data-bs-target="#userProfileSave"
-                    >
-                      Save Changes
-                    </button>
-                    </div>
-                  </div>
-                  <div class="col-md-8 p-4 d-flex flex-column gap-2">
-                    <div class="row align-items-center">
-                      <div class="col-md-4">
-                        <div class="fw-bold fs-5">Name:</div>
-                      </div>
-                      <div class="col-md-8">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="full_name"
-                          aria-describedby="fullNameHelp"
-                          placeholder="Enter Full Name"
-                          value="Bhuwan Ghimire"
-                        />
-                        <div id="fullNameHelp" class="form-text text-danger">
-                          <!-- Add error text here -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row align-items-center">
-                      <div class="col-md-4">
-                        <div class="fw-bold fs-5">Email:</div>
-                      </div>
-                      <div class="col-md-8">
-                        <input
-                          type="email"
-                          class="form-control"
-                          id="email_address"
-                          aria-describedby="emailAddressHelp"
-                          placeholder="Enter Email Address"
-                          value="bhuwan@ghimire.com"
-                        />
-                        <div
-                          id="emailAddressHelp"
-                          class="form-text text-danger"
-                        >
-                          <!-- Add error text here -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row align-items-center">
-                      <div class="col-md-4">
-                        <div class="fw-bold fs-5">Phone:</div>
-                      </div>
-                      <div class="col-md-8">
-                        <input
-                          type="number"
-                          class="form-control"
-                          id="phone_number"
-                          aria-describedby="phoneNumberHelp"
-                          placeholder="Enter Phone Number"
-                          value="9869696969"
-                        />
-                        <div id="phoneNumberHelp" class="form-text text-danger">
-                          <!-- Add error text here -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row align-items-center">
-                      <div class="col-md-4">
-                        <div class="fw-bold fs-5">Address:</div>
-                      </div>
-                      <div class="col-md-8">
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="address"
-                          aria-describedby="addressHelp"
-                          placeholder="Enter Address"
-                          value="Thamel ko Kothi"
-                        />
-                        <div id="addressHelp" class="form-text text-danger">
-                          <!-- Add error text here -->
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row align-items-center">
-                      <div class="col-md-4">
-                        <div class="fw-bold fs-5">Gender:</div>
-                      </div>
-                      <div class="col-md-8">
-                        <select
-                          id="gender"
-                          class="form-select"
-                          aria-label="Select Gender"
-                        >
-                          <option disabled>Select Gender</option>
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                          <option value="gay" selected>Gay</option>
-                          <option value="other">Other</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="row align-items-center">
-                      <div class="col-md-4">
-                        <div class="fw-bold fs-5">Date Of Birth:</div>
-                      </div>
-                      <div class="col-md-8">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <input
-                              class="form-control"
-                              list="yearDatalist"
-                              id="selectYear"
-                              placeholder="Year"
-                            />
-                            <datalist id="yearDatalist"> </datalist>
-                          </div>
-                          <div class="col-md-5">
-                            <input
+                                    <div class="d-flex flex-column gap-1 w-100">
+                                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#userProfileSave" onclick="document.getElementById('profile_picture').click();" >
+                                            Change Photo
+                                        </button>
+                                        <button type="button" class="btn-success w-100" data-bs-toggle="modal" data-bs-target="#userProfileSave">
+                                            Save Changes
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 p-4 d-flex flex-column gap-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">First Name:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="full_name"
+                                                    name="first_name"
+                                                    aria-describedby="fullNameHelp"
+                                                    placeholder="Enter First Name"
+                                                    value="{{user_obj.first_name}}"
+                                            />
+                                            <div id="fullNameHelp" class="form-text text-danger">
+                                                <!-- Add error text here -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">Last Name:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="full_name"
+                                                    name="last_name"
+                                                    aria-describedby="fullNameHelp"
+                                                    placeholder="Enter Last Name"
+                                                    value="{{user_obj.last_name}}"
+                                            />
+                                            <div id="fullNameHelp" class="form-text text-danger">
+                                                <!-- Add error text here -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">Email:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input
+                                                    type="email"
+                                                    name="email"
+                                                    class="form-control"
+                                                    id="email_address"
+                                                    aria-describedby="emailAddressHelp"
+                                                    placeholder="Enter Email Address"
+                                                    value="{{user_obj.email}}"
+                                            />
+                                            <div
+                                                    id="emailAddressHelp"
+                                                    class="form-text text-danger"
+                                            >
+                                                <!-- Add error text here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">Phone:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    id="phone_number"
+                                                    name="phone"
+                                                    aria-describedby="phoneNumberHelp"
+                                                    placeholder="Enter Phone Number"
+                                                    value="{{user.phone}}"
+                                            />
+                                            <div id="phoneNumberHelp" class="form-text text-danger">
+                                                <!-- Add error text here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">Address:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="address"
+                                                    name="address"
+                                                    aria-describedby="addressHelp"
+                                                    placeholder="Enter Address"
+                                                    value="{{user_obj.address}}"
+                                            />
+                                            <div id="addressHelp" class="form-text text-danger">
+                                                <!-- Add error text here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">Gender:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select
+                                                    id="gender"
+                                                    name="gender"
+                                                    class="form-select"
+                                                    aria-label="Select Gender"
+                                            >
+                                                <option disabled>Select Gender</option>
+
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value=" ">Other</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">Date Of Birth:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input
+                                                            class="form-control"
+                                                            name="year"
+                                                            list="yearDatalist"
+                                                            id="selectYear"
+                                                            placeholder="Year"
+                                                            value="{{user_obj.dob.year}}"
+                                                    />
+                                                    <datalist id="yearDatalist"></datalist>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <input
                               class="form-control"
                               list="monthDatalist"
                               id="selectMonth"
+                              value="{{user_obj.dob.month}}"
                               placeholder="Month"
                             />
                             <datalist id="monthDatalist"> </datalist>
-                          </div>
-                          <div class="col-md-3">
-                            <input
-                              class="form-control"
-                              list="dateDatalist"
-                              id="selectDate"
-                              placeholder="Date"
-                            />
-                            <datalist id="dateDatalist"> </datalist>
-                          </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input
+                                                            class="form-control"
+                                                            list="dateDatalist"
+                                                            name="day"
+                                                            id="selectDate"
+                                                            placeholder="Date"
+                                                            value="{{user_obj.dob.day}}"
+                                                    />
+                                                    <datalist id="dateDatalist"></datalist>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
     <!-- Modals -->
     <!-- Delete Modal -->
     <div
-      class="modal fade"
-      id="userProfileSave"
-      tabindex="-1"
-      aria-labelledby="userProfileSaveLabel"
-      aria-hidden="true"
+            class="modal fade"
+            id="userProfileSave"
+            tabindex="-1"
+            aria-labelledby="userProfileSaveLabel"
+            aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="userProfileSaveLabel">
-              Confirm Changes
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            Do you want to update values on your profile?
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-success">Save</button>
-          </div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="userProfileSaveLabel">
+                        Confirm Changes
+                    </h5>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to update values on your profile?
+                </div>
+                <div class="modal-footer">
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+    </form>
+</div>
 {% endblock %}

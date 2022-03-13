@@ -78,6 +78,5 @@ if (selectAppointmetYear) {
 }
 
 // Time to select in time selector
-
 var currentTime = now.toISOString().substring(11,16);
 document.getElementById('timeSelect').value = currentTime;

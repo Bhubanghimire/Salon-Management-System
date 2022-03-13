@@ -33,7 +33,7 @@ def AddCategory(request):
         description = request.POST.get("description")
         print(description)
         try:
-            ConfigChoice.objects.create(name=category,image=image,description=description, category=ConfigCategory.objects.get(name="Service"),is_active=True)
+            ConfigChoice.objects.create(name=category,image=image,deSuperadminAppointmentsscription=description, category=ConfigCategory.objects.get(name="Service"),is_active=True)
         except Exception as e:
             error = "Category Already exists."
         context = {
@@ -129,8 +129,8 @@ def UserList(request):
 
 
 def StaffList(request):
-    print("bhuban")
-    user = User.objects.filter(user_type__name="Staff User")
+    user = User.objects.filter(user_type__name="Staff User", is_delete=False)
+    print(user)
     context = {
         "users": user
     }

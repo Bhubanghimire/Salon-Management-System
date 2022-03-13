@@ -9,6 +9,6 @@ urlpatterns = [
     path("add-service/",AddService,name='add-service'),
     path("all-appointments/", SuperadminAppointments,name="superadmin-appointments"),
     path("user-list/", UserList,name="user-list"),
-    path("staff-list/", StaffList,name="staff-list"),
+    path("staff-lists/", StaffList,name="staff-list"),
     path("inventory/", Inventory,name="inventory"),
     ]

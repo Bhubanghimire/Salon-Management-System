@@ -36,7 +36,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     phone = models.CharField(max_length=200)
     service = models.ForeignKey('Services.Service', on_delete=models.CASCADE, null=True)
     on_leave = models.BooleanField(default=False)
-    is_admin = models.BooleanField(default=False)
+    is_delete = models.BooleanField(default=False)
     position = models.CharField(max_length=250,default=" ")
     is_staff = models.BooleanField(default=False)
     user_type = models.ForeignKey(ConfigChoice, on_delete=models.CASCADE,null=True)

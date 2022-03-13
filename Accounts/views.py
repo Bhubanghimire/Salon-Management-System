@@ -138,3 +138,7 @@ def UserAppointments(request):
 
 def Makepayment(request):
     return render(request, "home/payment.html")
+
+def DeleteUser(request,id):
+    User.objects.filter(id=id).update(is_delete=True)
+    return redirect("staff-list")

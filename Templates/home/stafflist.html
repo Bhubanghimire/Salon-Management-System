@@ -16,30 +16,32 @@
                     <th scope="col">Name</th>
                     <th scope="col">Daily Wage</th>
                     <th scope="col">Monthly Salary</th>
-                    <th scope="col">Total Earned</th>
+                    <th scope="col">On Leave</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
+                {% for i in users %}
                   <tr class="my-auto">
-                    <th scope="row">1</th>
-                    <td>Bhuwan Ghimire</td>
-                    <td>Rs. 420</td>
-                    <td>Rs. 42069</td>
-                    <td>Rs. 69420</td>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ i.first_name }} {{i.last_name}}</td>
+                    <td>Rs. {% widthratio i.salary 30 1 %} </td>
+                    <td>Rs. {{i.salary }} </td>
+                    <td>{{i.on_leave}}</td>
                     <td class="d-flex flex-row gap-2">
-                      <a href="" class="btn btn-primary">
+                      <a href="{% url 'main-profile' i.id %}" class="btn btn-primary">
                         View
                       </a>
-                      <a href="" class="btn btn-warning">
+                      <a href="{% url 'profile-update' i.id %}" class="btn btn-warning">
                         Edit
                       </a>
                       <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                        data-bs-target="#user1Delete">
+                        data-bs-target=#delete{{ forloop.counter }}>
                         Delete
                       </button>
                     </td>
                   </tr>
+                {% endfor %}
                 </tbody>
               </table>
             </div>
@@ -51,24 +53,26 @@
 
   <!-- Modals -->
   <!-- Delete Modal -->
-  <div class="modal fade" id="user1Delete" tabindex="-1" aria-labelledby="user1DeleteLabel"
+{% for i in users %}
+  <div class="modal fade" id=delete{{ forloop.counter }} tabindex="-1" aria-labelledby=delete{{ forloop.counter }}
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="user1EditLabel">
-            Delete Bhuwan Ghimire
+          <h5 class="modal-title" id=delete{{ forloop.counter }}>
+            Delete {{i.first_name}} {{i.last_name}}
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">Do you want to delete Bhuwan Ghimire? He is probably gay.</div>
+        <div class="modal-body">Do you want to delete {{i.first_name}} {{i.last_name}}? He is probably {{i.gender}}.</div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-danger">Delete</button>
+          <a href="{% url 'user-delete' i.id %}" type="button" class="btn btn-danger">Delete</a>
         </div>
       </div>
     </div>
   </div>
+{% endfor %}
 {% endblock %}

@@ -50,12 +50,36 @@
                 {% if user.user_type.name == "Super User" %}
                 <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItem">
-                        <a href="{% url 'admin-dashboard' %}" class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" >Services</a>
+                        <a href="{% url 'admin-dashboard' %}" class="accordion-body collapsed w-100 fw-normal" style="text-decoration:none;position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: color .15s" >Services</a>
                     </h2>
                 </div>
                  <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItemFour">
-                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="{% url 'staff-list' %}">
+                        <a class="accordion-body collapsed w-100 fw-normal" style="text-decoration:none;position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: color .15s" href="{% url 'staff-list' %}">
                             <!-- Show this only for admins -->
                             Staffs
                         </a>
@@ -63,7 +87,19 @@
                 </div>
                  <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItemThree">
-                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="{% url 'user-list' %}">
+                        <a class="accordion-body collapsed w-100 fw-normal" style="text-decoration:none;position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: color .15s" href="{% url 'user-list' %}">
                             <!-- Show this only for admins -->
                             User
                         </a>
@@ -72,7 +108,19 @@
 
                  <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItemFive">
-                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="{% url 'inventory' %}">
+                        <a class="accordion-body collapsed w-100 fw-normal" style="text-decoration:none;position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: color .15s" href="{% url 'inventory' %}">
                             <!-- Show this only for admins -->
                            Inventory
                         </a>
@@ -83,7 +131,19 @@
                 {% if user.user_type.name == "Normal User" %}
                  <div class="list-group-item accordion-item">
                     <h2 class="accordion-header" id="sidebarItemSix">
-                        <a class="accordion-button collapsed w-100 fw-normal" style="text-decoration:none;" href="{% url 'make-payment' %}">
+                        <a class="accordion-body collapsed w-100 fw-normal" style="text-decoration:none;position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: color .15s" href="{% url 'make-payment' %}">
                             <!-- Show this only for admins -->
                             Make Payment
                         </a>

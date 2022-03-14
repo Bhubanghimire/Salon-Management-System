@@ -39,7 +39,7 @@ def CreateAppointment(request):
             context["error"] = "Sorry Service is not available at this time."
             return render(request, 'home/newappointments.html',context=context)
         Order.objects.create(user=request.user, status=status, service=service, specialist=specialist.first(),
-                             appointment_start_time=start_date, appointment_end_time=end_date)
+                             appointment_start_time=start_date, appointment_end_time=end_date,payment_complete=False)
         return redirect('superadmin-appointments')
 
     else:

@@ -1,120 +1,117 @@
 {% extends '../base.html' %}
 {% load static %}
 {% block body %}
-  <div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
+<div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
     <div class="container">
 
-      <div class="row">
+        <div class="row">
 
-        <div class="col-md-7">
-          <div class="card">
-            <div class="card-header">Booking Summary</div>
-            <div class="card-body d-flex flex-column gap-2">
-              <div class="row align-items-center">
-                <div class="col-md-3">
-                  <div class="fw-bold">Booked For:</div>
+            <div class="col-md-7">
+                <div class="card">
+                    <div class="card-header">Booking Summary</div>
+                    <div class="card-body d-flex flex-column gap-2">
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <div class="fw-bold">Booked For:</div>
+                            </div>
+                            <div class="col-md-9">{{user.first_name}} {{user.last_name}}</div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-3">
+                                <div class="fw-bold">Date and Time:</div>
+                            </div>
+                            <div class="col-md-9">{{today}}</div>
+                        </div>
+                        {% if orders %}
+                        <div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="fw-bold">Services:</div>
+                                </div>
+                                <div class="col-md-9">
+                                    {% for ord in orders %}
+                                    <div class="w-100 d-flex flex-row justify-content-between">
+                                        <div class="text-start d-flex flex-column">
+                                            <div class="fs-5 fw-bold">{{ord.service.name }}</div>
+                                            <div class="fs-6 text-muted">Cut, File, and Paint</div>
+                                        </div>
+                                        <div class="my-auto">
+                                            <div class="my-auto text-end fs-5 fw-bold">Rs. {{ord.service.price}}</div>
+                                        </div>
+                                    </div>
+                                     <hr/>
+                                    {% endfor %}
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center">
+                                <div class="col-md-3">
+                                    <div class="fw-bold">Payment Amount:</div>
+                                </div>
+                                <div class="col-md-9 fs-4 fw-bold">Rs. {{total}}</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
                 </div>
-                <div class="col-md-9">Bhuwan Ghimire</div>
-              </div>
-              <div class="row align-items-center">
-                <div class="col-md-3">
-                  <div class="fw-bold">Date and Time:</div>
-                </div>
-                <div class="col-md-9">2022 March 13 04:15 PM</div>
-              </div>
-              <div class="row">
-                <div class="col-md-3">
-                  <div class="fw-bold">Services:</div>
-                </div>
-                <div class="col-md-9">
-                  <div class="w-100 d-flex flex-row justify-content-between">
-                    <div class="text-start d-flex flex-column">
-                      <div class="fs-5 fw-bold">Manicure Express</div>
-                      <div class="fs-6 text-muted">Cut, File, and Paint</div>
-                    </div>
-                    <div class="my-auto">
-                      <div class="my-auto text-end fs-5 fw-bold">Rs. 500</div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="w-100 d-flex flex-row justify-content-between">
-                    <div class="text-start d-flex flex-column">
-                      <div class="fs-5 fw-bold">Nail Extension (Gel/Acrylic)</div>
-                      <div class="fs-6 text-muted">with Normal Paint</div>
-                    </div>
-                    <div class="my-auto">
-                      <div class="my-auto text-end fs-5 fw-bold">Rs. 2200</div>
-                    </div>
-                  </div>
-                  <hr />
-                  <div class="w-100 my-auto d-flex flex-row justify-content-between">
-                    <div class="text-start d-flex flex-column">
-                      <div class="fs-5 fw-bold">Manicure Permanent</div>
-                      <div class="fs-6 text-muted">Normal Paint</div>
-                    </div>
-                    <div class="my-auto">
-                      <div class="my-auto text-end fs-5 fw-bold">Rs. 1500</div>
-                    </div>
-                  </div>
-                  <hr />
-                </div>
-              </div>
-              <div class="row align-items-center">
-                <div class="col-md-3">
-                  <div class="fw-bold">Payment Amount:</div>
-                </div>
-                <div class="col-md-9 fs-4 fw-bold">Rs. 4200</div>
-              </div>
             </div>
-          </div>
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-header">Payment Method</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <div class="form-check d-flex align-items-center gap-4 justify-content-center">
+                                    <input class="form-check-input" type="radio" name="paymentMethodKhalti"
+                                           id="paymentMethodKhalti"
+                                           checked>
+                                    <label class="form-check-label text-center" for="paymentMethodKhalti">
+                                        <img src="https://seeklogo.com/images/K/khalti-logo-F0B049E67E-seeklogo.com.png"
+                                             class="w-50">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        {% if total %}
+                        dskfjas
+                            <div class="fs-4">Rs. {{total }}</div>
+                        {% else %}
+                            <div class="fs-4">Rs. 0.0</div>
+                        {% endif %}
+                        <div>
+                            <button class="btn btn-success">Proceed Payment</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-5">
-          <div class="card">
-            <div class="card-header">Payment Method</div>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-md-12 mb-3">
-                  <div class="form-check d-flex align-items-center gap-4 justify-content-center">
-                    <input class="form-check-input" type="radio" name="paymentMethodKhalti" id="paymentMethodKhalti"
-                      checked>
-                    <label class="form-check-label text-center" for="paymentMethodKhalti">
-                      <img src="https://seeklogo.com/images/K/khalti-logo-F0B049E67E-seeklogo.com.png" class="w-50">
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer d-flex justify-content-between">
-              <div class="fs-4">Rs. 4200</div>
-              <div>
-                <button class="btn btn-success">Proceed Payment</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Modals -->
     <!-- Delete Modal -->
     <div class="modal fade" id="user1Delete" tabindex="-1" aria-labelledby="user1DeleteLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="user1EditLabel">
-              Delete Bhuwan Ghimire
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">Do you want to delete Bhuwan Ghimire? He is probably gay.</div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              Close
-            </button>
-            <button type="button" class="btn btn-danger">Delete</button>
-          </div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="user1EditLabel">
+                        Delete Bhuwan Ghimire
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Do you want to delete Bhuwan Ghimire? He is probably gay.</div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 {% endblock %}

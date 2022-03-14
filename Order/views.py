@@ -51,7 +51,6 @@ def CancelAppointment(request, uuid):
     ord =Order.objects.filter(uuid=uuid).first()
     ord.status=ConfigChoice.objects.get(name="Cancelled")
     ord.save()
-    print(uuid)
     if request.user.user_type.name=="Super User":
         return redirect("superadmin-appointments")
     elif request.user.user_type.name=="Staff User":
@@ -74,9 +73,7 @@ def UpdateAppointment(request, uuid):
         start_time = request.POST.get('start_time')
         end_time= request.POST.get('start_time')
         date = request.POST.get("date")
-        print(start_time)
-        print(end_time)
-        print(date)
+
 
         appointment.specialist = user
         appointment.status = ConfigChoice.objects.get(id=status)
@@ -91,3 +88,17 @@ def UpdateAppointment(request, uuid):
         else:
             return redirect("user-appointments")
 
+from django.db.models import Sum
+
+
+@login_required(login_url="login")
+def Makepayment(request):
+    today = datetime.today()
+    orders = Order.objects.filter(appointment_start_time__gte=today,user=request.user, payment_complete=False)
+    total = orders.aggregate(Sum('service__price'))["service__price__sum"]
+    context = {
+        "orders":orders,
+        "total":total,
+        "today":today
+    }
+    return render(request, "home/payment.html", context=context)

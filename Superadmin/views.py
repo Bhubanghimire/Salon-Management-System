@@ -100,21 +100,22 @@ def SuperadminAppointments(request):
     today = datetime.datetime.now()
 
     if year and month and day:
-        print("Date")
+        today = str(month) + " " + str(day)+","+str(year)
         month = datetime.datetime.strptime(month, '%B').month
+
         order = Order.objects.filter(appointment_start_time__year=year,appointment_start_time__month=month,appointment_start_time__day=day)
     else:
+        today = today.date()
         order = Order.objects.filter(appointment_start_time__gte=today)
 
-    print(order)
-    print("bhuban")
+
     status = ConfigChoice.objects.filter(category__name="Status")
     user = User.objects.filter(user_type__name="Staff User")
 
     context = {
         "status": status,
         "users": user,
-        "today":today.date(),
+        "today":today,
         "order":order
     }
     return render(request,"home/appointments.html",context=context)

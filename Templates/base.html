@@ -7,6 +7,8 @@
     <title>Lookisimo</title>
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/main.css' %}" rel="stylesheet"/>
+        <script src="https://khalti.s3.ap-south-1.amazonaws.com/KPG/dist/2020.12.17.0.0.0/khalti-checkout.iffe.js"></script>
+
 
     {% block style %}
     {% endblock %}
@@ -121,6 +123,41 @@
 <script src="{% static 'js/footer.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}" defer></script>
     <script src="{% static 'js/scripts.js' %}"></script>
+<script>
+        var config = {
+            // replace the publicKey with yours
+            "publicKey": "live_secret_key_4422646882fe4739af0fc5ba9763648a",
+            "productIdentity": "1234567890",
+            "productName": "Dragon",
+            "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
+            "paymentPreference": [
+                "KHALTI",
+                "EBANKING",
+                "MOBILE_BANKING",
+                "CONNECT_IPS",
+                "SCT",
+                ],
+            "eventHandler": {
+                onSuccess (payload) {
+                    // hit merchant api for initiating verfication
+                    console.log(payload);
+                },
+                onError (error) {
+                    console.log(error);
+                },
+                onClose () {
+                    console.log('widget is closing');
+                }
+            }
+        };
+
+        var checkout = new KhaltiCheckout(config);
+        var btn = document.getElementById("payment-button");
+        btn.onclick = function () {
+            // minimum transaction amount must be 10, i.e 1000 in paisa.
+            checkout.show({amount: 1000});
+        }
+    </script>
 
 </body>
 </html>

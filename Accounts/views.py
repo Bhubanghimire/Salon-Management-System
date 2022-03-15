@@ -166,7 +166,7 @@ def UserAppointments(request):
         order = Order.objects.filter(user=request.user,appointment_start_time__date=today)
 
         context = {
-            "today": today.date(),
+            "today": today,
             "order": order
             }
     return render(request, "home/appointments.html", context=context)

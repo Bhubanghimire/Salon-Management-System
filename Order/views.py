@@ -33,6 +33,10 @@ def CreateAppointment(request):
 
         order=Order.objects.filter(service=service)
         specialist = User.objects.filter(service=service,on_leave=False)
+        if len(specialist)==0:
+            context["error"] = "Sorry Specialist is not available at this time."
+            return render(request, 'home/newappointments.html', context=context)
+        print(specialist)
         check=order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date,specialist__in=specialist)
 
         if check:
@@ -45,16 +49,27 @@ def CreateAppointment(request):
     else:
         return render(request, 'home/newappointments.html', context=context)
 
-
+from datetime import datetime, timezone
 @login_required(login_url="login")
 def CancelAppointment(request, uuid):
     ord =Order.objects.filter(uuid=uuid).first()
-    ord.status=ConfigChoice.objects.get(name="Cancelled")
-    ord.save()
+
     if request.user.user_type.name=="Super User":
+        ord.status = ConfigChoice.objects.get(name="Cancelled")
+        ord.save()
         return redirect("superadmin-appointments")
+
     elif request.user.user_type.name=="Staff User":
+        now = datetime.now(timezone.utc)
+        order_time = ord.order_time
+        diff = now-order_time
+        hrs = diff.days * 24 + diff.seconds / 3600.0
+
+        if hrs<24:
+            ord.status = ConfigChoice.objects.get(name="Cancelled")
+            ord.save()
         return redirect("staff-appointments")
+
     else:
         return redirect("user-appointments")
 
@@ -96,6 +111,7 @@ def Makepayment(request):
     today = datetime.today()
     orders = Order.objects.filter(appointment_start_time__gte=today,user=request.user, payment_complete=False)
     total = orders.aggregate(Sum('service__price'))["service__price__sum"]
+    orders.update(payment_complete=True)
     context = {
         "orders":orders,
         "total":total,

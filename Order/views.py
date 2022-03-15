@@ -129,6 +129,8 @@ def PaymentComplete(request):
     today = datetime.today()
     orders = Order.objects.filter(appointment_start_time__gte=today, user=request.user, payment_complete=False)
     orders.update(payment_complete=True)
+    return redirect("make-payment")
+
     if request.user.user_type.name == "Super User":
         return redirect("superadmin-appointments")
     elif request.user.user_type.name == "Staff User":

@@ -131,9 +131,3 @@ def PaymentComplete(request):
     orders.update(payment_complete=True)
     return redirect("make-payment")
 
-    if request.user.user_type.name == "Super User":
-        return redirect("superadmin-appointments")
-    elif request.user.user_type.name == "Staff User":
-        return redirect("staff-appointments")
-    else:
-        return redirect("user-appointments")

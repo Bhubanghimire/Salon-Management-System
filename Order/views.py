@@ -109,11 +109,11 @@ from django.db.models import Sum
 @login_required(login_url="login")
 def Makepayment(request):
     today = datetime.today()
-    orders = Order.objects.filter(appointment_start_time__gte=today,user=request.user, payment_complete=False)
-    total = orders.aggregate(Sum('service__price'))["service__price__sum"]
-    orders.update(payment_complete=True)
+    orders1 = Order.objects.filter(appointment_start_time__gte=today,user=request.user, payment_complete=False)
+    total = orders1.aggregate(Sum('service__price'))["service__price__sum"]
+
     context = {
-        "orders":orders,
+        "orders":orders1,
         "total":total,
         "today":today
     }

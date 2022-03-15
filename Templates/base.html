@@ -126,8 +126,8 @@
 <script>
         var config = {
             // replace the publicKey with yours
-            "publicKey": "live_secret_key_4422646882fe4739af0fc5ba9763648a",
-            "productIdentity": "1234567890",
+            "publicKey": "test_public_key_3ccd85ac24764f9081d6b8c546724d58",
+            "productIdentity": "12345678",
             "productName": "Dragon",
             "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
             "paymentPreference": [
@@ -155,7 +155,6 @@
         var btn = document.getElementById("payment-button");
         btn.onclick = function () {
             // minimum transaction amount must be 10, i.e 1000 in paisa.
-            checkout.show({amount: 1000});
         }
     </script>
 

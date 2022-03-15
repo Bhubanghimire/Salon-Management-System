@@ -14,6 +14,9 @@ class Service(models.Model):
     duration = models.IntegerField()
     is_deleted = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.name
+
 
 class Gallery(models.Model):
     title = models.CharField(max_length=250)

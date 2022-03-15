@@ -26,13 +26,20 @@ def SignupView(request):
         address = request.POST.get("address")
         phone = request.POST.get("phone")
         gender = request.POST.get("gender")
-        month = datetime.strptime(month, '%B').month
-        password2 = request.POST.get("confirm_password")
-        dob = datetime(year=int(year), month=month, day=int(day))
 
-        print(gender)
-        print(role)
-        print("data received")
+
+        if month.isnumeric():
+            month = int(month)
+
+        elif isinstance(month, str):
+            month = datetime.datetime.strptime(month, '%B').month
+        else:
+            error = "Enter valid Month."
+            return render(request, 'home/signup.html', {"error": error, "user_type": user_type})
+        password2 = request.POST.get("confirm_password")
+        dob = datetime.datetime(year=int(year), month=month, day=int(day))
+
+
         test= User.objects.filter(email=email).first()
         if test:
             error = "User Already Exists."
@@ -40,7 +47,7 @@ def SignupView(request):
             return render(request, 'home/signup.html', {"error": error, "user_type":user_type})
 
         if password1 == password2:
-            user = User.objects.create_user(email=email,password=password1, first_name=first_name,last_name=last_name, user_type=ConfigChoice.objects.get(id=int(role)),address=address,phone=phone,dob=dob,gender=gender)
+            user = User.objects.create_user(email=email,profile="Static/images/user-placeholder.jpg",password=password1, first_name=first_name,last_name=last_name, user_type=ConfigChoice.objects.get(id=int(role)),address=address,phone=phone,dob=dob,gender=gender)
             auth_login(request, user)
             return redirect('home')
         else:

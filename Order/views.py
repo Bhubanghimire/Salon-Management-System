@@ -30,13 +30,17 @@ def CreateAppointment(request):
         date=str(year)+'-'+str(month)+"-"+str(date)+"T"+str(time)+":00"
         start_date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
         end_date = start_date+timedelta(hours=service.duration)
+        print(service)
 
         order=Order.objects.filter(service=service)
-        specialist = User.objects.filter(service=service,on_leave=False)
+        specialist = User.objects.filter(service=service.id,on_leave=False)
+
+        print(specialist)
+
         if len(specialist)==0:
             context["error"] = "Sorry Specialist is not available at this time."
             return render(request, 'home/newappointments.html', context=context)
-        print(specialist)
+
         check=order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date,specialist__in=specialist)
 
         if check:

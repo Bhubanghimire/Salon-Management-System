@@ -184,6 +184,36 @@
                                     </div>
 
                     {% endif %}
+                                    {% if user.user_type.name == "Staff User" %}
+
+                                     <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">On Leave:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            {% if user_obj.on_leave %}
+                                            <input
+                                                    type="checkbox"
+                                                    id="leave"
+                                                    name="leave"
+                                                    aria-describedby="fullNameHelp"
+                                                    placeholder="Enter First Name"
+                                                    checked
+                                            />
+                                            {% else %}
+                                            <input
+                                                    type="checkbox"
+                                                    id="leave"
+                                                    name="leave"
+                                                    aria-describedby="fullNameHelp"
+                                                    placeholder="Enter First Name"
+                                            />
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+
+                    {% endif %}
                                     <div class="row align-items-center">
                                         <div class="col-md-4">
                                             <div class="fw-bold fs-5">Gender:</div>

@@ -4,6 +4,7 @@ from Common.models import ConfigChoice
 from django.contrib.auth.decorators import login_required
 from Services.models import Service, User
 from datetime import datetime, timedelta
+from django.contrib import messages
 
 
 # Create your views here.
@@ -51,12 +52,15 @@ def CreateAppointment(request):
         print(check)
 
         if len(check)>0:
-            context["error"] = "Sorry Service is not available at this time."
-            return render(request, 'home/newappointments.html',context=context)
-        # else:
-        #     specialist = User.objects.filter(order__in=check)
-        #     print(specialist)
-        #     print("bhuban")
+            special_list=[]
+            for i in check:
+                special_list.append(i.specialist.id)
+
+            specialist= specialist.exclude(id__in=specialist)
+            if len(specialist)==0:
+                context["error"] = "Sorry Service is not available at this time."
+                return render(request, 'home/newappointments.html',context=context)
+
         Order.objects.create(user=request.user, status=status, service=service, specialist=specialist.first(),
                              appointment_start_time=start_date, appointment_end_time=end_date,payment_complete=False)
         return redirect('superadmin-appointments')
@@ -92,10 +96,10 @@ def CancelAppointment(request, uuid):
 def UpdateAppointment(request, uuid):
     if request.method == 'POST':
         appointment = Order.objects.get(uuid=uuid)
+        service = appointment.service
         staff = request.POST.get('staff')
         user = User.objects.get(id=staff)
         status = request.POST.get('status')
-
         year = request.POST.get('year')
         month = request.POST.get('month')
         if not month.isdigit():
@@ -105,8 +109,28 @@ def UpdateAppointment(request, uuid):
         date = request.POST.get("date")
 
 
-        appointment.specialist = user
+        specialist = user
         appointment.status = ConfigChoice.objects.get(id=status)
+        start_date = str(year) + '-' + str(month) + "-" + str(date) + "T" + str(start_time) + ":00"
+        end_date = str(year)+'-'+str(month)+"-"+str(date)+"T"+str(end_time)+":00"
+
+        order = Order.objects.filter(service=service)
+
+        test_case1 = order.filter(appointment_start_time__lte=start_date, appointment_end_time__gte=end_date,specialist=specialist)
+        test_case2 = order.filter(specialist=specialist, appointment_start_time__range=[start_date, end_date])
+        test_case3 = order.filter(specialist=specialist, appointment_end_time__range=[start_date, end_date])
+
+        check = test_case1 | test_case2 | test_case3
+        if len(check) > 0:
+            messages.error(request,  'Canot update sorry.')
+            if request.user.user_type.name == "Super User":
+                return redirect("superadmin-appointments")
+            elif request.user.user_type.name == "Staff User":
+                return redirect("staff-appointments")
+            else:
+                return redirect("user-appointments")
+
+        appointment.specialist = specialist
         appointment.appointment_start_time =str(year)+'-'+str(month)+"-"+str(date)+"T"+str(start_time)+":00"
         appointment.appointment_end_time =str(year)+'-'+str(month)+"-"+str(date)+"T"+str(end_time)+":00"
 

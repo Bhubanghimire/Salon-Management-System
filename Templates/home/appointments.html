@@ -78,6 +78,13 @@
             </div>
             <div class="card mt-4">
               <div class="card-header">Appointments for {{today}}</div>
+                  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
               <div class="card-body">
                 {% if order %}
                 {% for i in order %}
@@ -237,12 +244,12 @@
 
                     <div class="col-md-6 mb-2">
                         <label for="timeSelect" class="form-label">Start Time</label>
-                        <input type="time" name="start_time" class="form-control" id="timeSelect" value="{{i.appointment_start_time.time}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
+                        <input type="time" name="start_time" class="form-control" id="timeSelect" value="{{i.appointment_start_time.time|time:'h:i:s'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
                     </div>
 
                     <div class="col-md-6 mb-2">
-                        <label for="timeSelect1" class="form-label">End Time {{i.appointment_end_time.time}}</label>
-                        <input type="time" name="end_time" class="form-control" id="timeSelect1" value="{{i.appointment_end_time.time}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
+                        <label for="timeSelect2" class="form-label">End Time {{i.appointment_end_time.time}}</label>
+                        <input type="time" name="end_time" class="form-control" id="timeSelect2" value="{{i.appointment_end_time.time|time:'h:i:s'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
                     </div>
 
                 </div>

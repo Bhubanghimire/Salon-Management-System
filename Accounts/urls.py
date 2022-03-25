@@ -11,7 +11,7 @@ urlpatterns = [
     path("profile/<int:id>/edit/",ProfileUpdateView,name="profile-update"),
     path("all-appointments/", UserAppointments, name="user-appointments"),
     path("user/<int:id>/delete/", DeleteUser,name="user-delete"),
-    path("contact/", ContactList,name="contactus"),
+    path("contact/", ContactList,name="contactus-list"),
     path("contact/<int:id>/delete/", ContactDelete,name="contactus-delete"),
 
 ]

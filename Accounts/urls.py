@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import SignupView,LoginView,Logout,Contact, AboutDetail,ProfileView,ProfileUpdateView,UserAppointments,DeleteUser
+from .views import SignupView,LoginView,Logout,Contact, AboutDetail,ProfileView,ProfileUpdateView,UserAppointments,DeleteUser,ContactList,ContactDelete
 
 urlpatterns = [
     path('signup/',SignupView, name='signup'),
@@ -10,6 +10,8 @@ urlpatterns = [
     path("profile/<int:id>/details/",ProfileView,name="main-profile"),
     path("profile/<int:id>/edit/",ProfileUpdateView,name="profile-update"),
     path("all-appointments/", UserAppointments, name="user-appointments"),
-    path("user/<int:id>/delete/", DeleteUser,name="user-delete")
+    path("user/<int:id>/delete/", DeleteUser,name="user-delete"),
+    path("contact/", ContactList,name="contactus"),
+    path("contact/<int:id>/delete/", ContactDelete,name="contactus-delete"),
 
 ]

@@ -1,0 +1,71 @@
+{% extends '../base.html' %}
+{% load static %}
+{% block body %}
+  <div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
+    <div class="container">
+      <div class="row justify-content-center w-100 g-4">
+        {% include '../sidebar.html' %}
+        <div class="col-md-8 overflow-scroll" style="height: 700px">
+          <div class="card">
+            <div class="card-header">User Details</div>
+            <div class="card-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Full Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Message</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for i in contactus %}
+                  <tr class="my-auto">
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{i.full_name}}</td>
+                    <td>{{i.email }}</td>
+                    <td>{{i.phone}}</td>
+                    <td>{{i.message}}</td>
+                    <td class="d-flex flex-row gap-2">
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                        data-bs-target=#delete{{ forloop.counter }}>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <!-- Delete Modal -->
+{% for i in contactus %}
+  <div class="modal fade" id=delete{{ forloop.counter }} tabindex="-1" aria-labelledby=delete{{ forloop.counter }}
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id=delete{{ forloop.counter }}>
+            Delete {{i.first_name}} {{i.last_name}}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Do you want to delete {{i.first_name}} {{i.last_name}}? He is probably {{i.gender}}.</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <a href="{% url 'contactus-delete' i.id %}" type="button" class="btn btn-danger">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endblock %}

@@ -126,6 +126,27 @@
                         </a>
                     </h2>
                 </div>
+
+                <div class="list-group-item accordion-item">
+                    <h2 class="accordion-header" id="sidebarItemFive">
+                        <a class="accordion-body collapsed w-100 fw-normal" style="text-decoration:none;position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    background-color: #fff;
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: color .15s" href="{% url 'contactus' %}">
+                            <!-- Show this only for admins -->
+                           Contact Us
+                        </a>
+                    </h2>
+                </div>
                 {% endif %}
 
                 {% if user.user_type.name == "Normal User" %}

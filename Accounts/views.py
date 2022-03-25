@@ -198,3 +198,12 @@ def UserAppointments(request):
 def DeleteUser(request,id):
     User.objects.filter(id=id).update(is_delete=True)
     return redirect("staff-list")
+
+
+def ContactList(request):
+    contact = ContactUs.objects.all()
+    return render(request, "home/allcontactus.html", {"contactus":contact})
+
+def ContactDelete(request,id):
+    ContactUs.objects.filter(id=id).delete()
+    return redirect("contactus")

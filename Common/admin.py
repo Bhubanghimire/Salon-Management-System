@@ -9,5 +9,5 @@ class Category(admin.ModelAdmin):
 
 @admin.register(ConfigChoice)
 class ChoiceAdmin(admin.ModelAdmin):
-    list_display = ["id","name","description"]
+    list_display = ["id","name","category","description"]
     filter_display = ["is_active"]

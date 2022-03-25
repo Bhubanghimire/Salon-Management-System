@@ -164,7 +164,9 @@
                                         <div class="col-md-8">
                                      
                                            <select id="register_as" name="service" class="form-select" aria-label="Select Role" required>
+                                               {% if user_obj.service %}
                                            <option value={{user_obj.service.id}}>{{user_obj.service.name}}</option>
+                                               {% endif %}
                           {% for user in service %}
                             <option value={{user.id}}>{{user.name}}</option>
                           {% endfor %}

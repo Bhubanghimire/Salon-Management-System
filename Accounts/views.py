@@ -158,7 +158,8 @@ def ProfileUpdateView(request, id):
         
         return redirect("main-profile",id=id)
     else:
-        service = Service.objects.filter(is_deleted=False).exclude(id=user.service.id)
+        if user.service:
+            service = Service.objects.filter(is_deleted=False).exclude(id=user.service.id)
         return render(request, 'home/update_profile.html', {"user_obj":user,"service":service})
 
 

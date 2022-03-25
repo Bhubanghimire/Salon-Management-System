@@ -28,24 +28,35 @@ def CreateAppointment(request):
         date = request.POST.get('date')
         time = request.POST.get("time")
         date=str(year)+'-'+str(month)+"-"+str(date)+"T"+str(time)+":00"
+        print(date)
         start_date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
+        print(start_date)
+        print("bhuban")
         end_date = start_date+timedelta(hours=service.duration)
         print(service)
 
         order=Order.objects.filter(service=service)
         specialist = User.objects.filter(service=service.id,on_leave=False)
 
-        print(specialist)
 
         if len(specialist)==0:
             context["error"] = "Sorry Specialist is not available at this time."
             return render(request, 'home/newappointments.html', context=context)
 
-        check=order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date,specialist__in=specialist)
+        test_case1 = order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date,specialist__in=specialist)
+        test_case2 = order.filter(specialist__in=specialist, appointment_start_time__range=[start_date, end_date])
+        test_case3 = order.filter(specialist__in=specialist, appointment_end_time__range=[start_date, end_date])
 
-        if check:
+        check = test_case1 | test_case2 | test_case3
+        print(check)
+
+        if len(check)>0:
             context["error"] = "Sorry Service is not available at this time."
             return render(request, 'home/newappointments.html',context=context)
+        # else:
+        #     specialist = User.objects.filter(order__in=check)
+        #     print(specialist)
+        #     print("bhuban")
         Order.objects.create(user=request.user, status=status, service=service, specialist=specialist.first(),
                              appointment_start_time=start_date, appointment_end_time=end_date,payment_complete=False)
         return redirect('superadmin-appointments')

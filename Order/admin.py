@@ -4,7 +4,7 @@ from .models import Order,Invoice
 # Register your models here.
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ["uuid","user","status","specialist","appointment_end_time"]
+    list_display = ["uuid","user","status","specialist","appointment_start_time","appointment_end_time"]
 
 @admin.register(Invoice)
 class InvoiceAdmin(admin.ModelAdmin):

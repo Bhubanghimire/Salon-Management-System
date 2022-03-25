@@ -7,13 +7,14 @@ from django.contrib.auth import login as auth_login
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from .models import ContactUs
+from Services.models import Service
 from django.contrib.auth import get_user_model
 User = get_user_model()
 import datetime
 
 
 def SignupView(request):
-    user_type = ConfigChoice.objects.filter(category__name="User Type")
+    user_type = ConfigChoice.objects.filter(category__name="User Type").exclude(name="Super User")
     if request.method == 'POST':
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
@@ -117,12 +118,12 @@ def ProfileUpdateView(request, id):
     gender = request.POST.get("gender")
     salary = request.POST.get("salary")
     leave =request.POST.get("leave",None)
+    service = request.POST.get("service",None)
     year = request.POST.get("year")
     month = request.POST.get("month")
     day = request.POST.get("day")
     date=str(year)+"-"+str(month)+"-"+str(day)
 
-    print(request.POST)
     try:
         if request.method=="POST" and request.FILES['image']:
             image = request.FILES["image"]
@@ -136,6 +137,10 @@ def ProfileUpdateView(request, id):
                 user_obj.update(on_leave=True)
             else:
                 user_obj.update(on_leave=False)
+            
+            if service:
+                user_obj.update(service = Service.objects.get(id=service))
+            
             return redirect("main-profile", id=id)
 
     except Exception as e:
@@ -146,9 +151,15 @@ def ProfileUpdateView(request, id):
             user_obj.update(on_leave=True)
         else:
             user_obj.update(on_leave=False)
+
+        if service:
+            user_obj.update(service = Service.objects.get(id=service))
+
+        
         return redirect("main-profile",id=id)
     else:
-        return render(request, 'home/update_profile.html', {"user_obj":user})
+        service = Service.objects.filter(is_deleted=False).exclude(id=user.service.id)
+        return render(request, 'home/update_profile.html', {"user_obj":user,"service":service})
 
 
 def UserAppointments(request):
@@ -161,9 +172,13 @@ def UserAppointments(request):
     if year and month and day:
         today = str(month) + " " + str(day) + "," + str(year)
         month = datetime.datetime.strptime(month, '%B').month
+        print(today)
+        print(month)
+        print("search")
         order = Order.objects.filter(user=request.user, appointment_start_time__year=year,
                                      appointment_start_time__month=month,
                                      appointment_start_time__day=day)
+        print(order[0].appointment_start_time)
         context = {
             "today": today,
             "order": order

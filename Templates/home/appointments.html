@@ -22,7 +22,14 @@
           <div class="col-md-8 overflow-scroll" style="height: 700px">
             <div class="card">
               <div class="card-header">Search for Appointments</div>
-              <form method="GET" action="{% url 'superadmin-appointments' %}">
+               {% if user.user_type.name == "Super User" %}
+                    <form method="GET" action="{% url 'superadmin-appointments' %}">
+                {% elif user.user_type.name == "Staff User" %}
+                    <form method="GET" action="{% url 'staff-appointments' %}">
+                {% else %}
+                    <form method="GET" action="{% url 'user-appointments' %}">
+                {% endif %}
+              
               <div class="card-body">
 
                 <div class="row justify-content-center">

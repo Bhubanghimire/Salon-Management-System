@@ -33,13 +33,13 @@
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
                                 {% if user.user_type.name == "Super User" %}
-                                    <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'superadmin-appointments' %}">View all Appointments super</a>
                                     <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                 {% elif user.user_type.name == "Staff User" %}
-                                    <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'staff-appointments' %}">View all Appointments staff</a>
                                     <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                 {% else %}
-                                    <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments</a>
+                                    <a class="list-group-item" href="{% url 'user-appointments' %}">View all Appointments normal</a>
                                     <a class="list-group-item" href="{% url 'create-new' %}">Create New</a>
                                  {% endif %}
                             </ul>

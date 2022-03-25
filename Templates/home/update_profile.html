@@ -156,6 +156,23 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4">
+                                            <div class="fw-bold fs-5">service:</div>
+                                        </div>
+                                        <div class="col-md-8">
+                                     
+                                           <select id="register_as" name="service" class="form-select" aria-label="Select Role" required>
+                                           <option value={{user_obj.service.id}}>{{user_obj.service.name}}</option>
+                          {% for user in service %}
+                            <option value={{user.id}}>{{user.name}}</option>
+                          {% endfor %}
+                        </select>
+
+                                        </div>
+
+
                                      <div class="row align-items-center">
                                         <div class="col-md-4">
                                             <div class="fw-bold fs-5">On Leave:</div>

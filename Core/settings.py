@@ -124,6 +124,10 @@ LANGUAGE_CODE = 'en-us'
 
 USE_I18N = True
 
+
+TIME_ZONE = 'UTC'
+
+
 USE_TZ = False
 # TIME_INPUT_FORMATS = ['%I:%M %p',]
 

@@ -248,8 +248,8 @@
                     </div>
 
                     <div class="col-md-6 mb-2">
-                        <label for="timeSelect2" class="form-label">End Time {{i.appointment_end_time.time}}</label>
-                        <input type="time" name="end_time" class="form-control" id="timeSelect2" value="{{i.appointment_end_time.time|time:'h:i:s'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
+                        <label for="timeSelect2" class="form-label">End Time</label>
+                        <input type="time" name="end_time" class="form-control" id="timeSelect2" value="{{i.appointment_end_time.time|time:'H:i:s'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
                     </div>
 
                 </div>

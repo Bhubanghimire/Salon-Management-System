@@ -9,7 +9,7 @@ User = get_user_model()
 
 @login_required(login_url="login")
 def SettingView(request):
-    category = ConfigChoice.objects.filter(category__name="Service",is_active=True)
+    category = ConfigChoice.objects.filter(category__name="Service")
     service = Service.objects.filter(is_deleted=False)
     user = User.objects.filter(user_type__name="Staff User")
     # print(u.user_type__name)

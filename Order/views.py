@@ -47,9 +47,7 @@ def CreateAppointment(request):
         test_case1 = order.filter(appointment_start_time__lte=start_date,appointment_end_time__gte=end_date,specialist__in=specialist)
         test_case2 = order.filter(specialist__in=specialist, appointment_start_time__range=[start_date, end_date])
         test_case3 = order.filter(specialist__in=specialist, appointment_end_time__range=[start_date, end_date])
-
         check = test_case1 | test_case2 | test_case3
-        print(check)
 
         if len(check)>0:
             special_list=[]

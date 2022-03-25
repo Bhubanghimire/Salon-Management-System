@@ -22,19 +22,3 @@ class Order(models.Model):
     def __str__(self):
         return str(self.user)
 
-
-# Create your models here.
-class Invoice(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    invoice_number = models.IntegerField(unique=True, auto_created=True, validators=[
-        MinValueValidator(1000),
-        MaxValueValidator(99999999)], )
-    invoice_amount = models.DecimalField(max_digits=7, decimal_places=2)
-    invoice_date = models.DateField(auto_now_add=True)
-    tax = models.DecimalField(max_digits=7, decimal_places=2)
-    discount = models.DecimalField(max_digits=7, decimal_places=2, default=0.0)
-    total_amount = models.DecimalField(max_digits=7, decimal_places=2)
-    payment_complete = models.BooleanField(default=False)
-
-    def __str__(self):
-        return str(self.order)

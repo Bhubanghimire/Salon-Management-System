@@ -75,16 +75,17 @@ def AddService(request):
         service_name = request.POST.get("servicename")
         description = request.POST.get("servicedescription")
         price = request.POST.get("serviceprice")
+        duration = request.POST.get("serviceduration")
         category = request.POST.get("category")
         user = request.POST.get("user")
         cover = request.FILES["image"]
         try:
-            Service.objects.create(specialist=User.objects.get(id=user),name=service_name,description=description,price=price,category=ConfigChoice.objects.get(id=category),icon=cover)
-        except Exception:
+            Service.objects.create(name=service_name,duration=int(duration),description=description,price=price,category=ConfigChoice.objects.get(id=category),icon=cover)
+        except Exception as e:
             context = {
                 "service": service,
                 "users": user,
-                "service_error":"Service Name Already Exists!",
+                "service_error":str(e),   #"Service Name Already Exists!",
                 "category": categorys
             }
             return render(request, "home/setting.html", context=context)

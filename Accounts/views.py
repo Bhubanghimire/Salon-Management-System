@@ -81,7 +81,6 @@ def Logout(request):
 
 
 def Contact(request):
-    print("start")
     if request.method == 'POST':
         full_name = request.POST.get('name')
         email = request.POST.get('email')
@@ -173,9 +172,6 @@ def UserAppointments(request):
     if year and month and day:
         today = str(month) + " " + str(day) + "," + str(year)
         month = datetime.datetime.strptime(month, '%B').month
-        print(today)
-        print(month)
-        print("search")
         order = Order.objects.filter(user=request.user, appointment_start_time__year=year,
                                      appointment_start_time__month=month,
                                      appointment_start_time__day=day)

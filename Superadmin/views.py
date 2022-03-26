@@ -12,7 +12,6 @@ def SettingView(request):
     category = ConfigChoice.objects.filter(category__name="Service")
     service = Service.objects.filter(is_deleted=False)
     user = User.objects.filter(user_type__name="Staff User")
-    # print(u.user_type__name)
 
     context = {
         "service":service,
@@ -29,9 +28,7 @@ def AddCategory(request):
         error = None
         category = request.POST.get("category")
         image = request.FILES["image"]
-        print(image)
         description = request.POST.get("description")
-        print(description)
         try:
             ConfigChoice.objects.create(name=category,image=image,description=description, category=ConfigCategory.objects.get(name="Service"),is_active=True)
         except Exception as e:
@@ -58,7 +55,6 @@ def EditService(request,id):
         description = request.POST.get("servicedescription")
         price = request.POST.get("serviceprice")
         category = request.POST.get("category")
-        print(category)
         service.name = service_name
         service.description = description
         service.price =price
@@ -122,7 +118,6 @@ def SuperadminAppointments(request):
     return render(request,"home/appointments.html",context=context)
 
 def UserList(request):
-    print("bhuban")
     user = User.objects.filter(user_type__name="Normal User")
     context = {
         "users": user
@@ -132,7 +127,6 @@ def UserList(request):
 
 def StaffList(request):
     user = User.objects.filter(user_type__name="Staff User", is_delete=False)
-    print(user)
     context = {
         "users": user
     }

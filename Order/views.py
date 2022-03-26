@@ -29,14 +29,10 @@ def CreateAppointment(request):
         date = request.POST.get('date')
         time = request.POST.get("time")
         date=str(year)+'-'+str(month)+"-"+str(date)+"T"+str(time)+":00"
-        print(date)
         start_date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
-        print(start_date)
-        print("bhuban")
         end_date = start_date+timedelta(hours=service.duration)
-        print(service)
 
-        order=Order.objects.filter(service=service)
+        order=Order.objects.filter(service=service).exclude(status__name="Cancelled")
         specialist = User.objects.filter(service=service.id,on_leave=False)
 
 
@@ -112,7 +108,7 @@ def UpdateAppointment(request, uuid):
         start_date = str(year) + '-' + str(month) + "-" + str(date) + "T" + str(start_time) + ":00"
         end_date = str(year)+'-'+str(month)+"-"+str(date)+"T"+str(end_time)+":00"
 
-        order = Order.objects.filter(service=service)
+        order = Order.objects.filter(service=service).exclude(status__name="Cancelled")
 
         test_case1 = order.filter(appointment_start_time__lte=start_date, appointment_end_time__gte=end_date,specialist=specialist)
         test_case2 = order.filter(specialist=specialist, appointment_start_time__range=[start_date, end_date])

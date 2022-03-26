@@ -33,9 +33,9 @@ def AddCategory(request):
         description = request.POST.get("description")
         print(description)
         try:
-            ConfigChoice.objects.create(name=category,image=image,deSuperadminAppointmentsscription=description, category=ConfigCategory.objects.get(name="Service"),is_active=True)
+            ConfigChoice.objects.create(name=category,image=image,description=description, category=ConfigCategory.objects.get(name="Service"),is_active=True)
         except Exception as e:
-            error = "Category Already exists."
+            error = "This Category Already Exists."
         context = {
             "error":error,
             "users":user,

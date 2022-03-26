@@ -120,16 +120,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'Asia/Kathmandu'
+TIME_ZONE = 'Asia/Kathmandu'
 
-USE_I18N = True
-
-
-TIME_ZONE = 'UTC'
-
+USE_I18N = False
 
 USE_TZ = False
-# TIME_INPUT_FORMATS = ['%I:%M %p',]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/

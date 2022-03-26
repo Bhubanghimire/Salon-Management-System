@@ -243,13 +243,13 @@
                     </div>
 
                     <div class="col-md-6 mb-2">
-                        <label for="timeSelect" class="form-label">Start Time</label>
-                        <input type="time" name="start_time" class="form-control" id="timeSelect" value="{{i.appointment_start_time.time|time:'h:i:s'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
+                        <label for="timeSelect3" class="form-label">Start Time:</label>
+                        <input type="time" name="start_time" class="form-control" id="timeSelect3" value="{{i.appointment_start_time|time:'H:i'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00:00" max="19:00:00" required/>
                     </div>
 
                     <div class="col-md-6 mb-2">
-                        <label for="timeSelect2" class="form-label">End Time</label>
-                        <input type="time" name="end_time" class="form-control" id="timeSelect2" value="{{i.appointment_end_time.time|time:'H:i:s'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00" max="19:00" required/>
+                        <label for="timeSelect2" class="form-label">End Time:</label>
+                        <input type="time" name="end_time" class="form-control" id="timeSelect2" value="{{i.appointment_end_time|time:'H:i'}}" aria-describedby="timeSelect_help" placeholder="Select time" min="10:00:00" max="19:00:00" required/>
                     </div>
 
                 </div>

@@ -120,7 +120,7 @@ def UpdateAppointment(request, uuid):
 
         check = test_case1 | test_case2 | test_case3
         if len(check) > 0:
-            messages.error(request,  'Canot update sorry.')
+            messages.error(request, 'Can not update sorry.')
             if request.user.user_type.name == "Super User":
                 return redirect("superadmin-appointments")
             elif request.user.user_type.name == "Staff User":

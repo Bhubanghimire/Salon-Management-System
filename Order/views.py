@@ -102,13 +102,15 @@ def UpdateAppointment(request, uuid):
         end_time= request.POST.get('start_time')
         date = request.POST.get("date")
 
-
         specialist = user
+        print(start_time)
+        print(end_time)
         appointment.status = ConfigChoice.objects.get(id=status)
         start_date = str(year) + '-' + str(month) + "-" + str(date) + "T" + str(start_time) + ":00"
         end_date = str(year)+'-'+str(month)+"-"+str(date)+"T"+str(end_time)+":00"
 
         order = Order.objects.filter(service=service).exclude(status__name="Cancelled")
+        order = order.exclude(uuid=uuid)
 
         test_case1 = order.filter(appointment_start_time__lte=start_date, appointment_end_time__gte=end_date,specialist=specialist)
         test_case2 = order.filter(specialist=specialist, appointment_start_time__range=[start_date, end_date])

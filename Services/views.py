@@ -22,7 +22,7 @@ def ServiceView(request):
     final_list=[]
     service = ConfigChoice.objects.filter(category__name="Service")
     for ser in service:
-        service = Service.objects.filter(category=ser)
+        service = Service.objects.filter(category=ser,is_deleted=False)
         json={
             "name":ser.name,
             "category":service

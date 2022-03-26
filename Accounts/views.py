@@ -179,7 +179,6 @@ def UserAppointments(request):
         order = Order.objects.filter(user=request.user, appointment_start_time__year=year,
                                      appointment_start_time__month=month,
                                      appointment_start_time__day=day)
-        print(order[0].appointment_start_time)
         context = {
             "today": today,
             "order": order

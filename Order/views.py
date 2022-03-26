@@ -89,6 +89,7 @@ def CancelAppointment(request, uuid):
 
 def UpdateAppointment(request, uuid):
     if request.method == 'POST':
+        print(request.POST)
         appointment = Order.objects.get(uuid=uuid)
         service = appointment.service
         staff = request.POST.get('staff')
@@ -98,13 +99,14 @@ def UpdateAppointment(request, uuid):
         month = request.POST.get('month')
         if not month.isdigit():
             month = datetime.strptime(month, '%B').month
-        start_time = request.POST.get('start_time')
-        end_time= request.POST.get('start_time')
+        start_time = request.POST.get('start_time_data')
+        end_time= request.POST.get('end_time_data')
         date = request.POST.get("date")
 
         specialist = user
         print(start_time)
         print(end_time)
+        print("bhuabn")
         appointment.status = ConfigChoice.objects.get(id=status)
         start_date = str(year) + '-' + str(month) + "-" + str(date) + "T" + str(start_time) + ":00"
         end_date = str(year)+'-'+str(month)+"-"+str(date)+"T"+str(end_time)+":00"

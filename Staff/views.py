@@ -17,7 +17,7 @@ def StaffAppointments(request):
                                      appointment_start_time__day=day)
     else:
         today = today.date()
-        order = Order.objects.filter(specialist=request.user, appointment_start_time__gte=today)
+        order = Order.objects.filter(specialist=request.user, appointment_start_time__date=today)
     context = {
         "today":today,
         "order":order

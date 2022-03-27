@@ -41,7 +41,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     user_type = models.ForeignKey(ConfigChoice, on_delete=models.CASCADE,null=True)
     description = models.TextField(default="")
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField()
     salary = models.DecimalField(max_digits=7, decimal_places=2, default=0.0)
 
     objects = MyUserManager()

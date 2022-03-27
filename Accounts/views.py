@@ -67,9 +67,8 @@ def SignupView(request):
             return render(request, 'home/signup.html', {"error": error, "user_type":user_type})
 
         if password1 == password2:
-            user = User.objects.create_user(email=email,profile="Static/images/user-placeholder.jpg",password=password1, first_name=first_name,last_name=last_name, user_type=ConfigChoice.objects.get(id=int(role)),address=address,phone=phone,dob=dob,gender=gender)
-            user.is_active = False
-            user.save()
+            user = User.objects.create_user(email=email,is_active=False, profile="Static/images/user-placeholder.jpg",password=password1, first_name=first_name,last_name=last_name, user_type=ConfigChoice.objects.get(id=int(role)),address=address,phone=phone,dob=dob,gender=gender)
+
             current_site = get_current_site(request)
             message = render_to_string('acc_active_email.html', {
                 'user': user,
@@ -108,7 +107,6 @@ def LoginView(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request,email=email, password=password)
-
 
         if user:
             if not user.is_active:

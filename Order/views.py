@@ -171,7 +171,7 @@ from django.db.models import Sum
 @login_required(login_url="login")
 def Makepayment(request):
     today = datetime.today()
-    orders1 = Order.objects.filter(appointment_start_time__gte=today,user=request.user, payment_complete=False)
+    orders1 = Order.objects.filter(appointment_start_time__gte=today,user=request.user,payment_complete=False).exclude(status__name="Cancelled")
     total = orders1.aggregate(Sum('service__price'))["service__price__sum"]
 
     context = {

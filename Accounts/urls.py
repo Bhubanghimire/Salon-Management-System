@@ -1,8 +1,11 @@
-from django.urls import path, include
-from .views import SignupView,LoginView,Logout,Contact, AboutDetail,ProfileView,ProfileUpdateView,UserAppointments,DeleteUser,ContactList,ContactDelete
+from django.urls import path, include, re_path
+# from django.conf.urls import re_path
+from .views import SignupView,LoginView,Logout,Contact, AboutDetail,ProfileView,ProfileUpdateView,UserAppointments,DeleteUser,ContactList,ContactDelete, activate
 
 urlpatterns = [
     path('signup/',SignupView, name='signup'),
+    path('activate/<uidb64>/<token>/',activate, name='activate'),
+
     path('login/', LoginView, name="login"),
     path('logout/',Logout, name="logout"),
     path("contactus/",Contact,name="contactus"),

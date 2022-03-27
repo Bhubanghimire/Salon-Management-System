@@ -149,6 +149,7 @@
                             <div
                               class="my-auto text-end fs-5 fw-bold d-flex gap-2"
                             >
+                                {% if user.user_type == "Super User" %}
                               <button
                                 type="button"
                                 class="btn btn-warning"
@@ -157,6 +158,8 @@
                               >
                                 Edit
                               </button>
+                                {% endif %}
+
                               <button
                                 type="button"
                                 class="btn btn-danger"

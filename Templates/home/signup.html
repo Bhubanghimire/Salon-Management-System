@@ -164,6 +164,8 @@
                   </div>
                   {% if error %}
                     <p style="color: red;">{{error}}</p>
+                  {% elif message %}
+                    <p style="color: white;">{{message}}</p>
                 {% endif %}
                   <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>

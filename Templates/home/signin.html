@@ -45,6 +45,8 @@ background-size: cover;
                 </form>
                  {% if results %}
                     <p style="color: red;">{{results}}</p>
+                  {% elif message %}
+                    <p style="color: white;">{{message}}</p>
                 {% endif %}
                 <span>Don't have an account yet? <a href="{% url 'signup' %}" class="text-black">Register Here</a></span>
               </div>

@@ -5,7 +5,7 @@ from .models import MyUser, Otp,ContactUs, About
 # Register your models here.
 @admin.register(MyUser)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ["id", 'first_name','last_name',"email",'user_type',"is_delete"]
+    list_display = ["id", 'first_name','last_name',"email","service",'user_type',"is_delete"]
     list_filter = ["user_type"]
 
 @admin.register(Otp)

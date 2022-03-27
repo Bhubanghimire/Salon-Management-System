@@ -57,7 +57,12 @@ def CreateAppointment(request):
 
         Order.objects.create(user=request.user, status=status, service=service, specialist=specialist.first(),
                              appointment_start_time=start_date, appointment_end_time=end_date,payment_complete=False)
-        return redirect('superadmin-appointments')
+        if request.user.user_type.name == "Super User":
+            return redirect("superadmin-appointments")
+        elif request.user.user_type.name == "Staff User":
+            return redirect("staff-appointments")
+        else:
+            return redirect("user-appointments")
 
     else:
         return render(request, 'home/newappointments.html', context=context)
@@ -106,6 +111,18 @@ def UpdateAppointment(request, uuid):
         appointment.status = ConfigChoice.objects.get(id=status)
         start_date = str(year) + '-' + str(month) + "-" + str(date) + "T" + str(start_time) + ":00"
         end_date = str(year)+'-'+str(month)+"-"+str(date)+"T"+str(end_time)+":00"
+
+        test1= datetime.strptime(start_date,'%Y-%m-%dT%H:%M:%S')
+        test2= datetime.strptime(end_date, '%Y-%m-%dT%H:%M:%S')
+        if test1>test2:
+            messages.error(request, 'Sorry Invalid time.')
+            if request.user.user_type.name == "Super User":
+                return redirect("superadmin-appointments")
+            elif request.user.user_type.name == "Staff User":
+                return redirect("staff-appointments")
+            else:
+                return redirect("user-appointments")
+
 
         order = Order.objects.filter(service=service).exclude(status__name="Cancelled")
         order = order.exclude(uuid=uuid)

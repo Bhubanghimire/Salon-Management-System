@@ -71,14 +71,14 @@ from datetime import datetime, timezone
 @login_required(login_url="login")
 def CancelAppointment(request, uuid):
     ord =Order.objects.filter(uuid=uuid).first()
-
+    print("cancelled called")
     if request.user.user_type.name=="Super User":
         ord.status = ConfigChoice.objects.get(name="Cancelled")
         ord.save()
         return redirect("superadmin-appointments")
 
     elif request.user.user_type.name=="Staff User":
-        now = datetime.now(timezone.utc)
+        now = datetime.now()
         order_time = ord.order_time
         diff = now-order_time
         hrs = diff.days * 24 + diff.seconds / 3600.0
@@ -86,9 +86,21 @@ def CancelAppointment(request, uuid):
         if hrs<24:
             ord.status = ConfigChoice.objects.get(name="Cancelled")
             ord.save()
+        else:
+            messages.error(request, 'Sorry cant cancelled long time.')
         return redirect("staff-appointments")
 
     else:
+        now = datetime.now()
+        order_time = ord.order_time
+        diff = now - order_time
+        hrs = diff.days * 24 + diff.seconds / 3600.0
+
+        if hrs < 24:
+            ord.status = ConfigChoice.objects.get(name="Cancelled")
+            ord.save()
+        else:
+            messages.error(request, 'Sorry cant cancelled long time.')
         return redirect("user-appointments")
 
 

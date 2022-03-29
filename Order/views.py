@@ -2,9 +2,11 @@ from django.shortcuts import render,redirect
 from .models import Order
 from Common.models import ConfigChoice
 from django.contrib.auth.decorators import login_required
-from Services.models import Service, User
+from Services.models import Service
 from datetime import datetime, timedelta
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 # Create your views here.

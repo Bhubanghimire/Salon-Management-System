@@ -164,7 +164,6 @@ def ProfileUpdateView(request, id):
     user= user_obj.first()
     first_name = request.POST.get("first_name")
     last_name = request.POST.get("last_name")
-    email = request.POST.get("email")
     phone = request.POST.get("phone")
     address = request.POST.get("address")
     gender = request.POST.get("gender")
@@ -182,7 +181,7 @@ def ProfileUpdateView(request, id):
             user.profile.delete()
             user.profile = image
             user.save()
-            user_obj.update(email=email,dob=date, first_name=first_name, last_name=last_name, phone=phone, address=address,gender=gender)
+            user_obj.update(dob=date, first_name=first_name, last_name=last_name, phone=phone, address=address,gender=gender)
             if salary:
                 user_obj.update(salary=salary)
             if leave:

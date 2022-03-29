@@ -113,6 +113,10 @@ def LoginView(request):
                 Result = "Please activate your email."
                 return render(request, 'home/signin.html', {'results': Result})
 
+            if not user.is_active:
+                Result = "Your account is deleted.Please contact admin."
+                return render(request, 'home/signin.html', {'results': Result})
+
             login(request, user)
             return redirect('home')
         else:

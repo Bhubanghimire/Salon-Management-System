@@ -4,295 +4,309 @@
 <div>
     <form action="{% url 'profile-update' user_obj.id %}" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
-    <div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
-        <div class="container">
-            <div class="row justify-content-center w-100 g-4">
-                {% include '../sidebar.html' %}
-                <div class="col-md-8 overflow-scroll" style="height: 700px">
-                    <div class="card">
-                        <div class="card-header">Edit Profile - {{user_obj.first_name}} {{user_obj.last_name}}</div>
-                        <div class="card-body">
-                            <div class="row align-items-center">
-                                <div
-                                        class="col-md-4 p-4 d-flex flex-column gap-4 align-items-center"
-                                >
-                                    <div class="d-flex flex-row justify-content-center w-75">
-                                        {% if user_obj.profile %}
-                                            <img src={{user_obj.profile.url}} alt="User" class="rounded-circle img-thumbnail" />
-                                        {% else %}
-                                            <img src="{% static 'images/user-placeholder.jpg' %}" alt="User" class="rounded-circle img-thumbnail" />
-                                        {% endif %}
-                                    </div>
-                                    <input type="file" name="image" class="form-control" id="profile_picture" value="{{user_obj.profile.url}}" accept="image/*" aria-describedby="categoryTitleHelo" placeholder="Enter Category image" hidden/>
-
-                                    <div class="d-flex flex-column gap-1 w-100">
-                                        <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#userProfileSave" onclick="document.getElementById('profile_picture').click();" >
-                                            Change Photo
-                                        </button>
-                                        <button type="button" class="btn-success w-100" data-bs-toggle="modal" data-bs-target="#userProfileSave">
-                                            Save Changes
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="col-md-8 p-4 d-flex flex-column gap-2">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">First Name:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="full_name"
-                                                    name="first_name"
-                                                    aria-describedby="fullNameHelp"
-                                                    placeholder="Enter First Name"
-                                                    value="{{user_obj.first_name}}"
-                                            />
-                                            <div id="fullNameHelp" class="form-text text-danger">
-                                                <!-- Add error text here -->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">Last Name:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="full_name"
-                                                    name="last_name"
-                                                    aria-describedby="fullNameHelp"
-                                                    placeholder="Enter Last Name"
-                                                    value="{{user_obj.last_name}}"
-                                            />
-                                            <div id="fullNameHelp" class="form-text text-danger">
-                                                <!-- Add error text here -->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">Email:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input
-                                                    type="email"
-                                                    name="email"
-                                                    class="form-control"
-                                                    id="email_address"
-                                                    aria-describedby="emailAddressHelp"
-                                                    placeholder="Enter Email Address"
-                                                    value="{{user_obj.email}}"
-                                            />
-                                            <div
-                                                    id="emailAddressHelp"
-                                                    class="form-text text-danger"
-                                            >
-                                                <!-- Add error text here -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">Phone:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input
-                                                    type="number"
-                                                    class="form-control"
-                                                    id="phone_number"
-                                                    name="phone"
-                                                    aria-describedby="phoneNumberHelp"
-                                                    placeholder="Enter Phone Number"
-                                                    value="{{user.phone}}"
-                                            />
-                                            <div id="phoneNumberHelp" class="form-text text-danger">
-                                                <!-- Add error text here -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">Address:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input
-                                                    type="text"
-                                                    class="form-control"
-                                                    id="address"
-                                                    name="address"
-                                                    aria-describedby="addressHelp"
-                                                    placeholder="Enter Address"
-                                                    value="{{user_obj.address}}"
-                                            />
-                                            <div id="addressHelp" class="form-text text-danger">
-                                                <!-- Add error text here -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% if user.user_type.name == "Super User" %}
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">Salary:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <input
-                                                    type="number"
-                                                    class="form-control"
-                                                    id="salary"
-                                                    name="salary"
-                                                    aria-describedby="fullNameHelp"
-                                                    placeholder="Enter First Name"
-                                                    value="{{user_obj.salary}}"
-                                                    required
-                                            />
-                                            <div id="fullNameHelp" class="form-text text-danger">
-                                                <!-- Add error text here -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">service:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                     
-                                           <select id="register_as" name="service" class="form-select" aria-label="Select Role" required>
-                                               {% if user_obj.service %}
-                                           <option value={{user_obj.service.id}}>{{user_obj.service.name}}</option>
-                                               {% endif %}
-                          {% for user in service %}
-                            <option value={{user.id}}>{{user.name}}</option>
-                          {% endfor %}
-                        </select>
-
-                                        </div>
-
-
-                                     <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">On Leave:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {% if user_obj.on_leave %}
-                                            <input
-                                                    type="checkbox"
-                                                    id="leave"
-                                                    name="leave"
-                                                    aria-describedby="fullNameHelp"
-                                                    placeholder="Enter First Name"
-                                                    checked
-                                            />
+        <div class="vw-100 bg-white text-black" style="padding-top: 10rem; padding-bottom: 5rem">
+            <div class="container">
+                <div class="row justify-content-center w-100 g-4">
+                    {% include '../sidebar.html' %}
+                    <div class="col-md-8 overflow-scroll" style="height: 700px">
+                        <div class="card">
+                            <div class="card-header">Edit Profile - {{user_obj.first_name}} {{user_obj.last_name}}</div>
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div
+                                            class="col-md-4 p-4 d-flex flex-column gap-4 align-items-center"
+                                    >
+                                        <div class="d-flex flex-row justify-content-center w-75">
+                                            {% if user_obj.profile %}
+                                            <img src={{user_obj.profile.url}} alt="User"
+                                                 class="rounded-circle img-thumbnail"/>
                                             {% else %}
-                                            <input
-                                                    type="checkbox"
-                                                    id="leave"
-                                                    name="leave"
-                                                    aria-describedby="fullNameHelp"
-                                                    placeholder="Enter First Name"
-                                            />
+                                            <img src="{% static 'images/user-placeholder.jpg' %}" alt="User"
+                                                 class="rounded-circle img-thumbnail"/>
                                             {% endif %}
+                                        </div>
+                                        <input type="file" name="image" class="form-control" id="profile_picture"
+                                               value="{{user_obj.profile.url}}" accept="image/*"
+                                               aria-describedby="categoryTitleHelo" placeholder="Enter Category image"
+                                               hidden/>
 
+                                        <div class="d-flex flex-column gap-1 w-100">
+                                            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal"
+                                                    data-bs-target="#userProfileSave"
+                                                    onclick="document.getElementById('profile_picture').click();">
+                                                Change Photo
+                                            </button>
+                                            <button type="button" class="btn-success w-100" data-bs-toggle="modal"
+                                                    data-bs-target="#userProfileSave">
+                                                Save Changes
+                                            </button>
                                         </div>
                                     </div>
-
-                    {% endif %}
-                                    {% if user.user_type.name == "Staff User" %}
-
-                                     <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">On Leave:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            {% if user_obj.on_leave %}
-                                            <input
-                                                    type="checkbox"
-                                                    id="leave"
-                                                    name="leave"
-                                                    aria-describedby="fullNameHelp"
-                                                    placeholder="Enter First Name"
-                                                    checked
-                                            />
-                                            {% else %}
-                                            <input
-                                                    type="checkbox"
-                                                    id="leave"
-                                                    name="leave"
-                                                    aria-describedby="fullNameHelp"
-                                                    placeholder="Enter First Name"
-                                            />
-                                            {% endif %}
-
-                                        </div>
-                                    </div>
-
-                    {% endif %}
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">Gender:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <select
-                                                    id="gender"
-                                                    name="gender"
-                                                    class="form-select"
-                                                    aria-label="Select Gender"
-                                            >
-                                                <option disabled>Select Gender</option>
-
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value=" ">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col-md-4">
-                                            <div class="fw-bold fs-5">Date Of Birth:</div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <input
-                                                            class="form-control"
-                                                            name="year"
-                                                            list="yearDatalist"
-                                                            id="selectYear"
-                                                            placeholder="Year"
-                                                            value="{{user_obj.dob.year}}"
-                                                            required
-                                                    />
-                                                    <datalist id="yearDatalist"></datalist>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <input
+                                    <div class="col-md-8 p-4 d-flex flex-column gap-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">First Name:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="text"
                                                         class="form-control"
-                                                        name="month"
-                                                        list="monthDatalist"
-                                                        id="selectMonth"
-                                                        value="{{user_obj.dob.month}}"
-                                                        placeholder="Month"
-                                                        required
-                                                    />
-                                                    <datalist id="monthDatalist"> </datalist>
+                                                        id="full_name"
+                                                        name="first_name"
+                                                        aria-describedby="fullNameHelp"
+                                                        placeholder="Enter First Name"
+                                                        value="{{user_obj.first_name}}"
+                                                />
+                                                <div id="fullNameHelp" class="form-text text-danger">
+                                                    <!-- Add error text here -->
                                                 </div>
-                                                <div class="col-md-3">
+                                            </div>
+                                        </div>
+
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">Last Name:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="full_name"
+                                                        name="last_name"
+                                                        aria-describedby="fullNameHelp"
+                                                        placeholder="Enter Last Name"
+                                                        value="{{user_obj.last_name}}"
+                                                />
+                                                <div id="fullNameHelp" class="form-text text-danger">
+                                                    <!-- Add error text here -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">Email:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="email"
+                                                        name="email"
+                                                        class="form-control"
+                                                        id="email_address"
+                                                        aria-describedby="emailAddressHelp"
+                                                        placeholder="Enter Email Address"
+                                                        value="{{user_obj.email}}"
+                                                />
+                                                <div
+                                                        id="emailAddressHelp"
+                                                        class="form-text text-danger"
+                                                >
+                                                    <!-- Add error text here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">Phone:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="number"
+                                                        class="form-control"
+                                                        id="phone_number"
+                                                        name="phone"
+                                                        aria-describedby="phoneNumberHelp"
+                                                        placeholder="Enter Phone Number"
+                                                        value="{{user.phone}}"
+                                                />
+                                                <div id="phoneNumberHelp" class="form-text text-danger">
+                                                    <!-- Add error text here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">Address:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        id="address"
+                                                        name="address"
+                                                        aria-describedby="addressHelp"
+                                                        placeholder="Enter Address"
+                                                        value="{{user_obj.address}}"
+                                                />
+                                                <div id="addressHelp" class="form-text text-danger">
+                                                    <!-- Add error text here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if user.user_type.name == "Super User" and user_obj.user_type.name == "Staff User" %}
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">Salary:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="number"
+                                                        class="form-control"
+                                                        id="salary"
+                                                        name="salary"
+                                                        aria-describedby="fullNameHelp"
+                                                        placeholder="Enter First Name"
+                                                        value="{{user_obj.salary}}"
+                                                        required
+                                                />
+                                                <div id="fullNameHelp" class="form-text text-danger">
+                                                    <!-- Add error text here -->
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">service:</div>
+                                            </div>
+                                            <div class="col-md-8">
+
+                                                <select id="register_as" name="service" class="form-select"
+                                                        aria-label="Select Role" required>
+                                                    {% if user_obj.service %}
+                                                    <option value={{user_obj.service.id}}>{{user_obj.service.name}}
+                                                    </option>
+                                                    {% endif %}
+                                                    {% for service in service %}
+                                                    <option value={{service.id}}>{{service.name}}</option>
+                                                    {% endfor %}
+                                                </select>
+
+                                            </div>
+
+
+                                            <div class="row align-items-center">
+                                                <div class="col-md-4">
+                                                    <div class="fw-bold fs-5">On Leave:</div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    {% if user_obj.on_leave %}
                                                     <input
-                                                            class="form-control"
-                                                            list="dateDatalist"
-                                                            name="day"
-                                                            id="selectDate"
-                                                            placeholder="Date"
-                                                            value="{{user_obj.dob.day}}"
-                                                            required
+                                                            type="checkbox"
+                                                            id="leave"
+                                                            name="leave"
+                                                            aria-describedby="fullNameHelp"
+                                                            placeholder="Enter First Name"
+                                                            checked
                                                     />
-                                                    <datalist id="dateDatalist"></datalist>
+                                                    {% else %}
+                                                    <input
+                                                            type="checkbox"
+                                                            id="leave"
+                                                            name="leave"
+                                                            aria-describedby="fullNameHelp"
+                                                            placeholder="Enter First Name"
+                                                    />
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+
+                                            {% endif %}
+                                            {% if user.user_type.name == "Staff User" %}
+
+                                            <div class="row align-items-center">
+                                                <div class="col-md-4">
+                                                    <div class="fw-bold fs-5">On Leave:</div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    {% if user_obj.on_leave %}
+                                                    <input
+                                                            type="checkbox"
+                                                            id="leave"
+                                                            name="leave"
+                                                            aria-describedby="fullNameHelp"
+                                                            placeholder="Enter First Name"
+                                                            checked
+                                                    />
+                                                    {% else %}
+                                                    <input
+                                                            type="checkbox"
+                                                            id="leave"
+                                                            name="leave"
+                                                            aria-describedby="fullNameHelp"
+                                                            placeholder="Enter First Name"
+                                                    />
+                                                    {% endif %}
+
+                                                </div>
+                                            </div>
+
+                                            {% endif %}
+                                            <div class="row align-items-center">
+                                                <div class="col-md-4">
+                                                    <div class="fw-bold fs-5">Gender:</div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <select
+                                                            id="gender"
+                                                            name="gender"
+                                                            class="form-select"
+                                                            aria-label="Select Gender"
+                                                    >
+                                                        <option disabled>Select Gender</option>
+
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value=" ">Other</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <br>
+                                            <div class="row align-items-center">
+                                                <div class="col-md-4">
+                                                    <div class="fw-bold fs-5">Date Of Birth:</div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <input
+                                                                    class="form-control"
+                                                                    name="year"
+                                                                    list="yearDatalist"
+                                                                    id="selectYear"
+                                                                    placeholder="Year"
+                                                                    value="{{user_obj.dob.year}}"
+                                                                    required
+                                                            />
+                                                            <datalist id="yearDatalist"></datalist>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <input
+                                                                    class="form-control"
+                                                                    name="month"
+                                                                    list="monthDatalist"
+                                                                    id="selectMonth"
+                                                                    value="{{user_obj.dob.month}}"
+                                                                    placeholder="Month"
+                                                                    required
+                                                            />
+                                                            <datalist id="monthDatalist"></datalist>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input
+                                                                    class="form-control"
+                                                                    list="dateDatalist"
+                                                                    name="day"
+                                                                    id="selectDate"
+                                                                    placeholder="Date"
+                                                                    value="{{user_obj.dob.day}}"
+                                                                    required
+                                                            />
+                                                            <datalist id="dateDatalist"></datalist>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -303,46 +317,44 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Modals -->
-    <!-- Delete Modal -->
-    <div
-            class="modal fade"
-            id="userProfileSave"
-            tabindex="-1"
-            aria-labelledby="userProfileSaveLabel"
-            aria-hidden="true"
-    >
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="userProfileSaveLabel">
-                        Confirm Changes
-                    </h5>
-                    <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                    ></button>
-                </div>
-                <div class="modal-body">
-                    Do you want to update values on your profile?
-                </div>
-                <div class="modal-footer">
-                    <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="submit" class="btn btn-success">Save</button>
+            <!-- Modals -->
+            <!-- Delete Modal -->
+            <div
+                    class="modal fade"
+                    id="userProfileSave"
+                    tabindex="-1"
+                    aria-labelledby="userProfileSaveLabel"
+                    aria-hidden="true"
+            >
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="userProfileSaveLabel">
+                                Confirm Changes
+                            </h5>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            Do you want to update values on your profile?
+                        </div>
+                        <div class="modal-footer">
+                            <button
+                                    type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="submit" class="btn btn-success">Save</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
     </form>
 </div>
 {% endblock %}

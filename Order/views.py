@@ -12,7 +12,7 @@ from django.contrib import messages
 def CreateAppointment(request):
     categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
     services = Service.objects.filter(is_deleted=False)
-    user = User.objects.filter(user_type__name="Staff User")
+    user = User.objects.filter(user_type__name="Staff User", is_delete=False)
     context = {
         "service": services,
         "users": user,

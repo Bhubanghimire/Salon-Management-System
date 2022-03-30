@@ -195,7 +195,7 @@ def ProfileUpdateView(request, id):
             return redirect("main-profile", id=id)
 
     except Exception as e:
-        user_obj.update(email=email, dob=date,first_name=first_name, last_name=last_name, phone=phone, address=address,gender=gender)
+        user_obj.update(dob=date,first_name=first_name, last_name=last_name, phone=phone, address=address,gender=gender)
         if salary:
             user_obj.update(salary=salary)
         if leave:

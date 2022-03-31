@@ -11,7 +11,7 @@
           {% include '../sidebar.html' %}
           <div class="col-md-8 overflow-scroll" style="height: 700px">
             <div class="card">
-              <div class="card-header">Profile - Bhuwan Ghimire</div>
+              <div class="card-header">Profile - {{user_obj.first_name}} {{user_obj.last_name}}</div>
               <div class="card-body">
                 <div class="row align-items-center">
                   <div
@@ -69,7 +69,7 @@
                     </div>
                     <!-- Show this only to staffs -->
                     <!-- Start -->
-                    {% if user_obj.user_type.name == "Staff User" or user_obj.user_type.name == "Super User" %}
+                    {% if user_obj.user_type.name == "Staff User" %}
                     <div class="row">
                       <div class="col-md-4 p-1">
                         <div class="bg-success text-white text-center rounded p-2">

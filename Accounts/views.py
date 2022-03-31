@@ -167,6 +167,8 @@ def ProfileUpdateView(request, id):
     phone = request.POST.get("phone")
     address = request.POST.get("address")
     gender = request.POST.get("gender")
+    description = request.POST.get("description")
+    position = request.POST.get("position")
     salary = request.POST.get("salary")
     leave =request.POST.get("leave",None)
     service = request.POST.get("service",None)
@@ -190,7 +192,13 @@ def ProfileUpdateView(request, id):
                 user_obj.update(on_leave=False)
             
             if service:
-                user_obj.update(service = Service.objects.get(id=service))
+                user_obj.update(service=Service.objects.get(id=service))
+
+            if description:
+                user_obj.update(description=description)
+
+            if position:
+                user_obj.update(position=position)
             
             return redirect("main-profile", id=id)
 
@@ -204,13 +212,22 @@ def ProfileUpdateView(request, id):
             user_obj.update(on_leave=False)
 
         if service:
-            user_obj.update(service = Service.objects.get(id=service))
+            user_obj.update(service=Service.objects.get(id=service))
+
+        if description:
+            user_obj.update(description=description)
+
+        if position:
+            user_obj.update(position=position)
 
         
         return redirect("main-profile",id=id)
     else:
         if user.service:
             service = Service.objects.filter(is_deleted=False).exclude(id=user.service.id)
+        else:
+            service = Service.objects.filter(is_deleted=False)
+
         return render(request, 'home/update_profile.html', {"user_obj":user,"service":service})
 
 

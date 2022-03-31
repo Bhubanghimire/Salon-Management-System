@@ -83,28 +83,11 @@
                                             </div>
                                         </div>
 
-<!--                                        <div class="row align-items-center">-->
-<!--                                            <div class="col-md-4">-->
-<!--                                                <div class="fw-bold fs-5">Email:</div>-->
-<!--                                            </div>-->
-<!--                                            <div class="col-md-8">-->
-<!--                                                <input-->
-<!--                                                        type="email"-->
-<!--                                                        name="email"-->
-<!--                                                        class="form-control"-->
-<!--                                                        id="email_address"-->
-<!--                                                        aria-describedby="emailAddressHelp"-->
-<!--                                                        placeholder="Enter Email Address"-->
-<!--                                                        value="{{user_obj.email}}"-->
-<!--                                                />-->
-<!--                                                <div-->
-<!--                                                        id="emailAddressHelp"-->
-<!--                                                        class="form-text text-danger"-->
-<!--                                                >-->
-<!--                                                    &lt;!&ndash; Add error text here &ndash;&gt;-->
-<!--                                                </div>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+
+
+
+
+
                                         <div class="row align-items-center">
                                             <div class="col-md-4">
                                                 <div class="fw-bold fs-5">Phone:</div>
@@ -146,6 +129,45 @@
                                         {% if user.user_type.name == "Super User" and user_obj.user_type.name == "Staff User" %}
                                         <div class="row align-items-center">
                                             <div class="col-md-4">
+                                                <div class="fw-bold fs-5">Description:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="text"
+                                                        name="description"
+                                                        class="form-control"
+                                                        id="email_address"
+                                                        aria-describedby="emailAddressHelp"
+                                                        placeholder="Enter Description"
+                                                        value="{{user_obj.description}}"
+                                                />
+                                                <div
+                                                        id="emailAddressHelp"
+                                                        class="form-text text-danger"
+                                                >
+                                                    <!-- Add error text here -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <div class="row align-items-center">
+                                            <div class="col-md-4">
+                                                <div class="fw-bold fs-5">Position:</div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <input
+                                                        type="text"
+                                                        name="position"
+                                                        class="form-control"
+                                                        aria-describedby="emailAddressHelp"
+                                                        placeholder="Enter Position"
+                                                        value="{{user_obj.position}}"
+                                                />
+
+                                            </div>
+                                        </div>
+
+                                        <div class="row align-items-center">
+                                            <div class="col-md-4">
                                                 <div class="fw-bold fs-5">Salary:</div>
                                             </div>
                                             <div class="col-md-8">
@@ -171,14 +193,12 @@
                                             </div>
                                             <div class="col-md-8">
 
-                                                <select id="register_as" name="service" class="form-select"
-                                                        aria-label="Select Role" required>
+                                                <select id="register_as" name="service" class="form-select" aria-label="Select Role" required>
                                                     {% if user_obj.service %}
-                                                    <option value={{user_obj.service.id}}>{{user_obj.service.name}}
-                                                    </option>
+                                                        <option value={{user_obj.service.id}}>{{user_obj.service.name}}</option>
                                                     {% endif %}
                                                     {% for service in service %}
-                                                    <option value={{service.id}}>{{service.name}}</option>
+                                                        <option value={{service.id}}>{{service.name}}</option>
                                                     {% endfor %}
                                                 </select>
 
@@ -214,7 +234,6 @@
 
                                             {% endif %}
                                             {% if user.user_type.name == "Staff User" %}
-
                                             <div class="row align-items-center">
                                                 <div class="col-md-4">
                                                     <div class="fw-bold fs-5">On Leave:</div>
@@ -248,13 +267,8 @@
                                                     <div class="fw-bold fs-5">Gender:</div>
                                                 </div>
                                                 <div class="col-md-8">
-                                                    <select
-                                                            id="gender"
-                                                            name="gender"
-                                                            class="form-select"
-                                                            aria-label="Select Gender"
-                                                    >
-                                                        <option disabled>Select Gender</option>
+                                                    <select id="gender" name="gender" class="form-select" aria-label="Select Gender">
+                                                        <option value="{{user_obj.gender}}">{{user_obj.gender}}</option>
 
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
@@ -263,11 +277,15 @@
                                                 </div>
                                             </div>
 
+
+
                                             <div class="row align-items-center">
                                                 <div class="col-md-4">
                                                     <div class="fw-bold fs-5">Date Of Birth:</div>
                                                 </div>
+                                                  <br>
                                                 <div class="col-md-8">
+
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <input

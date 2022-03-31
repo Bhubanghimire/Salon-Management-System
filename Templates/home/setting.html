@@ -152,13 +152,13 @@
                   <tbody>
                   {% for i in service %}
                     <tr class="my-auto">
-                      <th scope="row">{{i.id}}</th>
+                      <th scope="row">{{ forloop.counter }}</th>
                       <td>{{i.name}}</td>
                       <td>{{i.description}}</td>
                       <td class="fw-bold">{{i.category.name}}</td>
                       <td>Rs. {{i.price}}</td>
                       <td class="d-flex flex-row gap-2">
-                        <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=#{{i.category}}{{i.name}}>Edit</a>
+                        <a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=#edit{{forloop.counter}}>Edit</a>
                         <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target=#delete{{ forloop.counter }}>Delete</a>
                       </td>
                     </tr>
@@ -175,11 +175,11 @@
     <!-- Modals -->
 {% for i in service %}
     <!-- Edit Modal -->
-    <div class="modal fade" id={{i.category}}{{i.name}} tabindex="-1" aria-labelledby={{i.category}}{{i.name}} aria-hidden="true">
+    <div class="modal fade" id=edit{{forloop.counter}} tabindex="-1" aria-labelledby={{i.category}}{{i.name}} aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id={{i.category}}{{i.name}}>Edit {{i.name}}</h5>
+            <h5 class="modal-title" id=edit{{forloop.counter}}>Edit {{i.name}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -205,7 +205,7 @@
                 <select id="cars" name="category" class="form-control" list="categoryOptionss" id="category_title_edit" for="category_title_edit" class="form-label" aria-describedby="categoryEditHelp" for="category_title_edit" class="form-label">
                 <option value={{i.category.id}}>{{i.category}}</option>
                   {% for j in category %}
-                    <option value={{j.id}}>{{j.name}}-{{j.id}}</option>
+                    <option value={{j.id}}>{{j.name}}</option>
                   {% endfor %}
 
                 </select>

@@ -12,6 +12,9 @@ User = get_user_model()
 # Create your views here.
 @login_required(login_url="login")
 def CreateAppointment(request):
+    check=datetime.today()
+
+
     categorys = ConfigChoice.objects.filter(category__name="Service", is_active=True)
     services = Service.objects.filter(is_deleted=False)
     user = User.objects.filter(user_type__name="Staff User", is_delete=False)
@@ -33,6 +36,11 @@ def CreateAppointment(request):
         date=str(year)+'-'+str(month)+"-"+str(date)+"T"+str(time)+":00"
         start_date = datetime.strptime(date, '%Y-%m-%dT%H:%M:%S')
         end_date = start_date+timedelta(hours=service.duration)
+
+        if check>start_date:
+            context["error"] = "Please Enter valid date."
+            return render(request, 'home/newappointments.html', context=context)
+
 
         order=Order.objects.filter(service=service).exclude(status__name="Cancelled")
         specialist = User.objects.filter(service=service.id,on_leave=False)

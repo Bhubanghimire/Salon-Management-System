@@ -196,6 +196,9 @@
                                                 <select id="register_as" name="service" class="form-select" aria-label="Select Role" required>
                                                     {% if user_obj.service %}
                                                         <option value={{user_obj.service.id}}>{{user_obj.service.name}}</option>
+                                                    {% else %}
+                                                    <option value="">Please Select the Service</option>
+
                                                     {% endif %}
                                                     {% for service in service %}
                                                         <option value={{service.id}}>{{service.name}}</option>

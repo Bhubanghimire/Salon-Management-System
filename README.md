@@ -17,7 +17,7 @@ HOST=127.0.0.1
 
 PORT=3306
 
-EMAIL_HOST=mail.meroticketapp.com
+EMAIL_HOST=""
 
 EMAIL_HOST_USER=test@gmail.com
 
@@ -25,7 +25,7 @@ EMAIL_HOST_PASSWORD=email password
 
 DEFAULT_FROM_EMAIL=defaultemail@gmail.com
 
-MY_URL=http://127.0.0.1:8000/
+MY_URL=<url>
 
 where database should be mysql.Create Mysql database and paste the credential in abouve created .env.Your mysql server should be working.
 
